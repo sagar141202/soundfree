@@ -439,3 +439,25 @@
 2026-03-15 22:23:45 | INFO     | main:47 - GET /health → 200 (2.3ms)
 2026-03-15 22:24:46 | INFO     | main:47 - GET /health → 200 (2.8ms)
 2026-03-15 22:26:00 | INFO     | main:47 - GET /health → 200 (2.2ms)
+2026-03-15 22:26:38 | INFO     | routers.search:39 - Cache HIT for search: 'sitaare'
+2026-03-15 22:26:38 | INFO     | main:47 - GET /search → 200 (6.3ms)
+2026-03-15 22:26:40 | INFO     | routers.stream:31 - Cache HIT for stream: uT_HXrrmHX8
+2026-03-15 22:26:40 | INFO     | main:47 - GET /stream/uT_HXrrmHX8 → 200 (2.3ms)
+2026-03-15 22:27:22 | INFO     | routers.stream:31 - Cache HIT for stream: 4smEofP_5Q4
+2026-03-15 22:27:22 | INFO     | main:47 - GET /stream/4smEofP_5Q4 → 200 (10.4ms)
+2026-03-15 22:27:29 | INFO     | routers.stream:31 - Cache HIT for stream: uT_HXrrmHX8
+2026-03-15 22:27:29 | INFO     | main:47 - GET /stream/uT_HXrrmHX8 → 200 (2.4ms)
+2026-03-15 22:28:37 | INFO     | routers.stream:31 - Cache HIT for stream: Wqu4MRQOgyo
+2026-03-15 22:28:37 | INFO     | main:47 - GET /stream/Wqu4MRQOgyo → 200 (5.9ms)
+2026-03-15 22:28:44 | INFO     | routers.stream:31 - Cache HIT for stream: uT_HXrrmHX8
+2026-03-15 22:28:44 | INFO     | main:47 - GET /stream/uT_HXrrmHX8 → 200 (2.0ms)
+2026-03-15 22:29:03 | INFO     | main:47 - GET /health → 200 (1.3ms)
+2026-03-15 22:29:14 | INFO     | routers.search:43 - Cache MISS for search: 'dh' — fetching from YouTube Music
+2026-03-15 22:29:14 | INFO     | services.search_service:43 - Searching YouTube Music: 'dh'
+2026-03-15 22:29:16 | INFO     | services.search_service:72 - Search returned 20 tracks for 'dh'
+2026-03-15 22:29:16 | INFO     | routers.search:60 - Cached 20 results for 'dh' (TTL: 30min)
+2026-03-15 22:29:16 | INFO     | main:47 - GET /search → 200 (1816.3ms)
+2026-03-15 22:29:16 | INFO     | routers.search:39 - Cache HIT for search: 'dhun'
+2026-03-15 22:29:16 | INFO     | main:47 - GET /search → 200 (4.4ms)
+2026-03-15 22:29:18 | INFO     | routers.stream:31 - Cache HIT for stream: Wqu4MRQOgyo
+2026-03-15 22:29:18 | INFO     | main:47 - GET /stream/Wqu4MRQOgyo → 200 (7.7ms)
