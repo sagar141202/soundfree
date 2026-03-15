@@ -35,3 +35,5 @@
 2026-03-15 12:34:44 | INFO     | main:47 - GET /metadata/bSnlKl_PoQU → 200 (12102.0ms)
 2026-03-15 12:36:23 | INFO     | routers.metadata:134 - Redis HIT for metadata: bSnlKl_PoQU
 2026-03-15 12:36:23 | INFO     | main:47 - GET /metadata/bSnlKl_PoQU → 200 (9.3ms)
+2026-03-15 16:07:40 | INFO     | main:47 - GET /health → 200 (1.4ms)
+2026-03-15 16:08:34 | INFO     | main:47 - GET /health → 200 (3.9ms)

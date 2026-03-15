@@ -1,6 +1,6 @@
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 
-const API_URL = process.env.EXPO_PUBLIC_API_URL || 'http://10.0.2.2:8000';
+const API_URL = process.env.EXPO_PUBLIC_API_URL || 'http://10.53.24.112:8000';
 
 export const api = axios.create({
   baseURL: API_URL,
@@ -8,9 +8,20 @@ export const api = axios.create({
   headers: { 'Content-Type': 'application/json' },
 });
 
+// Response interceptor for error handling
+api.interceptors.response.use(
+  (response) => response,
+  (error: AxiosError) => {
+    if (!error.response) {
+      throw new Error('OFFLINE');
+    }
+    throw error;
+  }
+);
+
 // Search tracks
-export const searchTracks = async (query: string) => {
-  const { data } = await api.get('/search', { params: { q: query, limit: 20 } });
+export const searchTracks = async (query: string, limit = 20) => {
+  const { data } = await api.get('/search', { params: { q: query, limit } });
   return data;
 };
 
@@ -23,5 +34,11 @@ export const getStreamUrl = async (videoId: string) => {
 // Get metadata
 export const getMetadata = async (videoId: string) => {
   const { data } = await api.get(`/metadata/${videoId}`);
+  return data;
+};
+
+// Health check
+export const checkHealth = async () => {
+  const { data } = await api.get('/health');
   return data;
 };
