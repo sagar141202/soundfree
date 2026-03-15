@@ -39,3 +39,4 @@ backend/*.pkl
 .vscode/
 .DS_Store
 Thumbs.db
+logs/*.log
