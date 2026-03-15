@@ -3,6 +3,7 @@ import { FlashList } from '@shopify/flash-list';
 import { useRef, useEffect } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
 import TrackListItem, { Track } from './TrackListItem';
+import EmptyState from './EmptyState';
 
 interface SearchResultsListProps {
   tracks: Track[];
@@ -11,6 +12,7 @@ interface SearchResultsListProps {
   currentTrackId?: string;
   onTrackPress?: (track: Track) => void;
   onMorePress?: (track: Track) => void;
+  onClearSearch?: () => void;
 }
 
 function SkeletonItem({ index }: { index: number }) {
@@ -19,8 +21,14 @@ function SkeletonItem({ index }: { index: number }) {
   useEffect(() => {
     Animated.loop(
       Animated.sequence([
-        Animated.timing(shimmer, { toValue: 1, duration: 900, useNativeDriver: true, delay: index * 80 }),
-        Animated.timing(shimmer, { toValue: 0, duration: 900, useNativeDriver: true }),
+        Animated.timing(shimmer, {
+          toValue: 1, duration: 900,
+          useNativeDriver: true, delay: index * 80,
+        }),
+        Animated.timing(shimmer, {
+          toValue: 0, duration: 900,
+          useNativeDriver: true,
+        }),
       ])
     ).start();
   }, []);
@@ -45,17 +53,6 @@ function SkeletonItem({ index }: { index: number }) {
   );
 }
 
-function EmptyState({ query }: { query: string }) {
-  return (
-    <View style={styles.emptyWrap}>
-      <Text style={styles.emptyEmoji}>🎵</Text>
-      <Text style={styles.emptyTitle}>No results for</Text>
-      <Text style={styles.emptyQuery}>"{query}"</Text>
-      <Text style={styles.emptySub}>Try different keywords or check spelling</Text>
-    </View>
-  );
-}
-
 export default function SearchResultsList({
   tracks,
   isLoading,
@@ -63,12 +60,13 @@ export default function SearchResultsList({
   currentTrackId,
   onTrackPress,
   onMorePress,
+  onClearSearch,
 }: SearchResultsListProps) {
 
   if (isLoading) {
     return (
       <View style={styles.container}>
-        <Text style={styles.resultsLabel}>Searching...</Text>
+        <Text style={styles.resultsLabel}>Searching for "{query}"...</Text>
         {Array.from({ length: 6 }).map((_, i) => (
           <SkeletonItem key={i} index={i} />
         ))}
@@ -77,7 +75,15 @@ export default function SearchResultsList({
   }
 
   if (!isLoading && tracks.length === 0 && query.length >= 2) {
-    return <EmptyState query={query} />;
+    return (
+      <EmptyState
+        emoji="🔍"
+        title={`No results for "${query}"`}
+        subtitle="Try different keywords, check spelling, or browse a category"
+        actionLabel="Clear search"
+        onAction={onClearSearch}
+      />
+    );
   }
 
   return (
@@ -110,45 +116,18 @@ export default function SearchResultsList({
 const styles = StyleSheet.create({
   container: { paddingBottom: 20 },
   resultsLabel: {
-    fontSize: 13,
-    color: '#9CA3AF',
-    paddingHorizontal: 24,
-    marginBottom: 12,
-    fontWeight: '500',
+    fontSize: 13, color: '#9CA3AF',
+    paddingHorizontal: 24, marginBottom: 12, fontWeight: '500',
   },
   skeletonRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginHorizontal: 24,
-    marginBottom: 8,
-    padding: 12,
-    borderRadius: 18,
-    gap: 12,
+    flexDirection: 'row', alignItems: 'center',
+    marginHorizontal: 24, marginBottom: 8,
+    padding: 12, borderRadius: 18, gap: 12,
     backgroundColor: 'rgba(255,255,255,0.7)',
-    borderWidth: 1.5,
-    borderColor: 'rgba(255,255,255,0.9)',
+    borderWidth: 1.5, borderColor: 'rgba(255,255,255,0.9)',
   },
-  skeletonThumb: {
-    width: 48, height: 48, borderRadius: 12,
-  },
+  skeletonThumb: { width: 48, height: 48, borderRadius: 12 },
   skeletonInfo: { flex: 1, gap: 8 },
-  skeletonLine: {
-    height: 13, borderRadius: 6,
-  },
-  skeletonDur: {
-    width: 32, height: 12, borderRadius: 6,
-  },
-  emptyWrap: {
-    alignItems: 'center',
-    paddingTop: 48,
-    paddingHorizontal: 32,
-  },
-  emptyEmoji: { fontSize: 48, marginBottom: 16 },
-  emptyTitle: { fontSize: 16, color: '#6B7280', fontWeight: '600' },
-  emptyQuery: {
-    fontSize: 18, color: '#7C3AED',
-    fontWeight: '800', marginTop: 4, marginBottom: 8,
-    textAlign: 'center',
-  },
-  emptySub: { fontSize: 13, color: '#9CA3AF', textAlign: 'center' },
+  skeletonLine: { height: 13, borderRadius: 6 },
+  skeletonDur: { width: 32, height: 12, borderRadius: 6 },
 });

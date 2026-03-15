@@ -151,3 +151,46 @@
 2026-03-15 17:17:35 | INFO     | services.search_service:72 - Search returned 20 tracks for 'sitaare'
 2026-03-15 17:17:35 | INFO     | routers.search:60 - Cached 20 results for 'sitaare' (TTL: 30min)
 2026-03-15 17:17:35 | INFO     | main:47 - GET /search → 200 (933.5ms)
+2026-03-15 17:17:56 | INFO     | routers.search:43 - Cache MISS for search: 'Lo-fi' — fetching from YouTube Music
+2026-03-15 17:17:56 | INFO     | services.search_service:43 - Searching YouTube Music: 'Lo-fi'
+2026-03-15 17:17:57 | INFO     | services.search_service:72 - Search returned 20 tracks for 'Lo-fi'
+2026-03-15 17:17:57 | INFO     | routers.search:60 - Cached 20 results for 'Lo-fi' (TTL: 30min)
+2026-03-15 17:17:57 | INFO     | main:47 - GET /search → 200 (636.4ms)
+2026-03-15 17:18:04 | INFO     | routers.search:43 - Cache MISS for search: 'Hip-Hop' — fetching from YouTube Music
+2026-03-15 17:18:04 | INFO     | services.search_service:43 - Searching YouTube Music: 'Hip-Hop'
+2026-03-15 17:18:04 | INFO     | services.search_service:72 - Search returned 20 tracks for 'Hip-Hop'
+2026-03-15 17:18:04 | INFO     | routers.search:60 - Cached 20 results for 'Hip-Hop' (TTL: 30min)
+2026-03-15 17:18:04 | INFO     | main:47 - GET /search → 200 (621.8ms)
+2026-03-15 17:18:07 | INFO     | routers.search:43 - Cache MISS for search: 'Electronic' — fetching from YouTube Music
+2026-03-15 17:18:07 | INFO     | services.search_service:43 - Searching YouTube Music: 'Electronic'
+2026-03-15 17:18:08 | INFO     | services.search_service:72 - Search returned 20 tracks for 'Electronic'
+2026-03-15 17:18:08 | INFO     | routers.search:60 - Cached 20 results for 'Electronic' (TTL: 30min)
+2026-03-15 17:18:08 | INFO     | main:47 - GET /search → 200 (812.8ms)
+2026-03-15 17:18:22 | INFO     | main:47 - GET /health → 200 (2.0ms)
+2026-03-15 17:27:56 | INFO     | main:47 - GET /health → 200 (8.8ms)
+2026-03-15 17:28:04 | INFO     | routers.search:43 - Cache MISS for search: 'xyz' — fetching from YouTube Music
+2026-03-15 17:28:04 | INFO     | services.search_service:43 - Searching YouTube Music: 'xyz'
+2026-03-15 17:28:05 | INFO     | services.search_service:72 - Search returned 20 tracks for 'xyz'
+2026-03-15 17:28:05 | INFO     | routers.search:60 - Cached 20 results for 'xyz' (TTL: 30min)
+2026-03-15 17:28:05 | INFO     | main:47 - GET /search → 200 (970.9ms)
+2026-03-15 17:28:13 | INFO     | routers.search:43 - Cache MISS for search: 'xyzxyz' — fetching from YouTube Music
+2026-03-15 17:28:13 | INFO     | services.search_service:43 - Searching YouTube Music: 'xyzxyz'
+2026-03-15 17:28:14 | INFO     | services.search_service:72 - Search returned 20 tracks for 'xyzxyz'
+2026-03-15 17:28:14 | INFO     | routers.search:60 - Cached 20 results for 'xyzxyz' (TTL: 30min)
+2026-03-15 17:28:14 | INFO     | main:47 - GET /search → 200 (618.3ms)
+2026-03-15 17:28:56 | INFO     | main:47 - GET /health → 200 (2.5ms)
+2026-03-15 17:29:18 | INFO     | routers.search:43 - Cache MISS for search: 'xyzxyzx' — fetching from YouTube Music
+2026-03-15 17:29:18 | INFO     | services.search_service:43 - Searching YouTube Music: 'xyzxyzx'
+2026-03-15 17:29:18 | INFO     | services.search_service:72 - Search returned 20 tracks for 'xyzxyzx'
+2026-03-15 17:29:18 | INFO     | routers.search:60 - Cached 20 results for 'xyzxyzx' (TTL: 30min)
+2026-03-15 17:29:18 | INFO     | main:47 - GET /search → 200 (518.5ms)
+2026-03-15 17:29:18 | INFO     | routers.search:43 - Cache MISS for search: 'xyzxyzxyz' — fetching from YouTube Music
+2026-03-15 17:29:18 | INFO     | services.search_service:43 - Searching YouTube Music: 'xyzxyzxyz'
+2026-03-15 17:29:19 | INFO     | services.search_service:72 - Search returned 20 tracks for 'xyzxyzxyz'
+2026-03-15 17:29:19 | INFO     | routers.search:60 - Cached 20 results for 'xyzxyzxyz' (TTL: 30min)
+2026-03-15 17:29:19 | INFO     | main:47 - GET /search → 200 (569.6ms)
+2026-03-15 17:29:25 | INFO     | routers.search:43 - Cache MISS for search: 'xyzxyzxyz123' — fetching from YouTube Music
+2026-03-15 17:29:25 | INFO     | services.search_service:43 - Searching YouTube Music: 'xyzxyzxyz123'
+2026-03-15 17:29:26 | INFO     | services.search_service:72 - Search returned 0 tracks for 'xyzxyzxyz123'
+2026-03-15 17:29:26 | INFO     | routers.search:60 - Cached 0 results for 'xyzxyzxyz123' (TTL: 30min)
+2026-03-15 17:29:26 | INFO     | main:47 - GET /search → 200 (388.2ms)

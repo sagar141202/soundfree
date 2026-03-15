@@ -12,14 +12,6 @@ export default function SearchScreen() {
   const [query, setQuery] = useState('');
   const { data: tracks = [], isLoading } = useSearch(query);
 
-  const handleTrackPress = (track: Track) => {
-    console.log('Play track:', track.title);
-  };
-
-  const handleCategoryPress = (name: string) => {
-    setQuery(name);
-  };
-
   return (
     <View style={styles.container}>
       <StatusBar style="dark" />
@@ -44,7 +36,7 @@ export default function SearchScreen() {
         />
 
         {query.length === 0 && (
-          <BrowseCategories onCategoryPress={handleCategoryPress} />
+          <BrowseCategories onCategoryPress={setQuery} />
         )}
 
         {query.length === 1 && (
@@ -58,7 +50,8 @@ export default function SearchScreen() {
             tracks={tracks}
             isLoading={isLoading}
             query={query}
-            onTrackPress={handleTrackPress}
+            onTrackPress={(track: Track) => console.log('Play:', track.title)}
+            onClearSearch={() => setQuery('')}
           />
         )}
       </ScrollView>
