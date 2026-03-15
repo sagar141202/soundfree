@@ -10,7 +10,7 @@ from slowapi.middleware import SlowAPIMiddleware
 from config import settings
 from limiter import limiter
 from logger import setup_logging
-from routers import search, stream
+from routers import metadata, search, stream
 
 setup_logging()
 
@@ -36,6 +36,7 @@ app.add_middleware(
 
 app.include_router(search.router, prefix="/search", tags=["search"])
 app.include_router(stream.router, prefix="/stream", tags=["stream"])
+app.include_router(metadata.router, prefix="/metadata", tags=["metadata"])
 
 
 @app.middleware("http")
