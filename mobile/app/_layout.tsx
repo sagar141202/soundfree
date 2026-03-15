@@ -4,6 +4,7 @@ import { QueryClientProvider } from '@tanstack/react-query';
 import { queryClient } from '../lib/queryClient';
 import { useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { Audio } from 'expo-av';
 import { useLibraryStore } from '../stores/libraryStore';
 import { useSettingsStore } from '../stores/settingsStore';
 import { useHealth } from '../hooks/useHealth';
@@ -21,7 +22,20 @@ function OfflineBanner() {
 function AppInit() {
   const loadLibrary = useLibraryStore(s => s.loadFromStorage);
   const loadSettings = useSettingsStore(s => s.loadFromStorage);
-  useEffect(() => { loadLibrary(); loadSettings(); }, []);
+
+  useEffect(() => {
+    loadLibrary();
+    loadSettings();
+
+    // Setup audio session for background + media keys
+    Audio.setAudioModeAsync({
+      staysActiveInBackground: true,
+      playsInSilentModeIOS: true,
+      shouldDuckAndroid: true,
+      playThroughEarpieceAndroid: false,
+    });
+  }, []);
+
   return null;
 }
 
