@@ -7,7 +7,8 @@ import { StatusBar } from 'expo-status-bar';
 import { useRef, useEffect, useState } from 'react';
 import { router } from 'expo-router';
 import { usePlayerStore } from '../stores/playerStore';
-import { usePlayTrack } from '../hooks/usePlayTrack';
+import { usePlayTrack, seekToPosition } from '../hooks/usePlayTrack';
+import ProgressBar from '../components/ProgressBar';
 
 const { width, height } = Dimensions.get('window');
 
@@ -19,63 +20,36 @@ const THUMB_COLORS = [
   ['#FBCFE8', '#F9A8D4'],
 ];
 
-function formatTime(ms: number): string {
-  const totalSec = Math.floor(ms / 1000);
-  return `${Math.floor(totalSec / 60)}:${(totalSec % 60).toString().padStart(2, '0')}`;
-}
-
-function BlurredBackground({ imageUrl, colors }: { imageUrl: string | null; colors: [string, string] }) {
+function BlurredBackground({ imageUrl }: { imageUrl: string | null }) {
   const opacity = useRef(new Animated.Value(0)).current;
   const [currentUrl, setCurrentUrl] = useState(imageUrl);
   const [nextUrl, setNextUrl] = useState<string | null>(null);
   const nextOpacity = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
+    Animated.timing(opacity, { toValue: 1, duration: 400, useNativeDriver: true }).start();
+  }, []);
+
+  useEffect(() => {
     if (imageUrl === currentUrl) return;
     setNextUrl(imageUrl);
     nextOpacity.setValue(0);
-    Animated.timing(nextOpacity, {
-      toValue: 1, duration: 600, useNativeDriver: true,
-    }).start(() => {
+    Animated.timing(nextOpacity, { toValue: 1, duration: 600, useNativeDriver: true }).start(() => {
       setCurrentUrl(imageUrl);
       setNextUrl(null);
       nextOpacity.setValue(0);
     });
   }, [imageUrl]);
 
-  useEffect(() => {
-    Animated.timing(opacity, { toValue: 1, duration: 400, useNativeDriver: true }).start();
-  }, []);
-
   return (
     <View style={StyleSheet.absoluteFillObject}>
-      {/* Base gradient */}
-      <LinearGradient
-        colors={['#F0F4FF', '#FAFBFF', '#F8F0FF']}
-        style={StyleSheet.absoluteFillObject}
-      />
-
-      {/* Current blurred art */}
+      <LinearGradient colors={['#F0F4FF', '#FAFBFF', '#F8F0FF']} style={StyleSheet.absoluteFillObject} />
       {currentUrl && (
-        <Animated.Image
-          source={{ uri: currentUrl }}
-          style={[styles.bgImage, { opacity }]}
-          blurRadius={25}
-          resizeMode="cover"
-        />
+        <Animated.Image source={{ uri: currentUrl }} style={[styles.bgImage, { opacity }]} blurRadius={25} resizeMode="cover" />
       )}
-
-      {/* Next blurred art (crossfade) */}
       {nextUrl && (
-        <Animated.Image
-          source={{ uri: nextUrl }}
-          style={[styles.bgImage, { opacity: nextOpacity }]}
-          blurRadius={25}
-          resizeMode="cover"
-        />
+        <Animated.Image source={{ uri: nextUrl }} style={[styles.bgImage, { opacity: nextOpacity }]} blurRadius={25} resizeMode="cover" />
       )}
-
-      {/* Overlay to lighten */}
       <LinearGradient
         colors={['rgba(250,251,255,0.75)', 'rgba(240,244,255,0.6)', 'rgba(248,240,255,0.75)']}
         style={StyleSheet.absoluteFillObject}
@@ -101,11 +75,10 @@ export default function FullPlayer() {
   const slideAnim = useRef(new Animated.Value(height)).current;
   const artOpacity = useRef(new Animated.Value(1)).current;
   const [liked, setLiked] = useState(false);
+  const prevTrackId = useRef<string | null>(null);
 
   useEffect(() => {
-    Animated.spring(slideAnim, {
-      toValue: 0, useNativeDriver: true, tension: 60, friction: 12,
-    }).start();
+    Animated.spring(slideAnim, { toValue: 0, useNativeDriver: true, tension: 60, friction: 12 }).start();
   }, []);
 
   useEffect(() => {
@@ -115,8 +88,6 @@ export default function FullPlayer() {
     }).start();
   }, [isPlaying]);
 
-  // Art crossfade on track change
-  const prevTrackId = useRef<string | null>(null);
   useEffect(() => {
     if (!currentTrack) return;
     if (prevTrackId.current && prevTrackId.current !== currentTrack.video_id) {
@@ -130,18 +101,12 @@ export default function FullPlayer() {
 
   if (!currentTrack) { router.back(); return null; }
 
-  const progress = duration > 0 ? position / duration : 0;
   const colorIndex = currentTrack.video_id.charCodeAt(0) % THUMB_COLORS.length;
 
   return (
     <Animated.View style={[styles.container, { transform: [{ translateY: slideAnim }] }]}>
       <StatusBar style="dark" />
-
-      {/* Blurred background */}
-      <BlurredBackground
-        imageUrl={currentTrack.thumbnail_url}
-        colors={THUMB_COLORS[colorIndex] as [string, string]}
-      />
+      <BlurredBackground imageUrl={currentTrack.thumbnail_url} />
 
       {/* Header */}
       <View style={styles.header}>
@@ -166,7 +131,7 @@ export default function FullPlayer() {
             <Image source={{ uri: currentTrack.thumbnail_url }} style={styles.art} resizeMode="cover" />
           ) : (
             <LinearGradient colors={THUMB_COLORS[colorIndex] as [string, string]} style={styles.art}>
-              <Text style={styles.artEmoji}>��</Text>
+              <Text style={styles.artEmoji}>🎵</Text>
             </LinearGradient>
           )}
         </Animated.View>
@@ -185,21 +150,12 @@ export default function FullPlayer() {
         </View>
       </View>
 
-      {/* Progress */}
-      <View style={styles.progressSection}>
-        <View style={styles.progressBg}>
-          <LinearGradient
-            colors={['#C4B5FD', '#7DD3FC']}
-            style={[styles.progressFill, { width: `${progress * 100}%` }]}
-            start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}
-          />
-          <View style={[styles.progressThumb, { left: `${Math.min(progress * 100, 97)}%` }]} />
-        </View>
-        <View style={styles.timeRow}>
-          <Text style={styles.timeText}>{formatTime(position)}</Text>
-          <Text style={styles.timeText}>-{formatTime(Math.max(0, duration - position))}</Text>
-        </View>
-      </View>
+      {/* Progress Bar with scrubbing */}
+      <ProgressBar
+        position={position}
+        duration={duration}
+        onSeek={seekToPosition}
+      />
 
       {/* Controls */}
       <View style={styles.controls}>
@@ -257,28 +213,19 @@ const styles = StyleSheet.create({
   headerAlbum: { fontSize: 12, color: '#6B7280', marginTop: 2, maxWidth: 200 },
   moreBtn: { width: 42, height: 42, alignItems: 'center', justifyContent: 'center' },
   moreIcon: { fontSize: 24, color: '#6B7280' },
-  artWrap: { alignItems: 'center', paddingVertical: 20 },
+  artWrap: { alignItems: 'center', paddingVertical: 16 },
   artContainer: { position: 'relative' },
-  artShadow: {
-    position: 'absolute', top: 12, left: 12, right: 12, bottom: -8,
-    borderRadius: 28, backgroundColor: 'rgba(167,139,250,0.3)',
-  },
+  artShadow: { position: 'absolute', top: 12, left: 12, right: 12, bottom: -8, borderRadius: 28, backgroundColor: 'rgba(167,139,250,0.3)' },
   art: { width: width * 0.72, height: width * 0.72, borderRadius: 28, alignItems: 'center', justifyContent: 'center', borderWidth: 2, borderColor: 'rgba(255,255,255,0.9)' },
   artEmoji: { fontSize: 80 },
-  trackInfo: { paddingHorizontal: 28, marginBottom: 16 },
+  trackInfo: { paddingHorizontal: 28, marginBottom: 8 },
   trackInfoRow: { flexDirection: 'row', alignItems: 'center', gap: 12 },
   trackInfoText: { flex: 1 },
   trackTitle: { fontSize: 24, fontWeight: '900', color: '#1E1B4B', letterSpacing: -0.5, marginBottom: 4 },
   trackArtist: { fontSize: 16, color: '#6B7280', fontWeight: '500' },
   likeBtn: { width: 44, height: 44, alignItems: 'center', justifyContent: 'center' },
   likeIcon: { fontSize: 26 },
-  progressSection: { paddingHorizontal: 28, marginBottom: 20 },
-  progressBg: { height: 5, backgroundColor: 'rgba(167,139,250,0.2)', borderRadius: 3, marginBottom: 8, position: 'relative' },
-  progressFill: { height: 5, borderRadius: 3 },
-  progressThumb: { position: 'absolute', top: -5, width: 14, height: 14, borderRadius: 7, backgroundColor: '#A78BFA', marginLeft: -7, borderWidth: 2, borderColor: '#FFFFFF', elevation: 4 },
-  timeRow: { flexDirection: 'row', justifyContent: 'space-between' },
-  timeText: { fontSize: 12, color: '#9CA3AF', fontWeight: '500' },
-  controls: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 28, marginBottom: 28 },
+  controls: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 28, marginBottom: 24 },
   controlBtn: { width: 48, height: 48, alignItems: 'center', justifyContent: 'center' },
   controlIcon: { fontSize: 22, color: '#9CA3AF' },
   controlActive: { color: '#7C3AED' },

@@ -74,3 +74,11 @@ export function usePlayTrack() {
 
   return { playTrack, togglePlayPause };
 }
+
+export async function seekToPosition(positionMs: number) {
+  const sound = (global as any)._soundInstance;
+  if (sound) {
+    await sound.setPositionAsync(positionMs);
+    usePlayerStore.getState().setPosition(positionMs);
+  }
+}
