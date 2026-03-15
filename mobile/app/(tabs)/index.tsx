@@ -5,6 +5,7 @@ import {
 import { LinearGradient } from 'expo-linear-gradient';
 import { StatusBar } from 'expo-status-bar';
 import { useRef, useEffect } from 'react';
+import { usePlayerStore } from '../../stores/playerStore';
 
 const { width } = Dimensions.get('window');
 
@@ -28,10 +29,7 @@ function AnimatedBackground() {
 
   return (
     <View style={StyleSheet.absoluteFillObject} pointerEvents="none">
-      <LinearGradient
-        colors={['#FAFBFF', '#F0F4FF', '#F8FAFF']}
-        style={StyleSheet.absoluteFillObject}
-      />
+      <LinearGradient colors={['#FAFBFF', '#F0F4FF', '#F8FAFF']} style={StyleSheet.absoluteFillObject} />
       <Animated.View style={[styles.blob1, { transform: [{ translateY: y1 }] }]}>
         <LinearGradient colors={['rgba(167,139,250,0.35)', 'transparent']} style={{ flex: 1, borderRadius: 300 }} />
       </Animated.View>
@@ -40,9 +38,6 @@ function AnimatedBackground() {
       </Animated.View>
       <Animated.View style={[styles.blob3, { transform: [{ translateY: y3 }] }]}>
         <LinearGradient colors={['rgba(134,239,172,0.25)', 'transparent']} style={{ flex: 1, borderRadius: 300 }} />
-      </Animated.View>
-      <Animated.View style={[styles.blob4, { transform: [{ translateY: y1 }] }]}>
-        <LinearGradient colors={['rgba(253,224,71,0.2)', 'transparent']} style={{ flex: 1, borderRadius: 300 }} />
       </Animated.View>
     </View>
   );
@@ -63,28 +58,41 @@ function GlassCard({ children, style, colors }: any) {
 }
 
 export default function HomeScreen() {
+  const setCurrentTrack = usePlayerStore(s => s.setCurrentTrack);
+  const setIsPlaying = usePlayerStore(s => s.setIsPlaying);
   const hour = new Date().getHours();
   const greeting = hour < 12 ? 'Good Morning ☀️' : hour < 17 ? 'Good Afternoon 🌤️' : 'Good Evening 🌙';
+
+  // TEST: load a track to show MiniPlayer — remove after T-048
+  useEffect(() => {
+    setTimeout(() => {
+      setCurrentTrack({
+        video_id: 'bSnlKl_PoQU',
+        title: 'Bohemian Rhapsody',
+        artist: 'Queen',
+        album: 'A Night At The Opera',
+        duration_ms: 355000,
+        thumbnail_url: 'https://lh3.googleusercontent.com/9CrMB2k2WFBUGXQXlaFfwP8e5_Q8FiUqQ8ljMGWm22VyLmvLZEqBMPUNjf6FNZrmMDUBTlEsFxk88_kOCQ=w120-h120-l90-rj',
+      });
+      setIsPlaying(true);
+    }, 2000);
+  }, []);
 
   return (
     <View style={styles.container}>
       <StatusBar style="dark" />
       <AnimatedBackground />
-
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scroll}>
 
-        {/* Header */}
         <View style={styles.header}>
           <Text style={styles.greeting}>{greeting}</Text>
           <Text style={styles.appName}>SoundFree</Text>
           <Text style={styles.tagline}>Zero cost · Infinite music · Zero ads</Text>
         </View>
 
-        {/* Hero */}
         <GlassCard style={styles.hero} colors={['rgba(167,139,250,0.5)', 'rgba(125,211,252,0.3)', 'rgba(134,239,172,0.2)']}>
           <View style={styles.heroDeco1} />
           <View style={styles.heroDeco2} />
-          <View style={styles.heroDeco3} />
           <View style={styles.heroContent}>
             <View style={styles.heroBadge}>
               <Text style={styles.heroBadgeText}>✦ AI DAILY MIX</Text>
@@ -92,18 +100,13 @@ export default function HomeScreen() {
             <Text style={styles.heroTitle}>Your Vibe{'\n'}Today</Text>
             <Text style={styles.heroSub}>Curated by AI · Updated daily</Text>
             <TouchableOpacity>
-              <LinearGradient
-                colors={['#A78BFA', '#818CF8']}
-                start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}
-                style={styles.playBtn}
-              >
+              <LinearGradient colors={['#A78BFA', '#818CF8']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={styles.playBtn}>
                 <Text style={styles.playBtnText}>▶  Play Now</Text>
               </LinearGradient>
             </TouchableOpacity>
           </View>
         </GlassCard>
 
-        {/* Moods */}
         <Text style={styles.section}>Browse Moods</Text>
         <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.hPad}>
           {MOODS.map((m, i) => (
@@ -115,19 +118,17 @@ export default function HomeScreen() {
           ))}
         </ScrollView>
 
-        {/* Quick Picks */}
         <Text style={styles.section}>Quick Picks</Text>
         <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.hPad}>
           {PICKS.map((p, i) => (
             <TouchableOpacity key={i} style={styles.pickCard}>
-              <LinearGradient colors={p.colors as [string,string]} style={StyleSheet.absoluteFillObject} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} />
+              <LinearGradient colors={p.colors as [string,string]} style={StyleSheet.absoluteFillObject} />
               <Text style={styles.pickEmoji}>{p.emoji}</Text>
               <Text style={styles.pickName}>{p.name}</Text>
             </TouchableOpacity>
           ))}
         </ScrollView>
 
-        {/* Trending */}
         <Text style={styles.section}>Trending Now 🔥</Text>
         <GlassCard style={styles.trackCard}>
           {TRACKS.map((t, i) => (
@@ -146,7 +147,6 @@ export default function HomeScreen() {
           ))}
         </GlassCard>
 
-        {/* Stats */}
         <View style={styles.statsRow}>
           {STATS.map((s, i) => (
             <GlassCard key={i} style={styles.statCard}>
@@ -188,10 +188,8 @@ const TRACKS = [
 ];
 
 const TRACK_COLORS = [
-  ['#A78BFA', '#C4B5FD'],
-  ['#7DD3FC', '#93C5FD'],
-  ['#86EFAC', '#6EE7B7'],
-  ['#FDE68A', '#FCA5A5'],
+  ['#A78BFA', '#C4B5FD'], ['#7DD3FC', '#93C5FD'],
+  ['#86EFAC', '#6EE7B7'], ['#FDE68A', '#FCA5A5'],
   ['#FBCFE8', '#F9A8D4'],
 ];
 
@@ -205,101 +203,43 @@ const STAT_COLORS = ['#A78BFA', '#4ADE80', '#7DD3FC'];
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#FAFBFF' },
-  scroll: { paddingBottom: 120 },
-
+  scroll: { paddingBottom: 160 },
   blob1: { position: 'absolute', top: -150, left: -100, width: width * 1.2, height: 500, borderRadius: 300 },
   blob2: { position: 'absolute', top: 250, right: -120, width: width, height: 400, borderRadius: 300 },
   blob3: { position: 'absolute', top: 550, left: -80, width: width * 0.9, height: 380, borderRadius: 300 },
-  blob4: { position: 'absolute', top: 850, right: -60, width: width * 0.8, height: 320, borderRadius: 300 },
-
   header: { paddingTop: 64, paddingHorizontal: 24, marginBottom: 24 },
   greeting: { fontSize: 15, color: '#7C3AED', letterSpacing: 0.3, marginBottom: 6, fontWeight: '600' },
   appName: { fontSize: 44, fontWeight: '900', color: '#1E1B4B', letterSpacing: -2, marginBottom: 4 },
   tagline: { fontSize: 13, color: '#6B7280', letterSpacing: 0.3 },
-
-  glass: {
-    borderRadius: 24, overflow: 'hidden',
-    borderWidth: 1.5, borderColor: 'rgba(255,255,255,0.9)',
-  },
-  glassBorder: {
-    position: 'absolute', inset: 0, borderRadius: 24,
-    borderWidth: 1, borderColor: 'rgba(167,139,250,0.2)',
-  },
-
-  hero: { marginHorizontal: 24, marginBottom: 36, minHeight: 240 },
-  heroDeco1: {
-    position: 'absolute', right: -40, top: -40,
-    width: 180, height: 180, borderRadius: 90,
-    backgroundColor: 'rgba(167,139,250,0.25)',
-    borderWidth: 1.5, borderColor: 'rgba(167,139,250,0.4)',
-  },
-  heroDeco2: {
-    position: 'absolute', right: 60, bottom: -30,
-    width: 120, height: 120, borderRadius: 60,
-    backgroundColor: 'rgba(125,211,252,0.2)',
-    borderWidth: 1, borderColor: 'rgba(125,211,252,0.35)',
-  },
-  heroDeco3: {
-    position: 'absolute', left: -20, bottom: 40,
-    width: 80, height: 80, borderRadius: 40,
-    backgroundColor: 'rgba(134,239,172,0.2)',
-    borderWidth: 1, borderColor: 'rgba(134,239,172,0.3)',
-  },
+  glass: { borderRadius: 24, overflow: 'hidden', borderWidth: 1.5, borderColor: 'rgba(255,255,255,0.9)' },
+  glassBorder: { position: 'absolute', inset: 0, borderRadius: 24, borderWidth: 1, borderColor: 'rgba(167,139,250,0.2)' },
+  hero: { marginHorizontal: 24, marginBottom: 36, minHeight: 230 },
+  heroDeco1: { position: 'absolute', right: -50, top: -50, width: 200, height: 200, borderRadius: 100, backgroundColor: 'rgba(168,85,247,0.12)', borderWidth: 1.5, borderColor: 'rgba(168,85,247,0.2)' },
+  heroDeco2: { position: 'absolute', right: 60, bottom: -40, width: 130, height: 130, borderRadius: 65, backgroundColor: 'rgba(125,211,252,0.1)', borderWidth: 1, borderColor: 'rgba(125,211,252,0.2)' },
   heroContent: { padding: 28, zIndex: 2 },
-  heroBadge: {
-    alignSelf: 'flex-start',
-    backgroundColor: 'rgba(167,139,250,0.2)',
-    borderRadius: 20, paddingHorizontal: 14, paddingVertical: 5,
-    marginBottom: 16, borderWidth: 1, borderColor: 'rgba(167,139,250,0.4)',
-  },
+  heroBadge: { alignSelf: 'flex-start', backgroundColor: 'rgba(167,139,250,0.2)', borderRadius: 20, paddingHorizontal: 14, paddingVertical: 5, marginBottom: 16, borderWidth: 1, borderColor: 'rgba(167,139,250,0.4)' },
   heroBadgeText: { fontSize: 10, color: '#7C3AED', fontWeight: '800', letterSpacing: 2 },
   heroTitle: { fontSize: 36, fontWeight: '900', color: '#1E1B4B', lineHeight: 42, marginBottom: 8, letterSpacing: -1 },
   heroSub: { fontSize: 13, color: '#6B7280', marginBottom: 24 },
   playBtn: { alignSelf: 'flex-start', paddingHorizontal: 28, paddingVertical: 13, borderRadius: 30 },
   playBtnText: { fontSize: 14, fontWeight: '700', color: '#FFFFFF', letterSpacing: 0.5 },
-
   section: { fontSize: 20, fontWeight: '800', color: '#1E1B4B', paddingHorizontal: 24, marginBottom: 14 },
   hPad: { paddingLeft: 24, paddingRight: 12, marginBottom: 28 },
-
-  moodPill: {
-    flexDirection: 'row', alignItems: 'center', gap: 7,
-    paddingHorizontal: 18, paddingVertical: 11,
-    borderRadius: 30, marginRight: 10, overflow: 'hidden',
-    minWidth: 100, borderWidth: 1.5, borderColor: 'rgba(255,255,255,0.8)',
-  },
+  moodPill: { flexDirection: 'row', alignItems: 'center', gap: 7, paddingHorizontal: 18, paddingVertical: 11, borderRadius: 30, marginRight: 10, overflow: 'hidden', minWidth: 100, borderWidth: 1.5, borderColor: 'rgba(255,255,255,0.8)' },
   moodEmoji: { fontSize: 16 },
   moodName: { fontSize: 13, fontWeight: '700', color: '#1E1B4B' },
-
-  pickCard: {
-    width: 115, height: 115, borderRadius: 22,
-    marginRight: 12, overflow: 'hidden',
-    alignItems: 'center', justifyContent: 'center',
-    borderWidth: 1.5, borderColor: 'rgba(255,255,255,0.8)',
-  },
+  pickCard: { width: 115, height: 115, borderRadius: 22, marginRight: 12, overflow: 'hidden', alignItems: 'center', justifyContent: 'center', borderWidth: 1.5, borderColor: 'rgba(255,255,255,0.8)' },
   pickEmoji: { fontSize: 30, marginBottom: 8 },
   pickName: { fontSize: 13, fontWeight: '800', color: '#1E1B4B' },
-
   trackCard: { marginHorizontal: 24, marginBottom: 28, paddingVertical: 6 },
-  trackRow: {
-    flexDirection: 'row', alignItems: 'center',
-    paddingHorizontal: 16, paddingVertical: 12, gap: 14,
-  },
-  trackNum: {
-    width: 34, height: 34, borderRadius: 10,
-    alignItems: 'center', justifyContent: 'center',
-  },
+  trackRow: { flexDirection: 'row', alignItems: 'center', paddingHorizontal: 16, paddingVertical: 12, gap: 14 },
+  trackNum: { width: 34, height: 34, borderRadius: 10, alignItems: 'center', justifyContent: 'center' },
   trackNumText: { fontSize: 13, fontWeight: '900', color: '#1E1B4B' },
   trackInfo: { flex: 1 },
   trackTitle: { fontSize: 15, fontWeight: '700', color: '#1E1B4B', marginBottom: 2 },
   trackArtist: { fontSize: 12, color: '#6B7280' },
-  trackPlayBtn: {
-    width: 36, height: 36, borderRadius: 18,
-    backgroundColor: 'rgba(167,139,250,0.2)',
-    alignItems: 'center', justifyContent: 'center',
-    borderWidth: 1.5, borderColor: 'rgba(167,139,250,0.4)',
-  },
+  trackPlayBtn: { width: 36, height: 36, borderRadius: 18, backgroundColor: 'rgba(167,139,250,0.2)', alignItems: 'center', justifyContent: 'center', borderWidth: 1.5, borderColor: 'rgba(167,139,250,0.4)' },
   trackPlayText: { fontSize: 12, color: '#7C3AED' },
-
   statsRow: { flexDirection: 'row', paddingHorizontal: 24, gap: 12, marginBottom: 16 },
   statCard: { flex: 1, alignItems: 'center', paddingVertical: 20 },
   statValue: { fontSize: 30, fontWeight: '900', marginBottom: 4 },
