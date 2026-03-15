@@ -103,6 +103,14 @@ export default function FullPlayer() {
 
   const colorIndex = currentTrack.video_id.charCodeAt(0) % THUMB_COLORS.length;
 
+  const ACTIONS = [
+    { icon: '⬇️', label: 'Download', onPress: () => {} },
+    { icon: '🎵', label: 'Lyrics', onPress: () => router.push('/lyrics') },
+    { icon: '📋', label: 'Queue', onPress: () => {} },
+    { icon: '⏱️', label: 'Sleep', onPress: () => {} },
+    { icon: '↗️', label: 'Share', onPress: () => {} },
+  ];
+
   return (
     <Animated.View style={[styles.container, { transform: [{ translateY: slideAnim }] }]}>
       <StatusBar style="dark" />
@@ -131,7 +139,7 @@ export default function FullPlayer() {
             <Image source={{ uri: currentTrack.thumbnail_url }} style={styles.art} resizeMode="cover" />
           ) : (
             <LinearGradient colors={THUMB_COLORS[colorIndex] as [string, string]} style={styles.art}>
-              <Text style={styles.artEmoji}>🎵</Text>
+              <Text style={styles.artEmoji}>��</Text>
             </LinearGradient>
           )}
         </Animated.View>
@@ -150,12 +158,8 @@ export default function FullPlayer() {
         </View>
       </View>
 
-      {/* Progress Bar with scrubbing */}
-      <ProgressBar
-        position={position}
-        duration={duration}
-        onSeek={seekToPosition}
-      />
+      {/* Progress Bar */}
+      <ProgressBar position={position} duration={duration} onSeek={seekToPosition} />
 
       {/* Controls */}
       <View style={styles.controls}>
@@ -182,14 +186,8 @@ export default function FullPlayer() {
 
       {/* Action row */}
       <View style={styles.actionRow}>
-        {[
-          { icon: '⬇️', label: 'Download' },
-          { icon: '🎵', label: 'Lyrics' },
-          { icon: '📋', label: 'Queue' },
-          { icon: '⏱️', label: 'Sleep' },
-          { icon: '↗️', label: 'Share' },
-        ].map((a, i) => (
-          <TouchableOpacity key={i} style={styles.actionBtn}>
+        {ACTIONS.map((a, i) => (
+          <TouchableOpacity key={i} style={styles.actionBtn} onPress={a.onPress}>
             <View style={styles.actionIconWrap}>
               <LinearGradient colors={['rgba(167,139,250,0.15)', 'rgba(125,211,252,0.08)']} style={StyleSheet.absoluteFillObject} />
               <Text style={styles.actionIcon}>{a.icon}</Text>

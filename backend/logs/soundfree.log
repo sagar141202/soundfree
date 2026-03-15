@@ -589,3 +589,148 @@
 2026-03-15 23:03:26 | INFO     | main:48 - GET /stream/uT_HXrrmHX8 → 200 (3.1ms)
 2026-03-15 23:03:26 | INFO     | routers.stream:23 - Cache HIT for stream: uT_HXrrmHX8
 2026-03-15 23:03:26 | INFO     | main:48 - GET /stream/uT_HXrrmHX8/proxy → 200 (16.7ms)
+2026-03-15 23:07:31 | INFO     | main:48 - GET /health → 200 (2.7ms)
+2026-03-15 23:07:32 | INFO     | routers.stream:18 - Cache HIT for stream: 4smEofP_5Q4
+2026-03-15 23:07:32 | INFO     | main:48 - GET /stream/4smEofP_5Q4 → 200 (15.6ms)
+2026-03-15 23:07:32 | INFO     | routers.stream:18 - Cache HIT for stream: 4smEofP_5Q4
+2026-03-15 23:07:32 | INFO     | main:48 - GET /stream/4smEofP_5Q4/proxy → 200 (31.2ms)
+2026-03-15 23:09:17 | INFO     | routers.lyrics:105 - Fetching lyrics: Arijit Singh — Sitaare - From "Ikkis" (Vocals Only)
+2026-03-15 23:09:17 | INFO     | services.lyrics_service:47 - lrclib lookup: Arijit Singh — Sitaare - From "Ikkis" (Vocals Only)
+2026-03-15 23:09:19 | WARNING  | services.lyrics_service:63 - lrclib: no result for Arijit Singh — Sitaare - From "Ikkis" (Vocals Only)
+2026-03-15 23:09:19 | INFO     | services.lyrics_service:96 - lrclib search: Arijit Singh — Sitaare - From "Ikkis" (Vocals Only)
+2026-03-15 23:09:21 | WARNING  | routers.lyrics:76 - Postgres lyrics write error: (sqlalchemy.dialects.postgresql.asyncpg.IntegrityError) <class 'asyncpg.exceptions.ForeignKeyViolationError'>: insert or update on table "lyrics_cache" violates foreign key constraint "lyrics_cache_video_id_fkey"
+DETAIL:  Key (video_id)=(4smEofP_5Q4) is not present in table "tracks".
+[SQL: INSERT INTO lyrics_cache (video_id, lyrics_json, source, synced) VALUES ($1::VARCHAR, $2::JSONB, $3::VARCHAR, $4::BOOLEAN) RETURNING lyrics_cache.cached_at]
+[parameters: ('4smEofP_5Q4', '"{\\"video_id\\": \\"4smEofP_5Q4\\", \\"lines\\": [{\\"time_ms\\": 0, \\"text\\": \\"Lyrics not available for this track.\\"}], \\"synced\\": false, \\"source\\": \\"none\\", \\"genius_url\\": null}"', None, False)]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2026-03-15 23:09:21 | INFO     | main:48 - GET /lyrics/4smEofP_5Q4 → 200 (4444.0ms)
+2026-03-15 23:10:03 | INFO     | routers.lyrics:105 - Fetching lyrics: Arijit Singh — Sitaare
+2026-03-15 23:10:03 | INFO     | services.lyrics_service:47 - lrclib lookup: Arijit Singh — Sitaare
+2026-03-15 23:10:05 | WARNING  | services.lyrics_service:63 - lrclib: no result for Arijit Singh — Sitaare
+2026-03-15 23:10:05 | INFO     | services.lyrics_service:96 - lrclib search: Arijit Singh — Sitaare
+2026-03-15 23:10:06 | WARNING  | routers.lyrics:76 - Postgres lyrics write error: (sqlalchemy.dialects.postgresql.asyncpg.IntegrityError) <class 'asyncpg.exceptions.ForeignKeyViolationError'>: insert or update on table "lyrics_cache" violates foreign key constraint "lyrics_cache_video_id_fkey"
+DETAIL:  Key (video_id)=(uT_HXrrmHX8) is not present in table "tracks".
+[SQL: INSERT INTO lyrics_cache (video_id, lyrics_json, source, synced) VALUES ($1::VARCHAR, $2::JSONB, $3::VARCHAR, $4::BOOLEAN) RETURNING lyrics_cache.cached_at]
+[parameters: ('uT_HXrrmHX8', '"{\\"video_id\\": \\"uT_HXrrmHX8\\", \\"lines\\": [{\\"time_ms\\": 14580, \\"text\\": \\"\\\\u092c\\\\u0938 \\\\u0924\\\\u0941\\\\u092e \\\\u0938\\\\ ... (7507 characters truncated) ... s\\": 227700, \\"text\\": \\"\\\\u0913, \\\\u0913, \\\\u0913-\\\\u0913\\"}], \\"synced\\": true, \\"source\\": \\"lrclib\\", \\"genius_url\\": null}"', None, False)]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2026-03-15 23:10:06 | INFO     | main:48 - GET /lyrics/uT_HXrrmHX8 → 200 (3074.9ms)
+2026-03-15 23:10:16 | INFO     | routers.lyrics:90 - Redis HIT for lyrics: 4smEofP_5Q4
+2026-03-15 23:10:16 | INFO     | main:48 - GET /lyrics/4smEofP_5Q4 → 200 (2.3ms)
+2026-03-15 23:11:18 | INFO     | routers.search:43 - Cache MISS for search: 'dhun' — fetching from YouTube Music
+2026-03-15 23:11:18 | INFO     | services.search_service:43 - Searching YouTube Music: 'dhun'
+2026-03-15 23:11:20 | INFO     | services.search_service:72 - Search returned 20 tracks for 'dhun'
+2026-03-15 23:11:20 | INFO     | routers.search:60 - Cached 20 results for 'dhun' (TTL: 30min)
+2026-03-15 23:11:20 | INFO     | main:48 - GET /search → 200 (1785.8ms)
+2026-03-15 23:11:21 | INFO     | routers.stream:18 - Cache HIT for stream: Wqu4MRQOgyo
+2026-03-15 23:11:21 | INFO     | main:48 - GET /stream/Wqu4MRQOgyo → 200 (2.6ms)
+2026-03-15 23:11:21 | INFO     | routers.stream:18 - Cache HIT for stream: Wqu4MRQOgyo
+2026-03-15 23:11:21 | INFO     | main:48 - GET /stream/Wqu4MRQOgyo/proxy → 200 (10.8ms)
+2026-03-15 23:11:25 | INFO     | routers.lyrics:105 - Fetching lyrics: Arijit Singh — Dhun (Movie: Saiyaara)
+2026-03-15 23:11:25 | INFO     | services.lyrics_service:47 - lrclib lookup: Arijit Singh — Dhun (Movie: Saiyaara)
+2026-03-15 23:11:27 | WARNING  | services.lyrics_service:63 - lrclib: no result for Arijit Singh — Dhun (Movie: Saiyaara)
+2026-03-15 23:11:27 | INFO     | services.lyrics_service:96 - lrclib search: Arijit Singh — Dhun (Movie: Saiyaara)
+2026-03-15 23:11:29 | WARNING  | routers.lyrics:76 - Postgres lyrics write error: (sqlalchemy.dialects.postgresql.asyncpg.IntegrityError) <class 'asyncpg.exceptions.ForeignKeyViolationError'>: insert or update on table "lyrics_cache" violates foreign key constraint "lyrics_cache_video_id_fkey"
+DETAIL:  Key (video_id)=(Wqu4MRQOgyo) is not present in table "tracks".
+[SQL: INSERT INTO lyrics_cache (video_id, lyrics_json, source, synced) VALUES ($1::VARCHAR, $2::JSONB, $3::VARCHAR, $4::BOOLEAN) RETURNING lyrics_cache.cached_at]
+[parameters: ('Wqu4MRQOgyo', '"{\\"video_id\\": \\"Wqu4MRQOgyo\\", \\"lines\\": [{\\"time_ms\\": 0, \\"text\\": \\"Lyrics not available for this track.\\"}], \\"synced\\": false, \\"source\\": \\"none\\", \\"genius_url\\": null}"', None, False)]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2026-03-15 23:11:29 | INFO     | main:48 - GET /lyrics/Wqu4MRQOgyo → 200 (3184.5ms)
+2026-03-15 23:11:59 | INFO     | routers.search:43 - Cache MISS for search: 'be' — fetching from YouTube Music
+2026-03-15 23:11:59 | INFO     | services.search_service:43 - Searching YouTube Music: 'be'
+2026-03-15 23:11:59 | INFO     | services.search_service:72 - Search returned 20 tracks for 'be'
+2026-03-15 23:11:59 | INFO     | routers.search:60 - Cached 20 results for 'be' (TTL: 30min)
+2026-03-15 23:11:59 | INFO     | main:48 - GET /search → 200 (691.3ms)
+2026-03-15 23:11:59 | INFO     | routers.search:43 - Cache MISS for search: 'beh' — fetching from YouTube Music
+2026-03-15 23:11:59 | INFO     | services.search_service:43 - Searching YouTube Music: 'beh'
+2026-03-15 23:12:00 | INFO     | services.search_service:72 - Search returned 20 tracks for 'beh'
+2026-03-15 23:12:00 | INFO     | routers.search:60 - Cached 20 results for 'beh' (TTL: 30min)
+2026-03-15 23:12:00 | INFO     | main:48 - GET /search → 200 (697.9ms)
+2026-03-15 23:12:02 | INFO     | routers.search:43 - Cache MISS for search: 'beho' — fetching from YouTube Music
+2026-03-15 23:12:02 | INFO     | services.search_service:43 - Searching YouTube Music: 'beho'
+2026-03-15 23:12:03 | INFO     | services.search_service:72 - Search returned 20 tracks for 'beho'
+2026-03-15 23:12:03 | INFO     | routers.search:60 - Cached 20 results for 'beho' (TTL: 30min)
+2026-03-15 23:12:03 | INFO     | main:48 - GET /search → 200 (681.1ms)
+2026-03-15 23:12:10 | INFO     | routers.search:43 - Cache MISS for search: 'friends' — fetching from YouTube Music
+2026-03-15 23:12:10 | INFO     | services.search_service:43 - Searching YouTube Music: 'friends'
+2026-03-15 23:12:11 | INFO     | services.search_service:72 - Search returned 20 tracks for 'friends'
+2026-03-15 23:12:11 | INFO     | routers.search:60 - Cached 20 results for 'friends' (TTL: 30min)
+2026-03-15 23:12:11 | INFO     | main:48 - GET /search → 200 (1077.7ms)
+2026-03-15 23:12:12 | INFO     | routers.stream:21 - Cache MISS for stream: UgM1RTch8Rw — fetching
+2026-03-15 23:12:12 | INFO     | services.stream_service:34 - Extracting stream URL for video_id: UgM1RTch8Rw
+2026-03-15 23:12:15 | INFO     | services.stream_service:59 - Got stream URL for UgM1RTch8Rw | format: 251 - audio only (medium)
+2026-03-15 23:12:18 | INFO     | routers.stream:21 - Cache MISS for stream: qFdoMMR-7fc — fetching
+2026-03-15 23:12:18 | INFO     | services.stream_service:34 - Extracting stream URL for video_id: qFdoMMR-7fc
+2026-03-15 23:12:20 | INFO     | services.stream_service:59 - Got stream URL for qFdoMMR-7fc | format: 251 - audio only (medium)
+2026-03-15 23:12:23 | INFO     | routers.stream:21 - Cache MISS for stream: HDMRTsPgSDU — fetching
+2026-03-15 23:12:23 | INFO     | services.stream_service:34 - Extracting stream URL for video_id: HDMRTsPgSDU
+2026-03-15 23:12:26 | INFO     | services.stream_service:59 - Got stream URL for HDMRTsPgSDU | format: 251 - audio only (medium)
+2026-03-15 23:12:26 | INFO     | routers.stream:21 - Cache MISS for stream: HDMRTsPgSDU — fetching
+2026-03-15 23:12:26 | INFO     | services.stream_service:34 - Extracting stream URL for video_id: HDMRTsPgSDU
+2026-03-15 23:12:27 | INFO     | routers.stream:21 - Cache MISS for stream: L2ZnALmOyvc — fetching
+2026-03-15 23:12:27 | INFO     | services.stream_service:34 - Extracting stream URL for video_id: L2ZnALmOyvc
+2026-03-15 23:12:28 | INFO     | services.stream_service:59 - Got stream URL for HDMRTsPgSDU | format: 251 - audio only (medium)
+2026-03-15 23:12:29 | INFO     | services.stream_service:59 - Got stream URL for L2ZnALmOyvc | format: 251 - audio only (medium)
+2026-03-15 23:12:37 | INFO     | routers.search:43 - Cache MISS for search: 'dj' — fetching from YouTube Music
+2026-03-15 23:12:37 | INFO     | services.search_service:43 - Searching YouTube Music: 'dj'
+2026-03-15 23:12:38 | INFO     | services.search_service:72 - Search returned 20 tracks for 'dj'
+2026-03-15 23:12:38 | INFO     | routers.search:60 - Cached 20 results for 'dj' (TTL: 30min)
+2026-03-15 23:12:38 | INFO     | main:48 - GET /search → 200 (946.7ms)
+2026-03-15 23:12:39 | INFO     | routers.search:43 - Cache MISS for search: 'dj snake' — fetching from YouTube Music
+2026-03-15 23:12:39 | INFO     | services.search_service:43 - Searching YouTube Music: 'dj snake'
+2026-03-15 23:12:40 | INFO     | services.search_service:72 - Search returned 20 tracks for 'dj snake'
+2026-03-15 23:12:40 | INFO     | routers.search:60 - Cached 20 results for 'dj snake' (TTL: 30min)
+2026-03-15 23:12:40 | INFO     | main:48 - GET /search → 200 (600.2ms)
+2026-03-15 23:12:41 | INFO     | routers.stream:21 - Cache MISS for stream: A46Y2CLH4Bk — fetching
+2026-03-15 23:12:41 | INFO     | services.stream_service:34 - Extracting stream URL for video_id: A46Y2CLH4Bk
+2026-03-15 23:12:43 | INFO     | services.stream_service:59 - Got stream URL for A46Y2CLH4Bk | format: 251 - audio only (medium)
+2026-03-15 23:12:45 | INFO     | routers.stream:18 - Cache HIT for stream: Wqu4MRQOgyo
+2026-03-15 23:12:45 | INFO     | main:48 - GET /stream/Wqu4MRQOgyo/proxy → 200 (10.8ms)
+2026-03-15 23:12:48 | INFO     | routers.lyrics:105 - Fetching lyrics: DJ Snake — Magenta Riddim
+2026-03-15 23:12:48 | INFO     | services.lyrics_service:47 - lrclib lookup: DJ Snake — Magenta Riddim
+2026-03-15 23:12:50 | INFO     | services.lyrics_service:96 - lrclib search: DJ Snake — Magenta Riddim
+2026-03-15 23:12:51 | WARNING  | routers.lyrics:76 - Postgres lyrics write error: (sqlalchemy.dialects.postgresql.asyncpg.IntegrityError) <class 'asyncpg.exceptions.ForeignKeyViolationError'>: insert or update on table "lyrics_cache" violates foreign key constraint "lyrics_cache_video_id_fkey"
+DETAIL:  Key (video_id)=(A46Y2CLH4Bk) is not present in table "tracks".
+[SQL: INSERT INTO lyrics_cache (video_id, lyrics_json, source, synced) VALUES ($1::VARCHAR, $2::JSONB, $3::VARCHAR, $4::BOOLEAN) RETURNING lyrics_cache.cached_at]
+[parameters: ('A46Y2CLH4Bk', '"{\\"video_id\\": \\"A46Y2CLH4Bk\\", \\"lines\\": [{\\"time_ms\\": 0, \\"text\\": \\"Lyrics not available for this track.\\"}], \\"synced\\": false, \\"source\\": \\"none\\", \\"genius_url\\": null}"', None, False)]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2026-03-15 23:12:51 | INFO     | main:48 - GET /lyrics/A46Y2CLH4Bk → 200 (3006.7ms)
+2026-03-15 23:14:12 | INFO     | routers.search:43 - Cache MISS for search: 'so' — fetching from YouTube Music
+2026-03-15 23:14:12 | INFO     | services.search_service:43 - Searching YouTube Music: 'so'
+2026-03-15 23:14:13 | INFO     | services.search_service:72 - Search returned 20 tracks for 'so'
+2026-03-15 23:14:13 | INFO     | routers.search:60 - Cached 20 results for 'so' (TTL: 30min)
+2026-03-15 23:14:13 | INFO     | main:48 - GET /search → 200 (566.2ms)
+2026-03-15 23:14:13 | INFO     | routers.search:43 - Cache MISS for search: 'sot' — fetching from YouTube Music
+2026-03-15 23:14:13 | INFO     | services.search_service:43 - Searching YouTube Music: 'sot'
+2026-03-15 23:14:14 | INFO     | services.search_service:72 - Search returned 20 tracks for 'sot'
+2026-03-15 23:14:14 | INFO     | routers.search:60 - Cached 20 results for 'sot' (TTL: 30min)
+2026-03-15 23:14:14 | INFO     | main:48 - GET /search → 200 (666.2ms)
+2026-03-15 23:14:14 | INFO     | routers.search:43 - Cache MISS for search: 'sotaa' — fetching from YouTube Music
+2026-03-15 23:14:14 | INFO     | services.search_service:43 - Searching YouTube Music: 'sotaa'
+2026-03-15 23:14:14 | INFO     | services.search_service:72 - Search returned 20 tracks for 'sotaa'
+2026-03-15 23:14:14 | INFO     | routers.search:60 - Cached 20 results for 'sotaa' (TTL: 30min)
+2026-03-15 23:14:14 | INFO     | main:48 - GET /search → 200 (524.4ms)
+2026-03-15 23:14:14 | INFO     | routers.search:39 - Cache HIT for search: 'sitaare '
+2026-03-15 23:14:14 | INFO     | main:48 - GET /search → 200 (1.7ms)
+2026-03-15 23:14:15 | INFO     | routers.stream:18 - Cache HIT for stream: uT_HXrrmHX8
+2026-03-15 23:14:15 | INFO     | main:48 - GET /stream/uT_HXrrmHX8 → 200 (2.3ms)
+2026-03-15 23:14:15 | INFO     | routers.stream:18 - Cache HIT for stream: uT_HXrrmHX8
+2026-03-15 23:14:15 | INFO     | main:48 - GET /stream/uT_HXrrmHX8/proxy → 200 (17.8ms)
+2026-03-15 23:14:18 | INFO     | routers.lyrics:105 - Fetching lyrics: Arijit Singh — Sitaare (From "Ikkis")
+2026-03-15 23:14:18 | INFO     | services.lyrics_service:47 - lrclib lookup: Arijit Singh — Sitaare (From "Ikkis")
+2026-03-15 23:14:19 | INFO     | services.lyrics_service:74 - lrclib: synced lyrics found (31 lines)
+2026-03-15 23:14:19 | WARNING  | routers.lyrics:76 - Postgres lyrics write error: (sqlalchemy.dialects.postgresql.asyncpg.IntegrityError) <class 'asyncpg.exceptions.ForeignKeyViolationError'>: insert or update on table "lyrics_cache" violates foreign key constraint "lyrics_cache_video_id_fkey"
+DETAIL:  Key (video_id)=(uT_HXrrmHX8) is not present in table "tracks".
+[SQL: INSERT INTO lyrics_cache (video_id, lyrics_json, source, synced) VALUES ($1::VARCHAR, $2::JSONB, $3::VARCHAR, $4::BOOLEAN) RETURNING lyrics_cache.cached_at]
+[parameters: ('uT_HXrrmHX8', '"{\\"video_id\\": \\"uT_HXrrmHX8\\", \\"lines\\": [{\\"time_ms\\": 14580, \\"text\\": \\"\\\\u092c\\\\u0938 \\\\u0924\\\\u0941\\\\u092e \\\\u0938\\\\ ... (7507 characters truncated) ... s\\": 227700, \\"text\\": \\"\\\\u0913, \\\\u0913, \\\\u0913-\\\\u0913\\"}], \\"synced\\": true, \\"source\\": \\"lrclib\\", \\"genius_url\\": null}"', None, False)]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2026-03-15 23:14:19 | INFO     | main:48 - GET /lyrics/uT_HXrrmHX8 → 200 (1337.0ms)
+2026-03-15 23:14:28 | INFO     | routers.stream:18 - Cache HIT for stream: uT_HXrrmHX8
+2026-03-15 23:14:28 | INFO     | main:48 - GET /stream/uT_HXrrmHX8/proxy → 200 (20.2ms)
+2026-03-15 23:14:39 | INFO     | routers.lyrics:90 - Redis HIT for lyrics: uT_HXrrmHX8
+2026-03-15 23:14:39 | INFO     | main:48 - GET /lyrics/uT_HXrrmHX8 → 200 (3.0ms)
+2026-03-15 23:14:58 | INFO     | routers.stream:18 - Cache HIT for stream: uT_HXrrmHX8
+2026-03-15 23:14:58 | INFO     | main:48 - GET /stream/uT_HXrrmHX8 → 200 (4.0ms)
+2026-03-15 23:14:59 | INFO     | routers.stream:18 - Cache HIT for stream: uT_HXrrmHX8
+2026-03-15 23:14:59 | INFO     | main:48 - GET /stream/uT_HXrrmHX8/proxy → 200 (11.4ms)
+2026-03-15 23:15:02 | INFO     | routers.lyrics:90 - Redis HIT for lyrics: uT_HXrrmHX8
+2026-03-15 23:15:02 | INFO     | main:48 - GET /lyrics/uT_HXrrmHX8 → 200 (2.2ms)
