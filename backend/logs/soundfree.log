@@ -506,3 +506,86 @@
 2026-03-15 22:37:31 | INFO     | main:48 - GET /search → 200 (9.4ms)
 2026-03-15 22:37:33 | INFO     | routers.stream:31 - Cache HIT for stream: uT_HXrrmHX8
 2026-03-15 22:37:33 | INFO     | main:48 - GET /stream/uT_HXrrmHX8 → 200 (6.3ms)
+2026-03-15 22:40:11 | INFO     | main:48 - GET /health → 200 (2.2ms)
+2026-03-15 22:40:11 | INFO     | main:48 - GET /favicon.ico → 404 (1.7ms)
+2026-03-15 22:44:55 | INFO     | main:48 - GET / → 200 (11.6ms)
+2026-03-15 22:44:56 | INFO     | main:48 - GET /favicon.ico → 404 (2.1ms)
+2026-03-15 22:48:54 | INFO     | main:48 - GET /health → 200 (2.8ms)
+2026-03-15 22:48:54 | INFO     | main:48 - GET /favicon.ico → 404 (1.5ms)
+2026-03-15 22:49:47 | INFO     | main:48 - GET /health → 200 (2.6ms)
+2026-03-15 22:49:59 | INFO     | routers.search:43 - Cache MISS for search: 'sitaare' — fetching from YouTube Music
+2026-03-15 22:49:59 | INFO     | services.search_service:43 - Searching YouTube Music: 'sitaare'
+2026-03-15 22:50:01 | INFO     | services.search_service:72 - Search returned 20 tracks for 'sitaare'
+2026-03-15 22:50:01 | INFO     | routers.search:60 - Cached 20 results for 'sitaare' (TTL: 30min)
+2026-03-15 22:50:01 | INFO     | main:48 - GET /search → 200 (1920.0ms)
+2026-03-15 22:50:03 | INFO     | routers.stream:31 - Cache HIT for stream: uT_HXrrmHX8
+2026-03-15 22:50:03 | INFO     | main:48 - GET /stream/uT_HXrrmHX8 → 200 (7.0ms)
+2026-03-15 22:51:10 | INFO     | routers.stream:31 - Cache HIT for stream: 4smEofP_5Q4
+2026-03-15 22:51:10 | INFO     | main:48 - GET /stream/4smEofP_5Q4 → 200 (6.5ms)
+2026-03-15 22:55:06 | INFO     | main:48 - GET /health → 200 (5.3ms)
+2026-03-15 22:56:13 | INFO     | main:48 - GET /health → 200 (4.4ms)
+2026-03-15 22:56:20 | INFO     | routers.search:43 - Cache MISS for search: 'Lo-fi' — fetching from YouTube Music
+2026-03-15 22:56:20 | INFO     | services.search_service:43 - Searching YouTube Music: 'Lo-fi'
+2026-03-15 22:56:23 | INFO     | services.search_service:72 - Search returned 20 tracks for 'Lo-fi'
+2026-03-15 22:56:23 | INFO     | routers.search:60 - Cached 20 results for 'Lo-fi' (TTL: 30min)
+2026-03-15 22:56:23 | INFO     | main:48 - GET /search → 200 (2613.9ms)
+2026-03-15 22:56:28 | INFO     | routers.stream:35 - Cache MISS for stream: HhkyEKko868 — calling yt-dlp
+2026-03-15 22:56:28 | INFO     | services.stream_service:34 - Extracting stream URL for video_id: HhkyEKko868
+2026-03-15 22:56:31 | INFO     | services.stream_service:59 - Got stream URL for HhkyEKko868 | format: 251 - audio only (medium)
+2026-03-15 22:56:31 | INFO     | routers.stream:53 - Cached stream URL for HhkyEKko868 (TTL: 5h)
+2026-03-15 22:56:31 | INFO     | main:48 - GET /stream/HhkyEKko868 → 200 (2785.4ms)
+2026-03-15 22:59:14 | INFO     | routers.stream:35 - Cache MISS for stream: -LU3x_HGLX4 — calling yt-dlp
+2026-03-15 22:59:14 | INFO     | services.stream_service:34 - Extracting stream URL for video_id: -LU3x_HGLX4
+2026-03-15 22:59:17 | INFO     | services.stream_service:59 - Got stream URL for -LU3x_HGLX4 | format: 251 - audio only (medium)
+2026-03-15 22:59:17 | INFO     | routers.stream:53 - Cached stream URL for -LU3x_HGLX4 (TTL: 5h)
+2026-03-15 22:59:17 | INFO     | main:48 - GET /stream/-LU3x_HGLX4 → 200 (3148.0ms)
+2026-03-15 23:00:14 | INFO     | routers.stream:31 - Cache HIT for stream: uT_HXrrmHX8
+2026-03-15 23:00:14 | INFO     | main:48 - GET /stream/uT_HXrrmHX8 → 200 (10.0ms)
+2026-03-15 23:01:06 | INFO     | main:48 - GET /health → 200 (1.4ms)
+2026-03-15 23:01:13 | INFO     | main:48 - GET /health → 200 (0.7ms)
+2026-03-15 23:01:19 | INFO     | routers.search:43 - Cache MISS for search: 'si' — fetching from YouTube Music
+2026-03-15 23:01:19 | INFO     | services.search_service:43 - Searching YouTube Music: 'si'
+2026-03-15 23:01:21 | INFO     | services.search_service:72 - Search returned 20 tracks for 'si'
+2026-03-15 23:01:21 | INFO     | routers.search:60 - Cached 20 results for 'si' (TTL: 30min)
+2026-03-15 23:01:21 | INFO     | main:48 - GET /search → 200 (1702.3ms)
+2026-03-15 23:01:21 | INFO     | routers.search:43 - Cache MISS for search: 'sit' — fetching from YouTube Music
+2026-03-15 23:01:21 | INFO     | services.search_service:43 - Searching YouTube Music: 'sit'
+2026-03-15 23:01:22 | INFO     | services.search_service:72 - Search returned 20 tracks for 'sit'
+2026-03-15 23:01:22 | INFO     | routers.search:60 - Cached 20 results for 'sit' (TTL: 30min)
+2026-03-15 23:01:22 | INFO     | routers.search:43 - Cache MISS for search: 'sitaa' — fetching from YouTube Music
+2026-03-15 23:01:22 | INFO     | services.search_service:43 - Searching YouTube Music: 'sitaa'
+2026-03-15 23:01:23 | INFO     | services.search_service:72 - Search returned 20 tracks for 'sitaa'
+2026-03-15 23:01:23 | INFO     | main:48 - GET /search → 200 (1577.9ms)
+2026-03-15 23:01:23 | INFO     | routers.search:39 - Cache HIT for search: 'sitaare '
+2026-03-15 23:01:23 | INFO     | routers.search:60 - Cached 20 results for 'sitaa' (TTL: 30min)
+2026-03-15 23:01:23 | INFO     | main:48 - GET /search → 200 (588.4ms)
+2026-03-15 23:01:23 | INFO     | main:48 - GET /search → 200 (589.9ms)
+2026-03-15 23:01:24 | INFO     | routers.stream:31 - Cache HIT for stream: uT_HXrrmHX8
+2026-03-15 23:01:24 | INFO     | main:48 - GET /stream/uT_HXrrmHX8 → 200 (6.9ms)
+2026-03-15 23:01:24 | INFO     | main:48 - GET /stream/uT_HXrrmHX8/proxy → 422 (2.7ms)
+2026-03-15 23:01:24 | INFO     | main:48 - GET /stream/uT_HXrrmHX8/proxy → 422 (0.6ms)
+2026-03-15 23:01:25 | INFO     | main:48 - GET /stream/uT_HXrrmHX8/proxy → 422 (0.8ms)
+2026-03-15 23:01:27 | INFO     | main:48 - GET /stream/uT_HXrrmHX8/proxy → 422 (1.0ms)
+2026-03-15 23:02:00 | INFO     | main:48 - GET /health → 200 (11.5ms)
+2026-03-15 23:02:44 | INFO     | routers.search:39 - Cache HIT for search: 'si'
+2026-03-15 23:02:44 | INFO     | main:48 - GET /search → 200 (13.8ms)
+2026-03-15 23:02:45 | INFO     | routers.search:39 - Cache HIT for search: 'sit'
+2026-03-15 23:02:45 | INFO     | main:48 - GET /search → 200 (1.8ms)
+2026-03-15 23:02:47 | INFO     | routers.search:39 - Cache HIT for search: 'sitaa'
+2026-03-15 23:02:47 | INFO     | main:48 - GET /search → 200 (19.2ms)
+2026-03-15 23:02:47 | INFO     | routers.search:39 - Cache HIT for search: 'sitaare '
+2026-03-15 23:02:47 | INFO     | main:48 - GET /search → 200 (7.2ms)
+2026-03-15 23:02:48 | INFO     | routers.stream:23 - Cache HIT for stream: uT_HXrrmHX8
+2026-03-15 23:02:48 | INFO     | main:48 - GET /stream/uT_HXrrmHX8 → 200 (4.2ms)
+2026-03-15 23:02:49 | INFO     | routers.stream:23 - Cache HIT for stream: uT_HXrrmHX8
+2026-03-15 23:02:49 | INFO     | main:48 - GET /stream/uT_HXrrmHX8/proxy → 200 (32.6ms)
+2026-03-15 23:02:52 | INFO     | routers.stream:23 - Cache HIT for stream: Wqu4MRQOgyo
+2026-03-15 23:02:52 | INFO     | main:48 - GET /stream/Wqu4MRQOgyo → 200 (4.2ms)
+2026-03-15 23:02:52 | INFO     | routers.stream:23 - Cache HIT for stream: Wqu4MRQOgyo
+2026-03-15 23:02:52 | INFO     | main:48 - GET /stream/Wqu4MRQOgyo/proxy → 200 (13.8ms)
+2026-03-15 23:03:06 | INFO     | routers.stream:23 - Cache HIT for stream: Wqu4MRQOgyo
+2026-03-15 23:03:06 | INFO     | main:48 - GET /stream/Wqu4MRQOgyo/proxy → 200 (18.0ms)
+2026-03-15 23:03:26 | INFO     | routers.stream:23 - Cache HIT for stream: uT_HXrrmHX8
+2026-03-15 23:03:26 | INFO     | main:48 - GET /stream/uT_HXrrmHX8 → 200 (3.1ms)
+2026-03-15 23:03:26 | INFO     | routers.stream:23 - Cache HIT for stream: uT_HXrrmHX8
+2026-03-15 23:03:26 | INFO     | main:48 - GET /stream/uT_HXrrmHX8/proxy → 200 (16.7ms)

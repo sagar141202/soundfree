@@ -1,58 +1,53 @@
 import { useCallback } from 'react';
-import { Audio } from 'expo-av';
 import { usePlayerStore } from '../stores/playerStore';
 import { useLibraryStore } from '../stores/libraryStore';
 import { useUIStore } from '../stores/uiStore';
 import { getStreamUrl } from '../lib/api';
 import type { Track } from '../components/TrackListItem';
 
-async function _setupAudioSession() {
-  await Audio.setAudioModeAsync({
-    staysActiveInBackground: true,
-    playsInSilentModeIOS: true,
-    shouldDuckAndroid: true,
-    playThroughEarpieceAndroid: false,
-  });
-}
-
 async function _playTrack(track: Track) {
   try {
     const streamData = await getStreamUrl(track.video_id);
-    if (!streamData?.stream_url) throw new Error('No stream URL');
+    if (!streamData?.stream_url && !streamData?.proxy_url) throw new Error('No stream URL');
 
-    usePlayerStore.getState().setCurrentTrack({ ...track, stream_url: streamData.stream_url });
+    // Use proxy URL to avoid YouTube CDN blocking
+    const playUrl = streamData.proxy_url || streamData.stream_url;
+    console.log('Playing via:', playUrl.slice(0, 60));
+
+    usePlayerStore.getState().setCurrentTrack({ ...track, stream_url: playUrl });
 
     if ((global as any)._soundInstance) {
       try { await (global as any)._soundInstance.unloadAsync(); } catch (_) {}
       (global as any)._soundInstance = null;
     }
 
-    await _setupAudioSession();
+    const { Audio } = require('expo-av');
+
+    await Audio.setAudioModeAsync({
+      staysActiveInBackground: true,
+      playsInSilentModeIOS: true,
+      shouldDuckAndroid: true,
+      playThroughEarpieceAndroid: false,
+    });
 
     const { sound } = await Audio.Sound.createAsync(
-      { uri: streamData.stream_url },
-      {
-        shouldPlay: true,
-        progressUpdateIntervalMillis: 1000,
-        // Android notification metadata
-        androidImplementation: 'MediaPlayer',
-      },
+      { uri: playUrl },
+      { shouldPlay: true, progressUpdateIntervalMillis: 1000 },
       (status: any) => {
         if (status.isLoaded) {
           usePlayerStore.getState().setPosition(status.positionMillis ?? 0);
           usePlayerStore.getState().setDuration(status.durationMillis ?? 0);
-          if (status.didJustFinish) {
-            usePlayerStore.getState().nextTrack();
-          }
+          if (status.didJustFinish) usePlayerStore.getState().nextTrack();
         }
       }
     );
 
     (global as any)._soundInstance = sound;
     usePlayerStore.getState().setIsPlaying(true);
+    console.log('Playback started!');
 
-  } catch (e) {
-    console.error('Failed to play track:', e);
+  } catch (e: any) {
+    console.error('_playTrack error:', e?.message || e);
     usePlayerStore.getState().setIsPlaying(false);
   }
 }
@@ -74,8 +69,9 @@ export function usePlayTrack() {
       if (queue) setQueue(queue, queue.findIndex(t => t.video_id === track.video_id));
       await _playTrack(track);
       addToRecent(track);
-    } catch (e) {
-      console.error('playTrack error:', e);
+    } catch (e: any) {
+      console.error('playTrack error:', e?.message);
+      setIsPlaying(false);
     } finally {
       setIsLoading(false);
     }

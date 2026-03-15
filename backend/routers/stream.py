@@ -1,55 +1,68 @@
-from fastapi import APIRouter, HTTPException
+import httpx
+from fastapi import APIRouter, HTTPException, Request
+from fastapi.responses import StreamingResponse
 from loguru import logger
-from pydantic import BaseModel
 
 from cache import cache_get, cache_set
-from services.stream_service import get_stream_url
+from services.stream_service import get_stream_url as fetch_stream_url
 
 router = APIRouter()
 
 STREAM_CACHE_TTL = 60 * 60 * 5  # 5 hours
 
 
-class StreamResponse(BaseModel):
-    video_id: str
-    stream_url: str
-    format: str
-    expires_at: str
-
-
-def _cache_key(video_id: str) -> str:
-    return f"stream:{video_id}"
-
-
-@router.get("/{video_id}", response_model=StreamResponse)
-async def stream(video_id: str) -> StreamResponse:
-    cache_key = _cache_key(video_id)
-
-    # Check cache first
+async def get_stream_url(video_id: str) -> dict | None:
+    cache_key = f"stream:{video_id}"
     cached = await cache_get(cache_key)
     if cached:
         logger.info(f"Cache HIT for stream: {video_id}")
-        return StreamResponse(**cached)
+        return cached
 
-    # Cache miss — call yt-dlp
-    logger.info(f"Cache MISS for stream: {video_id} — calling yt-dlp")
+    logger.info(f"Cache MISS for stream: {video_id} — fetching")
+    result = await fetch_stream_url(video_id)
+    if result:
+        await cache_set(cache_key, result, STREAM_CACHE_TTL)
+    return result
+
+
+@router.get("/{video_id}")
+async def stream(video_id: str) -> dict:
     result = await get_stream_url(video_id)
-
     if not result:
-        raise HTTPException(
-            status_code=422,
-            detail={"error": "stream_unavailable", "video_id": video_id},
-        )
+        raise HTTPException(status_code=404, detail="Stream not found")
+    return result
 
-    response = StreamResponse(
-        video_id=result.video_id,
-        stream_url=result.stream_url,
-        format=result.format,
-        expires_at=result.expires_at.isoformat(),
+
+@router.get("/{video_id}/proxy")
+async def proxy_stream(video_id: str, request: Request):
+    """Proxy audio through backend to avoid YouTube CDN blocking."""
+    result = await get_stream_url(video_id)
+    if not result:
+        raise HTTPException(status_code=404, detail="Stream not found")
+
+    url = result["stream_url"]
+    range_header = request.headers.get("range", "bytes=0-")
+
+    async def stream_audio():
+        async with httpx.AsyncClient(timeout=60.0) as client:
+            async with client.stream(
+                "GET",
+                url,
+                headers={
+                    "User-Agent": "Mozilla/5.0 (Linux; Android 10) AppleWebKit/537.36",
+                    "Range": range_header,
+                    "Referer": "https://www.youtube.com/",
+                    "Origin": "https://www.youtube.com",
+                },
+            ) as resp:
+                async for chunk in resp.aiter_bytes(chunk_size=65536):
+                    yield chunk
+
+    return StreamingResponse(
+        stream_audio(),
+        media_type="audio/webm",
+        headers={
+            "Accept-Ranges": "bytes",
+            "Cache-Control": "no-cache",
+        },
     )
-
-    # Cache it
-    await cache_set(cache_key, response.model_dump(), STREAM_CACHE_TTL)
-    logger.info(f"Cached stream URL for {video_id} (TTL: 5h)")
-
-    return response
