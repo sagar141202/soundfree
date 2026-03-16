@@ -109,7 +109,7 @@ export default function LibraryScreen() {
           <View style={styles.section}>
             <View style={styles.sectionHeader}>
               <Text style={styles.sectionTitle}>❤️ Liked Songs</Text>
-              <Text style={styles.seeAll}>{likedTracks.length} tracks</Text>
+              <TouchableOpacity onPress={() => router.push('/liked')}><Text style={styles.seeAll}>See all →</Text></TouchableOpacity>
             </View>
             <View style={styles.trackList}>
               {likedTracks.slice(0, 5).map((track, i) => (
@@ -129,7 +129,7 @@ export default function LibraryScreen() {
           <View style={styles.section}>
             <View style={styles.sectionHeader}>
               <Text style={styles.sectionTitle}>🕐 Recently Played</Text>
-              <Text style={styles.seeAll}>{recentlyPlayed.length} tracks</Text>
+              <TouchableOpacity onPress={() => router.push('/recent')}><Text style={styles.seeAll}>See all →</Text></TouchableOpacity>
             </View>
             <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.recentScroll}>
               {recentlyPlayed.slice(0, 10).map((track, i) => {
