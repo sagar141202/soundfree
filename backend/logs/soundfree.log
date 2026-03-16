@@ -2010,3 +2010,43 @@ DETAIL:  Failing row contains (7, null, 4smEofP_5Q4, 2026-03-16 10:23:30.969966+
 2026-03-16 16:21:42 | INFO     | main:61 - GET /recommendations/similar → 200 (31.8ms)
 2026-03-16 16:21:42 | INFO     | main:61 - GET /trending/ → 200 (3.5ms)
 2026-03-16 16:21:42 | INFO     | main:61 - GET /recommendations/cached → 200 (35.6ms)
+2026-03-16 16:25:56 | INFO     | main:61 - GET /trending → 307 (14.7ms)
+2026-03-16 16:25:56 | INFO     | services.recommendation_service:31 - Computing user vector from 23 plays
+2026-03-16 16:25:56 | INFO     | services.recommendation_service:62 - User vector: BPM=143.9 Energy=0.1460 Key=A#
+2026-03-16 16:25:56 | INFO     | services.recommendation_service:31 - Computing user vector from 23 plays
+2026-03-16 16:25:56 | INFO     | services.recommendation_service:62 - User vector: BPM=143.9 Energy=0.1460 Key=A#
+2026-03-16 16:25:56 | INFO     | main:61 - GET /recommendations/similar → 200 (35.6ms)
+2026-03-16 16:25:56 | INFO     | routers.trending:60 - Trending cache HIT (20 tracks)
+2026-03-16 16:25:56 | INFO     | main:61 - GET /trending/ → 200 (1.7ms)
+2026-03-16 16:25:56 | INFO     | main:61 - GET /recommendations/cached → 200 (43.9ms)
+2026-03-16 16:26:00 | INFO     | routers.stream:36 - Cache HIT for stream: PVDPkS4v8FQ
+2026-03-16 16:26:00 | INFO     | main:61 - GET /stream/PVDPkS4v8FQ → 200 (5.6ms)
+2026-03-16 16:26:24 | INFO     | routers.search:43 - Cache MISS for search: 'sitaar' — fetching from YouTube Music
+2026-03-16 16:26:24 | INFO     | services.search_service:43 - Searching YouTube Music: 'sitaar'
+2026-03-16 16:26:26 | INFO     | services.search_service:72 - Search returned 20 tracks for 'sitaar'
+2026-03-16 16:26:26 | INFO     | routers.search:60 - Cached 20 results for 'sitaar' (TTL: 30min)
+2026-03-16 16:26:26 | INFO     | main:61 - GET /search → 200 (1440.0ms)
+2026-03-16 16:26:26 | INFO     | routers.search:43 - Cache MISS for search: 'sitaare ' — fetching from YouTube Music
+2026-03-16 16:26:26 | INFO     | services.search_service:43 - Searching YouTube Music: 'sitaare'
+2026-03-16 16:26:26 | INFO     | services.search_service:72 - Search returned 20 tracks for 'sitaare'
+2026-03-16 16:26:26 | INFO     | routers.search:60 - Cached 20 results for 'sitaare ' (TTL: 30min)
+2026-03-16 16:26:26 | INFO     | main:61 - GET /search → 200 (823.4ms)
+2026-03-16 16:26:29 | INFO     | routers.stream:38 - Cache MISS for stream: uT_HXrrmHX8 — fetching
+2026-03-16 16:26:29 | INFO     | services.stream_service:34 - Extracting stream URL for video_id: uT_HXrrmHX8
+2026-03-16 16:26:31 | INFO     | services.stream_service:59 - Got stream URL for uT_HXrrmHX8 | format: 251 - audio only (medium)
+2026-03-16 16:26:31 | INFO     | main:61 - GET /stream/uT_HXrrmHX8 → 200 (1901.5ms)
+2026-03-16 16:27:11 | INFO     | routers.stream:38 - Cache MISS for stream: WwzbqTaSp7M — fetching
+2026-03-16 16:27:11 | INFO     | services.stream_service:34 - Extracting stream URL for video_id: WwzbqTaSp7M
+2026-03-16 16:27:13 | INFO     | services.stream_service:59 - Got stream URL for WwzbqTaSp7M | format: 251 - audio only (medium)
+2026-03-16 16:27:13 | INFO     | main:61 - GET /stream/WwzbqTaSp7M → 200 (1862.9ms)
+2026-03-16 16:27:22 | INFO     | routers.stream:122 - Logged play: 4smEofP_5Q4
+2026-03-16 16:27:22 | INFO     | main:61 - POST /stream/4smEofP_5Q4/played → 200 (50.3ms)
+2026-03-16 16:27:44 | INFO     | main:61 - GET /trending → 307 (2.5ms)
+2026-03-16 16:27:44 | INFO     | services.recommendation_service:31 - Computing user vector from 24 plays
+2026-03-16 16:27:44 | INFO     | services.recommendation_service:62 - User vector: BPM=146.7 Energy=0.1542 Key=A#
+2026-03-16 16:27:44 | INFO     | services.recommendation_service:31 - Computing user vector from 24 plays
+2026-03-16 16:27:44 | INFO     | services.recommendation_service:62 - User vector: BPM=146.7 Energy=0.1542 Key=A#
+2026-03-16 16:27:44 | INFO     | main:61 - GET /recommendations/similar → 200 (12.4ms)
+2026-03-16 16:27:44 | INFO     | routers.trending:60 - Trending cache HIT (20 tracks)
+2026-03-16 16:27:44 | INFO     | main:61 - GET /trending/ → 200 (1.7ms)
+2026-03-16 16:27:44 | INFO     | main:61 - GET /recommendations/cached → 200 (31.2ms)
