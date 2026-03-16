@@ -4,14 +4,24 @@ import { usePlayerStore } from '../stores/playerStore';
 import { useLibraryStore } from '../stores/libraryStore';
 import { useUIStore } from '../stores/uiStore';
 import { getStreamUrl, logPlay } from '../lib/api';
+import { isDownloaded, getLocalPath } from './useDownload';
 import type { Track } from '../components/TrackListItem';
 
 async function _playTrack(track: Track) {
   try {
-    const streamData = await getStreamUrl(track.video_id);
-    if (!streamData?.stream_url && !streamData?.proxy_url) throw new Error('No stream URL');
+    // Use local file if downloaded
+    const localAvailable = await isDownloaded(track.video_id);
+    let playUrl: string;
 
-    const playUrl = streamData.proxy_url || streamData.stream_url;
+    if (localAvailable) {
+      playUrl = getLocalPath(track.video_id);
+      console.log('Playing from local:', playUrl);
+    } else {
+      const streamData = await getStreamUrl(track.video_id);
+      if (!streamData?.stream_url && !streamData?.proxy_url) throw new Error('No stream URL');
+      playUrl = streamData.proxy_url || streamData.stream_url;
+      console.log('Playing via proxy:', playUrl.slice(0, 60));
+    }
     usePlayerStore.getState().setCurrentTrack({ ...track, stream_url: playUrl });
 
     if ((global as any)._soundInstance) {

@@ -1,18 +1,17 @@
 import { useState, useCallback } from 'react';
 import * as FileSystem from 'expo-file-system';
-import { useLibraryStore } from '../stores/libraryStore';
+import { saveTrack, deleteTrack, getTrack } from '../services/localDb';
 import type { Track } from '../components/TrackListItem';
 
 const API_URL = process.env.EXPO_PUBLIC_API_URL || 'http://10.53.24.112:8000';
 const DOWNLOAD_DIR = `${FileSystem.documentDirectory}soundfree/audio/`;
 
 export interface DownloadState {
-  progress: number; // 0-1
+  progress: number;
   status: 'idle' | 'downloading' | 'done' | 'error';
   localUri?: string;
 }
 
-// Global download state map
 const downloadStates: Record<string, DownloadState> = {};
 const listeners: Record<string, Set<(state: DownloadState) => void>> = {};
 
@@ -33,13 +32,13 @@ export function getLocalPath(videoId: string): string {
 }
 
 export async function isDownloaded(videoId: string): Promise<boolean> {
-  const info = await FileSystem.getInfoAsync(getLocalPath(videoId));
+  const localPath = getLocalPath(videoId);
+  const info = await FileSystem.getInfoAsync(localPath);
   return info.exists && (info as any).size > 0;
 }
 
 export async function downloadTrack(track: Track): Promise<void> {
   const videoId = track.video_id;
-
   if (downloadStates[videoId]?.status === 'downloading') return;
 
   notify(videoId, { progress: 0, status: 'downloading' });
@@ -48,15 +47,17 @@ export async function downloadTrack(track: Track): Promise<void> {
     await ensureDir();
     const localPath = getLocalPath(videoId);
 
-    // Check if already downloaded
-    const exists = await isDownloaded(videoId);
-    if (exists) {
-      notify(videoId, { progress: 1, status: 'done', localUri: localPath });
-      return;
+    // Check SQLite cache
+    const existing = await getTrack(videoId);
+    if (existing) {
+      const info = await FileSystem.getInfoAsync(localPath);
+      if (info.exists) {
+        notify(videoId, { progress: 1, status: 'done', localUri: localPath });
+        return;
+      }
     }
 
     const downloadUrl = `${API_URL}/download/${videoId}`;
-
     const downloadResumable = FileSystem.createDownloadResumable(
       downloadUrl,
       localPath,
@@ -70,16 +71,31 @@ export async function downloadTrack(track: Track): Promise<void> {
     const result = await downloadResumable.downloadAsync();
 
     if (result?.uri) {
+      // Get file size
+      const fileInfo = await FileSystem.getInfoAsync(result.uri);
+      const fileSize = (fileInfo as any).size ?? 0;
+
+      // Save metadata to SQLite
+      await saveTrack({
+        video_id: videoId,
+        title: track.title,
+        artist: track.artist,
+        album: track.album,
+        duration_ms: track.duration_ms,
+        thumbnail_url: track.thumbnail_url,
+        local_path: result.uri,
+        file_size: fileSize,
+      });
+
       notify(videoId, { progress: 1, status: 'done', localUri: result.uri });
-      console.log(`Downloaded: ${videoId} → ${result.uri}`);
+      console.log(`Downloaded & saved: ${track.title} (${Math.round(fileSize / 1024)}KB)`);
     } else {
-      throw new Error('Download failed — no URI returned');
+      throw new Error('No URI returned');
     }
 
   } catch (e: any) {
     console.error('Download error:', e?.message);
     notify(videoId, { progress: 0, status: 'error' });
-    // Clean up partial file
     try {
       await FileSystem.deleteAsync(getLocalPath(videoId), { idempotent: true });
     } catch (_) {}
@@ -89,6 +105,7 @@ export async function downloadTrack(track: Track): Promise<void> {
 export async function deleteDownload(videoId: string): Promise<void> {
   try {
     await FileSystem.deleteAsync(getLocalPath(videoId), { idempotent: true });
+    await deleteTrack(videoId);
     notify(videoId, { progress: 0, status: 'idle' });
     console.log(`Deleted download: ${videoId}`);
   } catch (e) {
@@ -96,42 +113,31 @@ export async function deleteDownload(videoId: string): Promise<void> {
   }
 }
 
-export function useDownloadState(videoId: string): DownloadState & {
-  download: (track: Track) => void;
-  remove: () => void;
-} {
+export function useDownloadState(videoId: string) {
   const [state, setState] = useState<DownloadState>(
     downloadStates[videoId] || { progress: 0, status: 'idle' }
   );
 
-  // Subscribe to updates
-  const subscribe = useCallback(() => {
+  useState(() => {
+    // Subscribe
     if (!listeners[videoId]) listeners[videoId] = new Set();
     const cb = (s: DownloadState) => setState({ ...s });
     listeners[videoId].add(cb);
-    return () => listeners[videoId].delete(cb);
-  }, [videoId]);
 
-  useState(() => {
-    // Check if already downloaded on mount
-    isDownloaded(videoId).then(exists => {
-      if (exists) {
-        const path = getLocalPath(videoId);
-        setState({ progress: 1, status: 'done', localUri: path });
-        downloadStates[videoId] = { progress: 1, status: 'done', localUri: path };
+    // Check SQLite + filesystem on mount
+    Promise.all([getTrack(videoId), isDownloaded(videoId)]).then(([dbTrack, fileExists]) => {
+      if (dbTrack && fileExists) {
+        const s = { progress: 1, status: 'done' as const, localUri: getLocalPath(videoId) };
+        setState(s);
+        downloadStates[videoId] = s;
       }
     });
-    return subscribe();
+
+    return () => listeners[videoId]?.delete(cb);
   });
 
-  const download = useCallback((track: Track) => {
-    downloadTrack(track);
-  }, []);
-
-  const remove = useCallback(() => {
-    deleteDownload(videoId);
-    setState({ progress: 0, status: 'idle' });
-  }, [videoId]);
+  const download = useCallback((track: Track) => downloadTrack(track), []);
+  const remove = useCallback(() => deleteDownload(videoId), [videoId]);
 
   return { ...state, download, remove };
 }
