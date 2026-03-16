@@ -10,7 +10,7 @@ from slowapi.middleware import SlowAPIMiddleware
 from config import settings
 from limiter import limiter
 from logger import setup_logging
-from routers import download, likes, lyrics, metadata, recommendations, search, stream
+from routers import download, likes, lyrics, metadata, recommendations, search, stream, trending
 from services.background_jobs import start_worker
 from services.scheduler import start_scheduler
 
@@ -43,6 +43,7 @@ app.include_router(lyrics.router, prefix="/lyrics", tags=["lyrics"])
 app.include_router(likes.router, prefix="/likes", tags=["likes"])
 app.include_router(download.router, prefix="/download", tags=["download"])
 app.include_router(recommendations.router, prefix="/recommendations", tags=["recommendations"])
+app.include_router(trending.router, prefix="/trending", tags=["trending"])
 
 
 @app.on_event("startup")

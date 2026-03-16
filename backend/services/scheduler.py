@@ -7,6 +7,21 @@ from loguru import logger
 scheduler = AsyncIOScheduler()
 
 
+async def refresh_trending_cache():
+    """Refresh trending tracks every 6 hours."""
+    logger.info("Refreshing trending tracks cache...")
+    try:
+        from cache import cache_set
+        from routers.trending import _fetch_trending
+
+        tracks = await _fetch_trending()
+        if tracks:
+            await cache_set("trending:india", tracks, 60 * 60 * 6)
+            logger.info(f"Trending cache refreshed: {len(tracks)} tracks")
+    except Exception as e:
+        logger.error(f"Trending refresh failed: {e}")
+
+
 async def rebuild_recommendations():
     """Nightly job: rebuild index + cache recommendations in Redis."""
     logger.info("Nightly recommendation rebuild starting...")
@@ -65,6 +80,15 @@ async def start_scheduler():
         DateTrigger(run_date=startup_time),
         id="startup_rebuild",
         name="Startup recommendation warmup",
+        replace_existing=True,
+    )
+
+    # Trending refresh every 6 hours
+    scheduler.add_job(
+        refresh_trending_cache,
+        CronTrigger(hour="*/6", minute=0),
+        id="trending_refresh",
+        name="Trending tracks refresh",
         replace_existing=True,
     )
 

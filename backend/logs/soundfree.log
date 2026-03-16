@@ -1907,3 +1907,78 @@ DETAIL:  Failing row contains (7, null, 4smEofP_5Q4, 2026-03-16 10:23:30.969966+
 2026-03-16 16:14:45 | INFO     | services.recommendation_service:31 - Computing user vector from 23 plays
 2026-03-16 16:14:45 | INFO     | services.recommendation_service:62 - User vector: BPM=143.9 Energy=0.1460 Key=A#
 2026-03-16 16:14:45 | INFO     | main:60 - GET /recommendations/cached → 200 (43.7ms)
+2026-03-16 16:16:46 | INFO     | services.background_jobs:82 - Background worker task created
+2026-03-16 16:16:46 | INFO     | services.scheduler:72 - Scheduler started — nightly rebuild at 2:00 AM, warmup in 30s
+2026-03-16 16:16:46 | INFO     | main:53 - SoundFree API started
+2026-03-16 16:16:46 | INFO     | services.background_jobs:13 - Background job worker started
+2026-03-16 16:16:52 | INFO     | services.background_jobs:82 - Background worker task created
+2026-03-16 16:16:52 | INFO     | services.scheduler:95 - Scheduler started — nightly rebuild at 2:00 AM, warmup in 30s
+2026-03-16 16:16:52 | INFO     | main:53 - SoundFree API started
+2026-03-16 16:16:52 | INFO     | services.background_jobs:13 - Background job worker started
+2026-03-16 16:17:02 | INFO     | routers.trending:62 - Fetching fresh trending tracks...
+2026-03-16 16:17:02 | INFO     | services.search_service:43 - Searching YouTube Music: 'top hindi songs 2025'
+2026-03-16 16:17:04 | INFO     | services.search_service:72 - Search returned 20 tracks for 'top hindi songs 2025'
+2026-03-16 16:17:04 | WARNING  | routers.trending:42 - Trending query failed 'top hindi songs 2025': 'TrackResult' object has no attribute 'get'
+2026-03-16 16:17:04 | INFO     | services.search_service:43 - Searching YouTube Music: 'trending bollywood music'
+2026-03-16 16:17:04 | INFO     | services.search_service:72 - Search returned 20 tracks for 'trending bollywood music'
+2026-03-16 16:17:04 | WARNING  | routers.trending:42 - Trending query failed 'trending bollywood music': 'TrackResult' object has no attribute 'get'
+2026-03-16 16:17:04 | INFO     | services.search_service:43 - Searching YouTube Music: 'top telugu songs 2025'
+2026-03-16 16:17:05 | INFO     | services.search_service:72 - Search returned 20 tracks for 'top telugu songs 2025'
+2026-03-16 16:17:05 | WARNING  | routers.trending:42 - Trending query failed 'top telugu songs 2025': 'TrackResult' object has no attribute 'get'
+2026-03-16 16:17:05 | INFO     | services.search_service:43 - Searching YouTube Music: 'viral india music 2025'
+2026-03-16 16:17:06 | INFO     | services.search_service:72 - Search returned 20 tracks for 'viral india music 2025'
+2026-03-16 16:17:06 | WARNING  | routers.trending:42 - Trending query failed 'viral india music 2025': 'TrackResult' object has no attribute 'get'
+2026-03-16 16:17:06 | INFO     | main:61 - GET /trending/ → 200 (3749.4ms)
+2026-03-16 16:17:06 | INFO     | services.recommendation_service:31 - Computing user vector from 23 plays
+2026-03-16 16:17:06 | INFO     | services.recommendation_service:62 - User vector: BPM=143.9 Energy=0.1460 Key=A#
+2026-03-16 16:17:06 | INFO     | services.recommendation_service:31 - Computing user vector from 23 plays
+2026-03-16 16:17:06 | INFO     | services.recommendation_service:62 - User vector: BPM=143.9 Energy=0.1460 Key=A#
+2026-03-16 16:17:06 | INFO     | main:61 - GET /recommendations/similar → 200 (3819.4ms)
+2026-03-16 16:17:06 | INFO     | main:61 - GET /recommendations/cached → 200 (3835.6ms)
+2026-03-16 16:17:17 | INFO     | routers.trending:62 - Fetching fresh trending tracks...
+2026-03-16 16:17:17 | INFO     | services.search_service:43 - Searching YouTube Music: 'top hindi songs 2025'
+2026-03-16 16:17:18 | INFO     | services.search_service:72 - Search returned 20 tracks for 'top hindi songs 2025'
+2026-03-16 16:17:18 | WARNING  | routers.trending:42 - Trending query failed 'top hindi songs 2025': 'TrackResult' object has no attribute 'get'
+2026-03-16 16:17:18 | INFO     | services.search_service:43 - Searching YouTube Music: 'trending bollywood music'
+2026-03-16 16:17:18 | INFO     | services.search_service:72 - Search returned 20 tracks for 'trending bollywood music'
+2026-03-16 16:17:18 | WARNING  | routers.trending:42 - Trending query failed 'trending bollywood music': 'TrackResult' object has no attribute 'get'
+2026-03-16 16:17:18 | INFO     | services.search_service:43 - Searching YouTube Music: 'top telugu songs 2025'
+2026-03-16 16:17:19 | INFO     | services.search_service:72 - Search returned 20 tracks for 'top telugu songs 2025'
+2026-03-16 16:17:19 | WARNING  | routers.trending:42 - Trending query failed 'top telugu songs 2025': 'TrackResult' object has no attribute 'get'
+2026-03-16 16:17:19 | INFO     | services.search_service:43 - Searching YouTube Music: 'viral india music 2025'
+2026-03-16 16:17:20 | INFO     | services.search_service:72 - Search returned 20 tracks for 'viral india music 2025'
+2026-03-16 16:17:20 | WARNING  | routers.trending:42 - Trending query failed 'viral india music 2025': 'TrackResult' object has no attribute 'get'
+2026-03-16 16:17:20 | INFO     | main:61 - GET /trending/ → 200 (2537.7ms)
+2026-03-16 16:17:22 | INFO     | services.scheduler:26 - Nightly recommendation rebuild starting...
+2026-03-16 16:17:22 | INFO     | services.annoy_service:40 - Building index from 5 tracks
+2026-03-16 16:17:22 | INFO     | services.annoy_service:74 - Index built: 5 tracks → /tmp/soundfree_index/tracks_vectors.npy
+2026-03-16 16:17:22 | INFO     | services.scheduler:33 - Index rebuilt: {'status': 'ok', 'count': 5, 'path': '/tmp/soundfree_index/tracks_vectors.npy'}
+2026-03-16 16:17:22 | INFO     | services.recommendation_service:31 - Computing user vector from 23 plays
+2026-03-16 16:17:22 | INFO     | services.recommendation_service:62 - User vector: BPM=143.9 Energy=0.1460 Key=A#
+2026-03-16 16:17:22 | INFO     | services.recommendation_service:31 - Computing user vector from 23 plays
+2026-03-16 16:17:22 | INFO     | services.recommendation_service:62 - User vector: BPM=143.9 Energy=0.1460 Key=A#
+2026-03-16 16:17:22 | INFO     | services.recommendation_service:144 - Top recommendation: Bohemian Rhapsody (score=0.6868)
+2026-03-16 16:17:22 | ERROR    | services.scheduler:57 - Recommendation rebuild failed: cache_set() got an unexpected keyword argument 'ttl'
+2026-03-16 16:18:29 | INFO     | services.background_jobs:82 - Background worker task created
+2026-03-16 16:18:29 | INFO     | services.scheduler:95 - Scheduler started — nightly rebuild at 2:00 AM, warmup in 30s
+2026-03-16 16:18:29 | INFO     | main:53 - SoundFree API started
+2026-03-16 16:18:29 | INFO     | services.background_jobs:13 - Background job worker started
+2026-03-16 16:18:34 | INFO     | routers.trending:62 - Fetching fresh trending tracks...
+2026-03-16 16:18:34 | INFO     | services.search_service:43 - Searching YouTube Music: 'top hindi songs 2025'
+2026-03-16 16:18:35 | INFO     | services.search_service:72 - Search returned 20 tracks for 'top hindi songs 2025'
+2026-03-16 16:18:35 | INFO     | routers.trending:50 - Fetched 20 trending tracks
+2026-03-16 16:18:35 | INFO     | main:61 - GET /trending/ → 200 (1448.8ms)
+2026-03-16 16:18:59 | INFO     | services.scheduler:26 - Nightly recommendation rebuild starting...
+2026-03-16 16:19:00 | INFO     | services.annoy_service:40 - Building index from 5 tracks
+2026-03-16 16:19:00 | INFO     | services.annoy_service:74 - Index built: 5 tracks → /tmp/soundfree_index/tracks_vectors.npy
+2026-03-16 16:19:00 | INFO     | services.scheduler:33 - Index rebuilt: {'status': 'ok', 'count': 5, 'path': '/tmp/soundfree_index/tracks_vectors.npy'}
+2026-03-16 16:19:00 | INFO     | services.recommendation_service:31 - Computing user vector from 23 plays
+2026-03-16 16:19:00 | INFO     | services.recommendation_service:62 - User vector: BPM=143.9 Energy=0.1460 Key=A#
+2026-03-16 16:19:00 | INFO     | services.recommendation_service:31 - Computing user vector from 23 plays
+2026-03-16 16:19:00 | INFO     | services.recommendation_service:62 - User vector: BPM=143.9 Energy=0.1460 Key=A#
+2026-03-16 16:19:00 | INFO     | services.recommendation_service:144 - Top recommendation: Bohemian Rhapsody (score=0.6868)
+2026-03-16 16:19:00 | ERROR    | services.scheduler:57 - Recommendation rebuild failed: cache_set() got an unexpected keyword argument 'ttl'
+2026-03-16 16:19:20 | INFO     | services.background_jobs:82 - Background worker task created
+2026-03-16 16:19:20 | INFO     | services.scheduler:96 - Scheduler started — nightly rebuild at 2:00 AM, warmup in 30s
+2026-03-16 16:19:20 | INFO     | main:53 - SoundFree API started
+2026-03-16 16:19:20 | INFO     | services.background_jobs:13 - Background job worker started
