@@ -7,19 +7,13 @@ import { StatusBar } from 'expo-status-bar';
 import { useRef, useEffect, useState } from 'react';
 import { router } from 'expo-router';
 import { usePlayerStore } from '../stores/playerStore';
+import { useUIStore } from '../stores/uiStore';
 import { usePlayTrack, seekToPosition } from '../hooks/usePlayTrack';
+import { useAccentColor } from '../hooks/useAccentColor';
 import ProgressBar from '../components/ProgressBar';
 import LyricsView from '../components/LyricsView';
 
 const { width, height } = Dimensions.get('window');
-
-const THUMB_COLORS = [
-  ['#C4B5FD', '#A78BFA'],
-  ['#7DD3FC', '#93C5FD'],
-  ['#86EFAC', '#6EE7B7'],
-  ['#FDE68A', '#FCA5A5'],
-  ['#FBCFE8', '#F9A8D4'],
-];
 
 function BlurredBackground({ imageUrl }: { imageUrl: string | null }) {
   const opacity = useRef(new Animated.Value(0)).current;
@@ -71,6 +65,7 @@ export default function FullPlayer() {
   const toggleShuffle = usePlayerStore(s => s.toggleShuffle);
   const toggleRepeat = usePlayerStore(s => s.toggleRepeat);
   const { togglePlayPause } = usePlayTrack();
+  const { getPalette } = useAccentColor();
 
   const artScale = useRef(new Animated.Value(0.92)).current;
   const slideAnim = useRef(new Animated.Value(height)).current;
@@ -105,20 +100,15 @@ export default function FullPlayer() {
   const toggleLyrics = () => {
     if (!showLyrics) {
       setShowLyrics(true);
-      Animated.spring(lyricsSlide, {
-        toValue: 0, useNativeDriver: true,
-        tension: 70, friction: 12,
-      }).start();
+      Animated.spring(lyricsSlide, { toValue: 0, useNativeDriver: true, tension: 70, friction: 12 }).start();
     } else {
-      Animated.timing(lyricsSlide, {
-        toValue: height, duration: 300, useNativeDriver: true,
-      }).start(() => setShowLyrics(false));
+      Animated.timing(lyricsSlide, { toValue: height, duration: 300, useNativeDriver: true }).start(() => setShowLyrics(false));
     }
   };
 
   if (!currentTrack) { router.back(); return null; }
 
-  const colorIndex = currentTrack.video_id.charCodeAt(0) % THUMB_COLORS.length;
+  const palette = getPalette(currentTrack.video_id);
 
   return (
     <Animated.View style={[styles.container, { transform: [{ translateY: slideAnim }] }]}>
@@ -127,12 +117,12 @@ export default function FullPlayer() {
 
       {/* Header */}
       <View style={styles.header}>
-        <TouchableOpacity style={styles.backBtn} onPress={() => router.back()}>
-          <LinearGradient colors={['rgba(167,139,250,0.2)', 'rgba(167,139,250,0.1)']} style={StyleSheet.absoluteFillObject} />
-          <Text style={styles.backIcon}>↓</Text>
+        <TouchableOpacity style={[styles.backBtn, { borderColor: palette.light }]} onPress={() => router.back()}>
+          <LinearGradient colors={[palette.light, 'rgba(255,255,255,0.1)']} style={StyleSheet.absoluteFillObject} />
+          <Text style={[styles.backIcon, { color: palette.accent }]}>↓</Text>
         </TouchableOpacity>
         <View style={styles.headerCenter}>
-          <Text style={styles.headerLabel}>NOW PLAYING</Text>
+          <Text style={[styles.headerLabel, { color: palette.accent }]}>NOW PLAYING</Text>
           {currentTrack.album && <Text style={styles.headerAlbum} numberOfLines={1}>{currentTrack.album}</Text>}
         </View>
         <TouchableOpacity style={styles.moreBtn}>
@@ -143,11 +133,11 @@ export default function FullPlayer() {
       {/* Album Art */}
       <View style={styles.artWrap}>
         <Animated.View style={[styles.artContainer, { transform: [{ scale: artScale }], opacity: artOpacity }]}>
-          <View style={styles.artShadow} />
+          <View style={[styles.artShadow, { backgroundColor: palette.light }]} />
           {currentTrack.thumbnail_url ? (
             <Image source={{ uri: currentTrack.thumbnail_url }} style={styles.art} resizeMode="cover" />
           ) : (
-            <LinearGradient colors={THUMB_COLORS[colorIndex] as [string, string]} style={styles.art}>
+            <LinearGradient colors={palette.bg} style={styles.art}>
               <Text style={styles.artEmoji}>🎵</Text>
             </LinearGradient>
           )}
@@ -168,18 +158,23 @@ export default function FullPlayer() {
       </View>
 
       {/* Progress Bar */}
-      <ProgressBar position={position} duration={duration} onSeek={seekToPosition} />
+      <ProgressBar
+        position={position}
+        duration={duration}
+        onSeek={seekToPosition}
+        accentColors={palette.bg}
+      />
 
       {/* Controls */}
       <View style={styles.controls}>
         <TouchableOpacity style={styles.controlBtn} onPress={toggleShuffle}>
-          <Text style={[styles.controlIcon, isShuffled && styles.controlActive]}>⇄</Text>
+          <Text style={[styles.controlIcon, isShuffled && { color: palette.accent }]}>⇄</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.controlBtn} onPress={previousTrack}>
           <Text style={styles.controlIconLg}>⏮</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.playBtn} onPress={togglePlayPause}>
-          <LinearGradient colors={['#C4B5FD', '#A78BFA', '#818CF8']} style={styles.playGrad} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}>
+          <LinearGradient colors={[palette.bg[0], palette.bg[1]]} style={styles.playGrad} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}>
             <Text style={styles.playIcon}>{isPlaying ? '⏸' : '▶'}</Text>
           </LinearGradient>
         </TouchableOpacity>
@@ -187,7 +182,7 @@ export default function FullPlayer() {
           <Text style={styles.controlIconLg}>⏭</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.controlBtn} onPress={toggleRepeat}>
-          <Text style={[styles.controlIcon, repeatMode !== 'none' && styles.controlActive]}>
+          <Text style={[styles.controlIcon, repeatMode !== 'none' && { color: palette.accent }]}>
             {repeatMode === 'one' ? '🔂' : '🔁'}
           </Text>
         </TouchableOpacity>
@@ -196,61 +191,46 @@ export default function FullPlayer() {
       {/* Action row */}
       <View style={styles.actionRow}>
         {[
-          { icon: '⬇️', label: 'Download', onPress: () => {} },
+          { icon: '⬇️', label: 'Download', onPress: () => {}, active: false },
           { icon: '🎵', label: showLyrics ? 'Hide' : 'Lyrics', onPress: toggleLyrics, active: showLyrics },
-          { icon: '📋', label: 'Queue', onPress: () => {} },
-          { icon: '⏱️', label: 'Sleep', onPress: () => {} },
-          { icon: '↗️', label: 'Share', onPress: () => {} },
+          { icon: '📋', label: 'Queue', onPress: () => {}, active: false },
+          { icon: '⏱️', label: 'Sleep', onPress: () => {}, active: false },
+          { icon: '↗️', label: 'Share', onPress: () => {}, active: false },
         ].map((a, i) => (
           <TouchableOpacity key={i} style={styles.actionBtn} onPress={a.onPress}>
-            <View style={[styles.actionIconWrap, a.active && styles.actionIconWrapActive]}>
+            <View style={[styles.actionIconWrap, a.active && { borderColor: palette.accent }]}>
               <LinearGradient
-                colors={a.active ? ['rgba(167,139,250,0.4)', 'rgba(125,211,252,0.3)'] : ['rgba(167,139,250,0.15)', 'rgba(125,211,252,0.08)']}
+                colors={a.active ? [palette.light, palette.light] : ['rgba(167,139,250,0.1)', 'rgba(125,211,252,0.05)']}
                 style={StyleSheet.absoluteFillObject}
               />
               <Text style={styles.actionIcon}>{a.icon}</Text>
             </View>
-            <Text style={[styles.actionLabel, a.active && styles.actionLabelActive]}>{a.label}</Text>
+            <Text style={[styles.actionLabel, a.active && { color: palette.accent }]}>{a.label}</Text>
           </TouchableOpacity>
         ))}
       </View>
 
-      {/* Lyrics overlay — slides up from bottom */}
+      {/* Lyrics overlay */}
       {showLyrics && (
         <Animated.View style={[styles.lyricsOverlay, { transform: [{ translateY: lyricsSlide }] }]}>
-          <LinearGradient
-            colors={['rgba(250,251,255,0.98)', 'rgba(240,244,255,0.98)']}
-            style={StyleSheet.absoluteFillObject}
-          />
+          <LinearGradient colors={['rgba(250,251,255,0.98)', 'rgba(240,244,255,0.98)']} style={StyleSheet.absoluteFillObject} />
           {currentTrack.thumbnail_url && (
-            <Animated.Image
-              source={{ uri: currentTrack.thumbnail_url }}
-              style={[StyleSheet.absoluteFillObject, { opacity: 0.08 }]}
-              blurRadius={30}
-              resizeMode="cover"
-            />
+            <Animated.Image source={{ uri: currentTrack.thumbnail_url }} style={[StyleSheet.absoluteFillObject, { opacity: 0.06 }]} blurRadius={30} resizeMode="cover" />
           )}
-
-          {/* Lyrics header */}
           <View style={styles.lyricsHeader}>
-            <View style={styles.lyricsPill} />
+            <View style={[styles.lyricsPill, { backgroundColor: palette.light }]} />
             <View style={styles.lyricsHeaderRow}>
               <View>
                 <Text style={styles.lyricsTitle}>Lyrics</Text>
                 <Text style={styles.lyricsSubtitle} numberOfLines={1}>{currentTrack.title}</Text>
               </View>
-              <TouchableOpacity style={styles.lyricsCloseBtn} onPress={toggleLyrics}>
-                <LinearGradient colors={['rgba(167,139,250,0.2)', 'rgba(167,139,250,0.1)']} style={StyleSheet.absoluteFillObject} />
-                <Text style={styles.lyricsCloseIcon}>↓</Text>
+              <TouchableOpacity style={[styles.lyricsCloseBtn, { borderColor: palette.light }]} onPress={toggleLyrics}>
+                <LinearGradient colors={[palette.light, 'rgba(255,255,255,0.1)']} style={StyleSheet.absoluteFillObject} />
+                <Text style={[styles.lyricsCloseIcon, { color: palette.accent }]}>↓</Text>
               </TouchableOpacity>
             </View>
           </View>
-
-          <LyricsView
-            videoId={currentTrack.video_id}
-            artist={currentTrack.artist}
-            title={currentTrack.title}
-          />
+          <LyricsView videoId={currentTrack.video_id} artist={currentTrack.artist} title={currentTrack.title} accentColor={palette.accent} />
         </Animated.View>
       )}
     </Animated.View>
@@ -261,16 +241,16 @@ const styles = StyleSheet.create({
   container: { flex: 1 },
   bgImage: { position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, width, height },
   header: { flexDirection: 'row', alignItems: 'center', paddingTop: 56, paddingHorizontal: 24, paddingBottom: 8 },
-  backBtn: { width: 42, height: 42, borderRadius: 21, alignItems: 'center', justifyContent: 'center', overflow: 'hidden', borderWidth: 1.5, borderColor: 'rgba(167,139,250,0.3)' },
-  backIcon: { fontSize: 20, color: '#7C3AED' },
+  backBtn: { width: 42, height: 42, borderRadius: 21, alignItems: 'center', justifyContent: 'center', overflow: 'hidden', borderWidth: 1.5 },
+  backIcon: { fontSize: 20 },
   headerCenter: { flex: 1, alignItems: 'center' },
-  headerLabel: { fontSize: 11, color: '#7C3AED', fontWeight: '800', letterSpacing: 2 },
+  headerLabel: { fontSize: 11, fontWeight: '800', letterSpacing: 2 },
   headerAlbum: { fontSize: 12, color: '#6B7280', marginTop: 2, maxWidth: 200 },
   moreBtn: { width: 42, height: 42, alignItems: 'center', justifyContent: 'center' },
   moreIcon: { fontSize: 24, color: '#6B7280' },
   artWrap: { alignItems: 'center', paddingVertical: 16 },
   artContainer: { position: 'relative' },
-  artShadow: { position: 'absolute', top: 12, left: 12, right: 12, bottom: -8, borderRadius: 28, backgroundColor: 'rgba(167,139,250,0.3)' },
+  artShadow: { position: 'absolute', top: 12, left: 12, right: 12, bottom: -8, borderRadius: 28 },
   art: { width: width * 0.72, height: width * 0.72, borderRadius: 28, alignItems: 'center', justifyContent: 'center', borderWidth: 2, borderColor: 'rgba(255,255,255,0.9)' },
   artEmoji: { fontSize: 80 },
   trackInfo: { paddingHorizontal: 28, marginBottom: 8 },
@@ -283,7 +263,6 @@ const styles = StyleSheet.create({
   controls: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 28, marginBottom: 24 },
   controlBtn: { width: 48, height: 48, alignItems: 'center', justifyContent: 'center' },
   controlIcon: { fontSize: 22, color: '#9CA3AF' },
-  controlActive: { color: '#7C3AED' },
   controlIconLg: { fontSize: 28, color: '#1E1B4B' },
   playBtn: { borderRadius: 40, overflow: 'hidden' },
   playGrad: { width: 72, height: 72, borderRadius: 36, alignItems: 'center', justifyContent: 'center' },
@@ -291,20 +270,14 @@ const styles = StyleSheet.create({
   actionRow: { flexDirection: 'row', justifyContent: 'space-around', paddingHorizontal: 24 },
   actionBtn: { alignItems: 'center', gap: 6 },
   actionIconWrap: { width: 48, height: 48, borderRadius: 16, alignItems: 'center', justifyContent: 'center', overflow: 'hidden', borderWidth: 1.5, borderColor: 'rgba(167,139,250,0.2)' },
-  actionIconWrapActive: { borderColor: 'rgba(167,139,250,0.5)' },
   actionIcon: { fontSize: 20 },
   actionLabel: { fontSize: 11, color: '#6B7280', fontWeight: '600' },
-  actionLabelActive: { color: '#7C3AED' },
-  lyricsOverlay: {
-    position: 'absolute', top: 0, left: 0, right: 0, bottom: 0,
-    borderTopLeftRadius: 32, borderTopRightRadius: 32,
-    overflow: 'hidden',
-  },
+  lyricsOverlay: { position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, borderTopLeftRadius: 32, borderTopRightRadius: 32, overflow: 'hidden' },
   lyricsHeader: { paddingTop: 12, paddingHorizontal: 24, paddingBottom: 8 },
-  lyricsPill: { width: 40, height: 4, backgroundColor: 'rgba(167,139,250,0.4)', borderRadius: 2, alignSelf: 'center', marginBottom: 16 },
+  lyricsPill: { width: 40, height: 4, borderRadius: 2, alignSelf: 'center', marginBottom: 16 },
   lyricsHeaderRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
   lyricsTitle: { fontSize: 24, fontWeight: '900', color: '#1E1B4B' },
   lyricsSubtitle: { fontSize: 13, color: '#6B7280', marginTop: 2 },
-  lyricsCloseBtn: { width: 42, height: 42, borderRadius: 21, alignItems: 'center', justifyContent: 'center', overflow: 'hidden', borderWidth: 1.5, borderColor: 'rgba(167,139,250,0.3)' },
-  lyricsCloseIcon: { fontSize: 20, color: '#7C3AED' },
+  lyricsCloseBtn: { width: 42, height: 42, borderRadius: 21, alignItems: 'center', justifyContent: 'center', overflow: 'hidden', borderWidth: 1.5 },
+  lyricsCloseIcon: { fontSize: 20 },
 });

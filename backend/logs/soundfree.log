@@ -872,3 +872,62 @@ DETAIL:  Key (video_id)=(4smEofP_5Q4) is not present in table "tracks".
 2026-03-16 11:26:00 | INFO     | main:48 - GET /stream/Wqu4MRQOgyo/proxy → 200 (13.8ms)
 2026-03-16 11:26:37 | INFO     | routers.lyrics:98 - Redis HIT for lyrics: Wqu4MRQOgyo
 2026-03-16 11:26:37 | INFO     | main:48 - GET /lyrics/Wqu4MRQOgyo → 200 (6.7ms)
+2026-03-16 11:28:01 | INFO     | main:48 - GET /health → 200 (3.5ms)
+2026-03-16 11:29:22 | INFO     | routers.search:43 - Cache MISS for search: 'dhun' — fetching from YouTube Music
+2026-03-16 11:29:22 | INFO     | services.search_service:43 - Searching YouTube Music: 'dhun'
+2026-03-16 11:29:23 | INFO     | services.search_service:72 - Search returned 20 tracks for 'dhun'
+2026-03-16 11:29:23 | INFO     | routers.search:60 - Cached 20 results for 'dhun' (TTL: 30min)
+2026-03-16 11:29:23 | INFO     | main:48 - GET /search → 200 (1526.0ms)
+2026-03-16 11:29:24 | INFO     | routers.stream:36 - Cache HIT for stream: Wqu4MRQOgyo
+2026-03-16 11:29:24 | INFO     | main:48 - GET /stream/Wqu4MRQOgyo → 200 (3.0ms)
+2026-03-16 11:29:24 | INFO     | routers.stream:36 - Cache HIT for stream: Wqu4MRQOgyo
+2026-03-16 11:29:24 | INFO     | main:48 - GET /stream/Wqu4MRQOgyo/proxy → 200 (11.1ms)
+2026-03-16 11:30:13 | INFO     | main:48 - GET /health → 200 (2.8ms)
+2026-03-16 11:30:19 | INFO     | routers.search:39 - Cache HIT for search: 'dhun'
+2026-03-16 11:30:19 | INFO     | main:48 - GET /search → 200 (3.4ms)
+2026-03-16 11:30:21 | INFO     | routers.stream:36 - Cache HIT for stream: Wqu4MRQOgyo
+2026-03-16 11:30:21 | INFO     | main:48 - GET /stream/Wqu4MRQOgyo → 200 (3.2ms)
+2026-03-16 11:30:21 | INFO     | routers.stream:36 - Cache HIT for stream: Wqu4MRQOgyo
+2026-03-16 11:30:21 | INFO     | main:48 - GET /stream/Wqu4MRQOgyo/proxy → 200 (14.5ms)
+2026-03-16 11:30:28 | INFO     | routers.stream:36 - Cache HIT for stream: Wqu4MRQOgyo
+2026-03-16 11:30:28 | INFO     | main:48 - GET /stream/Wqu4MRQOgyo/proxy → 200 (13.8ms)
+2026-03-16 11:30:36 | INFO     | routers.stream:39 - Cache MISS for stream: YmIaKmfhrb0 — fetching
+2026-03-16 11:30:36 | INFO     | services.stream_service:34 - Extracting stream URL for video_id: YmIaKmfhrb0
+2026-03-16 11:30:37 | INFO     | routers.stream:39 - Cache MISS for stream: mBXi3fYbgx4 — fetching
+2026-03-16 11:30:37 | INFO     | services.stream_service:34 - Extracting stream URL for video_id: mBXi3fYbgx4
+2026-03-16 11:30:38 | INFO     | routers.stream:39 - Cache MISS for stream: XX_OcWCM_K8 — fetching
+2026-03-16 11:30:38 | INFO     | services.stream_service:34 - Extracting stream URL for video_id: XX_OcWCM_K8
+2026-03-16 11:30:39 | INFO     | routers.stream:39 - Cache MISS for stream: nJIx5lFLIwM — fetching
+2026-03-16 11:30:39 | INFO     | services.stream_service:34 - Extracting stream URL for video_id: nJIx5lFLIwM
+2026-03-16 11:30:51 | INFO     | routers.stream:39 - Cache MISS for stream: 0KsTf3L9178 — fetching
+2026-03-16 11:30:51 | INFO     | services.stream_service:34 - Extracting stream URL for video_id: 0KsTf3L9178
+2026-03-16 11:30:51 | INFO     | routers.stream:39 - Cache MISS for stream: oGvlhx2ThEc — fetching
+2026-03-16 11:30:51 | INFO     | services.stream_service:34 - Extracting stream URL for video_id: oGvlhx2ThEc
+2026-03-16 11:30:52 | INFO     | routers.stream:39 - Cache MISS for stream: X-YSeZFYyhI — fetching
+2026-03-16 11:30:52 | INFO     | services.stream_service:34 - Extracting stream URL for video_id: X-YSeZFYyhI
+2026-03-16 11:30:52 | INFO     | services.stream_service:59 - Got stream URL for YmIaKmfhrb0 | format: 251 - audio only (medium)
+2026-03-16 11:30:52 | INFO     | main:48 - GET /stream/YmIaKmfhrb0 → 200 (16807.1ms)
+2026-03-16 11:30:53 | INFO     | routers.stream:39 - Cache MISS for stream: 0RU5euRGKT8 — fetching
+2026-03-16 11:30:53 | INFO     | services.stream_service:34 - Extracting stream URL for video_id: 0RU5euRGKT8
+2026-03-16 11:30:54 | INFO     | routers.stream:39 - Cache MISS for stream: 0mAEW8BXRpU — fetching
+2026-03-16 11:30:54 | INFO     | services.stream_service:34 - Extracting stream URL for video_id: 0mAEW8BXRpU
+2026-03-16 11:30:55 | INFO     | services.stream_service:59 - Got stream URL for nJIx5lFLIwM | format: 251 - audio only (medium)
+2026-03-16 11:30:55 | INFO     | main:48 - GET /stream/nJIx5lFLIwM → 200 (15780.4ms)
+2026-03-16 11:31:02 | INFO     | services.stream_service:59 - Got stream URL for oGvlhx2ThEc | format: 251 - audio only (medium)
+2026-03-16 11:31:02 | INFO     | main:48 - GET /stream/oGvlhx2ThEc → 200 (10922.5ms)
+2026-03-16 11:31:02 | INFO     | routers.stream:39 - Cache MISS for stream: 9QsfsXVS4YA — fetching
+2026-03-16 11:31:02 | INFO     | services.stream_service:34 - Extracting stream URL for video_id: 9QsfsXVS4YA
+2026-03-16 11:31:06 | INFO     | routers.stream:36 - Cache HIT for stream: oGvlhx2ThEc
+2026-03-16 11:31:06 | INFO     | main:48 - GET /stream/oGvlhx2ThEc/proxy → 200 (30.8ms)
+2026-03-16 11:31:06 | INFO     | services.stream_service:59 - Got stream URL for 0KsTf3L9178 | format: 251 - audio only (medium)
+2026-03-16 11:31:06 | INFO     | main:48 - GET /stream/0KsTf3L9178 → 200 (15737.6ms)
+2026-03-16 11:31:07 | ERROR    | services.stream_service:70 - yt-dlp timed out for mBXi3fYbgx4
+2026-03-16 11:31:07 | INFO     | main:48 - GET /stream/mBXi3fYbgx4 → 404 (30013.4ms)
+2026-03-16 11:31:08 | ERROR    | services.stream_service:70 - yt-dlp timed out for XX_OcWCM_K8
+2026-03-16 11:31:08 | INFO     | main:48 - GET /stream/XX_OcWCM_K8 → 404 (30009.2ms)
+2026-03-16 11:31:22 | ERROR    | services.stream_service:70 - yt-dlp timed out for X-YSeZFYyhI
+2026-03-16 11:31:22 | INFO     | main:48 - GET /stream/X-YSeZFYyhI → 404 (30014.7ms)
+2026-03-16 11:31:23 | ERROR    | services.stream_service:70 - yt-dlp timed out for 0RU5euRGKT8
+2026-03-16 11:31:23 | INFO     | main:48 - GET /stream/0RU5euRGKT8 → 404 (30009.2ms)
+2026-03-16 11:31:24 | ERROR    | services.stream_service:70 - yt-dlp timed out for 0mAEW8BXRpU
+2026-03-16 11:31:24 | INFO     | main:48 - GET /stream/0mAEW8BXRpU → 404 (30006.9ms)
