@@ -123,6 +123,8 @@ export default function QueueScreen() {
   const setQueue = usePlayerStore(s => s.setQueue);
   const isShuffled = usePlayerStore(s => s.isShuffled);
   const toggleShuffle = usePlayerStore(s => s.toggleShuffle);
+  const repeatMode = usePlayerStore(s => s.repeatMode);
+  const toggleRepeat = usePlayerStore(s => s.toggleRepeat);
   const { playTrack } = usePlayTrack();
   const [editMode, setEditMode] = useState(false);
   const slideAnim = useRef(new Animated.Value(height)).current;
@@ -202,6 +204,19 @@ export default function QueueScreen() {
           />
           <Ionicons name="shuffle" size={16} color={isShuffled ? '#FFFFFF' : '#7C3AED'} />
           <Text style={[styles.actionChipText, isShuffled && { color: '#FFFFFF' }]}>Shuffle</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.actionChip, repeatMode !== 'none' && styles.actionChipActive]}
+          onPress={toggleRepeat}
+        >
+          <LinearGradient
+            colors={repeatMode !== 'none' ? ['#C4B5FD', '#A78BFA'] : ['rgba(167,139,250,0.1)', 'rgba(125,211,252,0.05)']}
+            style={StyleSheet.absoluteFillObject}
+          />
+          <Text style={{ fontSize: 14 }}>{repeatMode === 'one' ? '🔂' : '🔁'}</Text>
+          <Text style={[styles.actionChipText, repeatMode !== 'none' && { color: '#FFFFFF' }]}>
+            {repeatMode === 'none' ? 'Repeat' : repeatMode === 'one' ? 'Repeat 1' : 'Repeat All'}
+          </Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.actionChip} onPress={clearQueue}>
           <LinearGradient colors={['rgba(252,165,165,0.15)', 'rgba(248,113,113,0.08)']} style={StyleSheet.absoluteFillObject} />

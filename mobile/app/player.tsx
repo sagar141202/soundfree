@@ -183,7 +183,7 @@ export default function FullPlayer() {
           <Text style={styles.controlIconLg}>⏭</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.controlBtn} onPress={toggleRepeat}>
-          <Text style={[styles.controlIcon, repeatMode !== 'none' && { color: palette.accent }]}>
+          <Text style={[styles.controlIcon, repeatMode !== 'none' && { color: palette.accent }, repeatMode === 'none' && { opacity: 0.4 }]}>
             {repeatMode === 'one' ? '🔂' : '🔁'}
           </Text>
         </TouchableOpacity>
