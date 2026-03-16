@@ -140,6 +140,7 @@ export default function FullPlayer() {
         <Animated.View style={[{ transform: [{ scale: artScale }], opacity: artOpacity }]}>
           <View style={[styles.artShadow, { backgroundColor: palette.light, width: artSize, height: artSize }]} />
           <ProgressiveImage
+            videoId={currentTrack.video_id}
             thumbnailUrl={currentTrack.thumbnail_url}
             style={{ width: artSize, height: artSize }}
             borderRadius={28}

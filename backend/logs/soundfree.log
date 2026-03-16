@@ -1377,3 +1377,57 @@ DETAIL:  Failing row contains (5, null, oDyMLiIskPg, 2026-03-16 08:34:25.859818+
 2026-03-16 14:38:15 | INFO     | routers.download:60 - Downloaded: /tmp/soundfree_downloads/eQt-ctU7Wqc.opus (5065KB)
 2026-03-16 14:38:15 | INFO     | main:50 - GET /download/eQt-ctU7Wqc → 200 (3266.3ms)
 2026-03-16 14:38:34 | INFO     | main:50 - POST /stream/eQt-ctU7Wqc/played → 200 (9.2ms)
+2026-03-16 14:39:39 | WARNING  | routers.likes:32 - Like error: (sqlalchemy.dialects.postgresql.asyncpg.IntegrityError) <class 'asyncpg.exceptions.NotNullViolationError'>: null value in column "user_id" of relation "liked_tracks" violates not-null constraint
+DETAIL:  Failing row contains (6, null, eQt-ctU7Wqc, 2026-03-16 09:09:38.994108+00).
+[SQL: INSERT INTO liked_tracks (user_id, video_id) VALUES ($1::UUID, $2::VARCHAR) RETURNING liked_tracks.id, liked_tracks.liked_at]
+[parameters: (None, 'eQt-ctU7Wqc')]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2026-03-16 14:39:39 | INFO     | main:50 - POST /likes/eQt-ctU7Wqc → 200 (28.4ms)
+2026-03-16 14:39:50 | INFO     | routers.lyrics:98 - Redis HIT for lyrics: eQt-ctU7Wqc
+2026-03-16 14:39:50 | INFO     | main:50 - GET /lyrics/eQt-ctU7Wqc → 200 (3.7ms)
+2026-03-16 14:40:46 | INFO     | main:50 - GET /health → 200 (15.7ms)
+2026-03-16 14:41:08 | INFO     | main:50 - GET /health → 200 (1.3ms)
+2026-03-16 14:41:14 | INFO     | routers.search:43 - Cache MISS for search: 'ra' — fetching from YouTube Music
+2026-03-16 14:41:14 | INFO     | services.search_service:43 - Searching YouTube Music: 'ra'
+2026-03-16 14:41:14 | INFO     | services.search_service:72 - Search returned 20 tracks for 'ra'
+2026-03-16 14:41:14 | INFO     | routers.search:60 - Cached 20 results for 'ra' (TTL: 30min)
+2026-03-16 14:41:14 | INFO     | routers.search:43 - Cache MISS for search: 'raj' — fetching from YouTube Music
+2026-03-16 14:41:14 | INFO     | services.search_service:43 - Searching YouTube Music: 'raj'
+2026-03-16 14:41:15 | INFO     | services.search_service:72 - Search returned 20 tracks for 'raj'
+2026-03-16 14:41:15 | INFO     | main:50 - GET /search → 200 (1226.1ms)
+2026-03-16 14:41:15 | INFO     | routers.search:60 - Cached 20 results for 'raj' (TTL: 30min)
+2026-03-16 14:41:15 | INFO     | main:50 - GET /search → 200 (638.8ms)
+2026-03-16 14:41:15 | INFO     | routers.search:43 - Cache MISS for search: 'rajku' — fetching from YouTube Music
+2026-03-16 14:41:15 | INFO     | services.search_service:43 - Searching YouTube Music: 'rajku'
+2026-03-16 14:41:15 | INFO     | services.search_service:72 - Search returned 20 tracks for 'rajku'
+2026-03-16 14:41:15 | INFO     | routers.search:60 - Cached 20 results for 'rajku' (TTL: 30min)
+2026-03-16 14:41:15 | INFO     | main:50 - GET /search → 200 (633.3ms)
+2026-03-16 14:41:16 | INFO     | routers.search:43 - Cache MISS for search: 'rajkumar ' — fetching from YouTube Music
+2026-03-16 14:41:16 | INFO     | services.search_service:43 - Searching YouTube Music: 'rajkumar'
+2026-03-16 14:41:17 | INFO     | services.search_service:72 - Search returned 20 tracks for 'rajkumar'
+2026-03-16 14:41:17 | INFO     | routers.search:60 - Cached 20 results for 'rajkumar ' (TTL: 30min)
+2026-03-16 14:41:17 | INFO     | main:50 - GET /search → 200 (620.9ms)
+2026-03-16 14:41:17 | INFO     | routers.search:39 - Cache HIT for search: 'rajkumar'
+2026-03-16 14:41:17 | INFO     | main:50 - GET /search → 200 (3.7ms)
+2026-03-16 14:41:17 | INFO     | routers.search:43 - Cache MISS for search: 'rajkumara' — fetching from YouTube Music
+2026-03-16 14:41:17 | INFO     | services.search_service:43 - Searching YouTube Music: 'rajkumara'
+2026-03-16 14:41:19 | INFO     | services.search_service:72 - Search returned 20 tracks for 'rajkumara'
+2026-03-16 14:41:19 | INFO     | routers.search:60 - Cached 20 results for 'rajkumara' (TTL: 30min)
+2026-03-16 14:41:19 | INFO     | main:50 - GET /search → 200 (1540.3ms)
+2026-03-16 14:41:21 | INFO     | routers.stream:39 - Cache MISS for stream: bALgzhJBSms — fetching
+2026-03-16 14:41:21 | INFO     | services.stream_service:34 - Extracting stream URL for video_id: bALgzhJBSms
+2026-03-16 14:41:23 | INFO     | services.stream_service:59 - Got stream URL for bALgzhJBSms | format: 251 - audio only (medium)
+2026-03-16 14:41:23 | INFO     | main:50 - GET /stream/bALgzhJBSms → 200 (2063.3ms)
+2026-03-16 14:41:23 | INFO     | routers.stream:36 - Cache HIT for stream: bALgzhJBSms
+2026-03-16 14:41:23 | INFO     | main:50 - GET /stream/bALgzhJBSms/proxy → 200 (12.2ms)
+2026-03-16 14:41:47 | INFO     | main:50 - GET /health → 200 (6.9ms)
+2026-03-16 14:41:56 | INFO     | routers.search:39 - Cache HIT for search: 'bo'
+2026-03-16 14:41:56 | INFO     | main:50 - GET /search → 200 (7.4ms)
+2026-03-16 14:41:57 | INFO     | routers.search:39 - Cache HIT for search: 'bom'
+2026-03-16 14:41:57 | INFO     | main:50 - GET /search → 200 (6.5ms)
+2026-03-16 14:41:57 | INFO     | routers.search:39 - Cache HIT for search: 'bomb'
+2026-03-16 14:41:57 | INFO     | main:50 - GET /search → 200 (5.1ms)
+2026-03-16 14:41:58 | INFO     | routers.search:39 - Cache HIT for search: 'bombe '
+2026-03-16 14:41:58 | INFO     | main:50 - GET /search → 200 (3.6ms)
+2026-03-16 14:42:09 | INFO     | main:50 - GET /download/eQt-ctU7Wqc → 200 (2.2ms)
+2026-03-16 14:42:34 | INFO     | main:50 - POST /stream/eQt-ctU7Wqc/played → 200 (16.9ms)

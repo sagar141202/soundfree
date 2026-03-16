@@ -1,6 +1,7 @@
 import { useState, useCallback } from 'react';
 import * as FileSystem from 'expo-file-system';
 import { saveTrack, deleteTrack, getTrack } from '../services/localDb';
+import { cacheArt, deleteArt } from '../services/artCache';
 import type { Track } from '../components/TrackListItem';
 
 const API_URL = process.env.EXPO_PUBLIC_API_URL || 'http://10.53.24.112:8000';
@@ -75,6 +76,11 @@ export async function downloadTrack(track: Track): Promise<void> {
       const fileInfo = await FileSystem.getInfoAsync(result.uri);
       const fileSize = (fileInfo as any).size ?? 0;
 
+      // Cache album art locally
+      if (track.thumbnail_url) {
+        await cacheArt(videoId, track.thumbnail_url);
+      }
+
       // Save metadata to SQLite
       await saveTrack({
         video_id: videoId,
@@ -106,6 +112,7 @@ export async function deleteDownload(videoId: string): Promise<void> {
   try {
     await FileSystem.deleteAsync(getLocalPath(videoId), { idempotent: true });
     await deleteTrack(videoId);
+    await deleteArt(videoId);
     notify(videoId, { progress: 0, status: 'idle' });
     console.log(`Deleted download: ${videoId}`);
   } catch (e) {
