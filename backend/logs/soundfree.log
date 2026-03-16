@@ -734,3 +734,85 @@ DETAIL:  Key (video_id)=(uT_HXrrmHX8) is not present in table "tracks".
 2026-03-15 23:14:59 | INFO     | main:48 - GET /stream/uT_HXrrmHX8/proxy → 200 (11.4ms)
 2026-03-15 23:15:02 | INFO     | routers.lyrics:90 - Redis HIT for lyrics: uT_HXrrmHX8
 2026-03-15 23:15:02 | INFO     | main:48 - GET /lyrics/uT_HXrrmHX8 → 200 (2.2ms)
+2026-03-16 10:59:10 | INFO     | main:48 - GET /health → 200 (3.0ms)
+2026-03-16 10:59:22 | INFO     | routers.search:43 - Cache MISS for search: 'Punjabi' — fetching from YouTube Music
+2026-03-16 10:59:22 | INFO     | services.search_service:43 - Searching YouTube Music: 'Punjabi'
+2026-03-16 10:59:24 | INFO     | services.search_service:72 - Search returned 20 tracks for 'Punjabi'
+2026-03-16 10:59:24 | INFO     | routers.search:60 - Cached 20 results for 'Punjabi' (TTL: 30min)
+2026-03-16 10:59:24 | INFO     | main:48 - GET /search → 200 (2480.5ms)
+2026-03-16 10:59:29 | INFO     | routers.search:43 - Cache MISS for search: 'ba' — fetching from YouTube Music
+2026-03-16 10:59:29 | INFO     | services.search_service:43 - Searching YouTube Music: 'ba'
+2026-03-16 10:59:30 | INFO     | services.search_service:72 - Search returned 20 tracks for 'ba'
+2026-03-16 10:59:30 | INFO     | routers.search:60 - Cached 20 results for 'ba' (TTL: 30min)
+2026-03-16 10:59:30 | INFO     | main:48 - GET /search → 200 (569.1ms)
+2026-03-16 10:59:30 | INFO     | routers.search:43 - Cache MISS for search: 'baira' — fetching from YouTube Music
+2026-03-16 10:59:30 | INFO     | services.search_service:43 - Searching YouTube Music: 'baira'
+2026-03-16 10:59:31 | INFO     | services.search_service:72 - Search returned 20 tracks for 'baira'
+2026-03-16 10:59:31 | INFO     | routers.search:60 - Cached 20 results for 'baira' (TTL: 30min)
+2026-03-16 10:59:31 | INFO     | main:48 - GET /search → 200 (496.4ms)
+2026-03-16 10:59:31 | INFO     | routers.search:43 - Cache MISS for search: 'bairan' — fetching from YouTube Music
+2026-03-16 10:59:31 | INFO     | services.search_service:43 - Searching YouTube Music: 'bairan'
+2026-03-16 10:59:31 | INFO     | services.search_service:72 - Search returned 20 tracks for 'bairan'
+2026-03-16 10:59:31 | INFO     | routers.search:60 - Cached 20 results for 'bairan' (TTL: 30min)
+2026-03-16 10:59:31 | INFO     | main:48 - GET /search → 200 (545.5ms)
+2026-03-16 10:59:33 | INFO     | routers.stream:21 - Cache MISS for stream: rHdS6g5XabA — fetching
+2026-03-16 10:59:33 | INFO     | services.stream_service:34 - Extracting stream URL for video_id: rHdS6g5XabA
+2026-03-16 10:59:35 | INFO     | services.stream_service:59 - Got stream URL for rHdS6g5XabA | format: 251 - audio only (medium)
+2026-03-16 10:59:49 | INFO     | routers.stream:21 - Cache MISS for stream: EiydANThKfQ — fetching
+2026-03-16 10:59:49 | INFO     | services.stream_service:34 - Extracting stream URL for video_id: EiydANThKfQ
+2026-03-16 10:59:52 | INFO     | services.stream_service:59 - Got stream URL for EiydANThKfQ | format: 251 - audio only (medium)
+2026-03-16 10:59:56 | INFO     | routers.search:43 - Cache MISS for search: 'sit' — fetching from YouTube Music
+2026-03-16 10:59:56 | INFO     | services.search_service:43 - Searching YouTube Music: 'sit'
+2026-03-16 10:59:57 | INFO     | services.search_service:72 - Search returned 20 tracks for 'sit'
+2026-03-16 10:59:57 | INFO     | routers.search:60 - Cached 20 results for 'sit' (TTL: 30min)
+2026-03-16 10:59:57 | INFO     | main:48 - GET /search → 200 (686.4ms)
+2026-03-16 10:59:58 | INFO     | routers.search:43 - Cache MISS for search: 'sitaare' — fetching from YouTube Music
+2026-03-16 10:59:58 | INFO     | services.search_service:43 - Searching YouTube Music: 'sitaare'
+2026-03-16 10:59:58 | INFO     | services.search_service:72 - Search returned 20 tracks for 'sitaare'
+2026-03-16 10:59:58 | INFO     | routers.search:60 - Cached 20 results for 'sitaare' (TTL: 30min)
+2026-03-16 10:59:58 | INFO     | main:48 - GET /search → 200 (594.1ms)
+2026-03-16 11:00:00 | INFO     | routers.stream:21 - Cache MISS for stream: uT_HXrrmHX8 — fetching
+2026-03-16 11:00:00 | INFO     | services.stream_service:34 - Extracting stream URL for video_id: uT_HXrrmHX8
+2026-03-16 11:00:02 | INFO     | services.stream_service:59 - Got stream URL for uT_HXrrmHX8 | format: 251 - audio only (medium)
+2026-03-16 11:06:07 | INFO     | routers.search:43 - Cache MISS for search: 'si' — fetching from YouTube Music
+2026-03-16 11:06:07 | INFO     | services.search_service:43 - Searching YouTube Music: 'si'
+2026-03-16 11:06:09 | INFO     | services.search_service:72 - Search returned 20 tracks for 'si'
+2026-03-16 11:06:09 | INFO     | routers.search:60 - Cached 20 results for 'si' (TTL: 30min)
+2026-03-16 11:06:09 | INFO     | main:48 - GET /search → 200 (1596.4ms)
+2026-03-16 11:06:09 | INFO     | routers.search:39 - Cache HIT for search: 'sit'
+2026-03-16 11:06:09 | INFO     | main:48 - GET /search → 200 (4.2ms)
+2026-03-16 11:06:12 | INFO     | routers.stream:24 - Cache MISS for stream: uT_HXrrmHX8 — fetching
+2026-03-16 11:06:12 | INFO     | services.stream_service:34 - Extracting stream URL for video_id: uT_HXrrmHX8
+2026-03-16 11:06:14 | INFO     | services.stream_service:59 - Got stream URL for uT_HXrrmHX8 | format: 251 - audio only (medium)
+2026-03-16 11:07:54 | INFO     | main:48 - GET /health → 200 (4.8ms)
+2026-03-16 11:08:00 | INFO     | routers.search:39 - Cache HIT for search: 'si'
+2026-03-16 11:08:00 | INFO     | main:48 - GET /search → 200 (20.3ms)
+2026-03-16 11:08:00 | INFO     | routers.search:39 - Cache HIT for search: 'sit'
+2026-03-16 11:08:00 | INFO     | main:48 - GET /search → 200 (4.7ms)
+2026-03-16 11:08:01 | INFO     | routers.search:43 - Cache MISS for search: 'sitaa' — fetching from YouTube Music
+2026-03-16 11:08:01 | INFO     | services.search_service:43 - Searching YouTube Music: 'sitaa'
+2026-03-16 11:08:02 | INFO     | services.search_service:72 - Search returned 20 tracks for 'sitaa'
+2026-03-16 11:08:02 | INFO     | routers.search:60 - Cached 20 results for 'sitaa' (TTL: 30min)
+2026-03-16 11:08:02 | INFO     | main:48 - GET /search → 200 (1299.3ms)
+2026-03-16 11:08:02 | INFO     | routers.search:39 - Cache HIT for search: 'sitaare '
+2026-03-16 11:08:02 | INFO     | main:48 - GET /search → 200 (4.3ms)
+2026-03-16 11:08:10 | INFO     | routers.stream:39 - Cache MISS for stream: uT_HXrrmHX8 — fetching
+2026-03-16 11:08:10 | INFO     | services.stream_service:34 - Extracting stream URL for video_id: uT_HXrrmHX8
+2026-03-16 11:08:12 | INFO     | services.stream_service:59 - Got stream URL for uT_HXrrmHX8 | format: 251 - audio only (medium)
+2026-03-16 11:08:12 | INFO     | main:48 - GET /stream/uT_HXrrmHX8 → 200 (2416.9ms)
+2026-03-16 11:08:12 | INFO     | routers.stream:36 - Cache HIT for stream: uT_HXrrmHX8
+2026-03-16 11:08:12 | INFO     | main:48 - GET /stream/uT_HXrrmHX8/proxy → 200 (26.5ms)
+2026-03-16 11:08:20 | INFO     | routers.stream:39 - Cache MISS for stream: 4smEofP_5Q4 — fetching
+2026-03-16 11:08:20 | INFO     | services.stream_service:34 - Extracting stream URL for video_id: 4smEofP_5Q4
+2026-03-16 11:08:22 | INFO     | services.stream_service:59 - Got stream URL for 4smEofP_5Q4 | format: 251 - audio only (medium)
+2026-03-16 11:08:22 | INFO     | main:48 - GET /stream/4smEofP_5Q4 → 200 (1713.8ms)
+2026-03-16 11:08:22 | INFO     | routers.stream:36 - Cache HIT for stream: 4smEofP_5Q4
+2026-03-16 11:08:22 | INFO     | main:48 - GET /stream/4smEofP_5Q4/proxy → 200 (12.5ms)
+2026-03-16 11:08:30 | INFO     | routers.stream:39 - Cache MISS for stream: Wqu4MRQOgyo — fetching
+2026-03-16 11:08:30 | INFO     | services.stream_service:34 - Extracting stream URL for video_id: Wqu4MRQOgyo
+2026-03-16 11:08:31 | INFO     | services.stream_service:59 - Got stream URL for Wqu4MRQOgyo | format: 251 - audio only (medium)
+2026-03-16 11:08:31 | INFO     | main:48 - GET /stream/Wqu4MRQOgyo → 200 (1744.2ms)
+2026-03-16 11:08:31 | INFO     | routers.stream:36 - Cache HIT for stream: Wqu4MRQOgyo
+2026-03-16 11:08:31 | INFO     | main:48 - GET /stream/Wqu4MRQOgyo/proxy → 200 (15.3ms)
+2026-03-16 11:08:35 | INFO     | routers.lyrics:92 - Redis HIT for lyrics: Wqu4MRQOgyo
+2026-03-16 11:08:35 | INFO     | main:48 - GET /lyrics/Wqu4MRQOgyo → 200 (5.1ms)

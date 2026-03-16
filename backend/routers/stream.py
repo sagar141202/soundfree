@@ -1,3 +1,6 @@
+import dataclasses
+from datetime import datetime
+
 import httpx
 from fastapi import APIRouter, HTTPException, Request
 from fastapi.responses import StreamingResponse
@@ -11,8 +14,23 @@ router = APIRouter()
 STREAM_CACHE_TTL = 60 * 60 * 5  # 5 hours
 
 
+def _to_dict(obj) -> dict:
+    """Convert dataclass to JSON-serializable dict."""
+    if dataclasses.is_dataclass(obj):
+        result = {}
+        for f in dataclasses.fields(obj):
+            val = getattr(obj, f.name)
+            if isinstance(val, datetime):
+                result[f.name] = val.isoformat()
+            else:
+                result[f.name] = val
+        return result
+    return dict(obj)
+
+
 async def get_stream_url(video_id: str) -> dict | None:
     cache_key = f"stream:{video_id}"
+
     cached = await cache_get(cache_key)
     if cached:
         logger.info(f"Cache HIT for stream: {video_id}")
@@ -20,9 +38,13 @@ async def get_stream_url(video_id: str) -> dict | None:
 
     logger.info(f"Cache MISS for stream: {video_id} — fetching")
     result = await fetch_stream_url(video_id)
+
     if result:
-        await cache_set(cache_key, result, STREAM_CACHE_TTL)
-    return result
+        result_dict = _to_dict(result)
+        await cache_set(cache_key, result_dict, STREAM_CACHE_TTL)
+        return result_dict
+
+    return None
 
 
 @router.get("/{video_id}")
