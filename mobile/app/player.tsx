@@ -196,7 +196,7 @@ export default function FullPlayer() {
           { icon: '🎵', label: showLyrics ? 'Hide' : 'Lyrics', onPress: toggleLyrics, active: showLyrics },
           { icon: '📋', label: 'Queue', onPress: () => router.push('/queue'), active: false },
           { icon: '🎛️', label: 'EQ', onPress: () => router.push('/equalizer'), active: false },
-          { icon: '↗️', label: 'Share', onPress: () => {}, active: false },
+          { icon: '⏱️', label: 'Sleep', onPress: () => router.push('/sleep-timer'), active: false },
         ].map((a: any, i) => (
           <View key={i} style={styles.actionBtn}>
             {a.isDownload ? (
