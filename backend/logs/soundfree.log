@@ -1080,3 +1080,8 @@ DETAIL:  Failing row contains (2, null, Wqu4MRQOgyo, 2026-03-16 08:13:06.275007+
 2026-03-16 13:50:28 | INFO     | routers.stream:36 - Cache HIT for stream: ge4M2dVBgTw
 2026-03-16 13:50:28 | INFO     | main:49 - GET /stream/ge4M2dVBgTw/proxy → 200 (16.0ms)
 2026-03-16 13:50:59 | INFO     | main:49 - POST /stream/ge4M2dVBgTw/played → 200 (20.6ms)
+2026-03-16 13:53:17 | INFO     | routers.stream:36 - Cache HIT for stream: uT_HXrrmHX8
+2026-03-16 13:53:17 | INFO     | main:49 - GET /stream/uT_HXrrmHX8 → 200 (10.6ms)
+2026-03-16 13:53:17 | INFO     | routers.stream:36 - Cache HIT for stream: uT_HXrrmHX8
+2026-03-16 13:53:17 | INFO     | main:49 - GET /stream/uT_HXrrmHX8/proxy → 200 (28.3ms)
+2026-03-16 13:53:48 | INFO     | main:49 - POST /stream/uT_HXrrmHX8/played → 200 (12.6ms)

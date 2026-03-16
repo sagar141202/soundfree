@@ -1,9 +1,10 @@
 import { View, Text, StyleSheet, Animated } from 'react-native';
 import { FlashList } from '@shopify/flash-list';
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
 import TrackListItem, { Track } from './TrackListItem';
 import EmptyState from './EmptyState';
+import AddToPlaylistSheet from './AddToPlaylistSheet';
 
 function SkeletonItem({ index }: { index: number }) {
   const shimmer = useRef(new Animated.Value(0)).current;
@@ -16,20 +17,25 @@ function SkeletonItem({ index }: { index: number }) {
   const opacity = shimmer.interpolate({ inputRange: [0, 1], outputRange: [0.4, 0.9] });
   return (
     <Animated.View style={[styles.skeletonRow, { opacity }]}>
-      <LinearGradient colors={['#E9D5FF','#DDD6FE']} style={styles.skeletonThumb} />
+      <LinearGradient colors={['#E9D5FF', '#DDD6FE']} style={styles.skeletonThumb} />
       <View style={styles.skeletonInfo}>
-        <LinearGradient colors={['#E9D5FF','#DDD6FE']} style={[styles.skeletonLine, { width: `${60 + (index % 3) * 12}%` }]} />
-        <LinearGradient colors={['#F3E8FF','#EDE9FE']} style={[styles.skeletonLine, { width: `${35 + (index % 4) * 8}%`, height: 10, opacity: 0.6 }]} />
+        <LinearGradient colors={['#E9D5FF', '#DDD6FE']} style={[styles.skeletonLine, { width: `${60 + (index % 3) * 12}%` }]} />
+        <LinearGradient colors={['#F3E8FF', '#EDE9FE']} style={[styles.skeletonLine, { width: `${35 + (index % 4) * 8}%`, height: 10, opacity: 0.6 }]} />
       </View>
-      <LinearGradient colors={['#E9D5FF','#DDD6FE']} style={styles.skeletonDur} />
+      <LinearGradient colors={['#E9D5FF', '#DDD6FE']} style={styles.skeletonDur} />
     </Animated.View>
   );
 }
 
-export default function SearchResultsList({ tracks, isLoading, query, currentTrackId, onTrackPress, onMorePress, onClearSearch }: {
+export default function SearchResultsList({
+  tracks, isLoading, query, currentTrackId,
+  onTrackPress, onClearSearch,
+}: {
   tracks: Track[]; isLoading: boolean; query: string; currentTrackId?: string;
-  onTrackPress?: (track: Track) => void; onMorePress?: (track: Track) => void; onClearSearch?: () => void;
+  onTrackPress?: (track: Track) => void; onClearSearch?: () => void;
 }) {
+  const [selectedTrack, setSelectedTrack] = useState<Track | null>(null);
+
   if (isLoading) return (
     <View style={styles.container}>
       <Text style={styles.resultsLabel}>Searching for "{query}"...</Text>
@@ -38,20 +44,43 @@ export default function SearchResultsList({ tracks, isLoading, query, currentTra
   );
 
   if (!isLoading && tracks.length === 0 && query.length >= 2) return (
-    <EmptyState emoji="🔍" title={`No results for "${query}"`} subtitle="Try different keywords or browse a category" actionLabel="Clear search" onAction={onClearSearch} />
+    <EmptyState
+      emoji="🔍"
+      title={`No results for "${query}"`}
+      subtitle="Try different keywords or browse a category"
+      actionLabel="Clear search"
+      onAction={onClearSearch}
+    />
   );
 
   return (
     <View style={styles.container}>
-      {tracks.length > 0 && <Text style={styles.resultsLabel}>{tracks.length} results for "{query}"</Text>}
+      {tracks.length > 0 && (
+        <Text style={styles.resultsLabel}>{tracks.length} results for "{query}"</Text>
+      )}
       <FlashList
-        data={tracks} estimatedItemSize={72} keyExtractor={(item) => item.video_id} scrollEnabled={false}
+        data={tracks}
+        estimatedItemSize={72}
+        keyExtractor={(item) => item.video_id}
+        scrollEnabled={false}
         renderItem={({ item, index }) => (
-          <TrackListItem track={item} index={index} isPlaying={item.video_id === currentTrackId}
-            onPress={() => onTrackPress?.(item)} onMorePress={() => onMorePress?.(item)} />
+          <TrackListItem
+            track={item}
+            index={index}
+            isPlaying={item.video_id === currentTrackId}
+            onPress={() => onTrackPress?.(item)}
+            onMorePress={() => setSelectedTrack(item)}
+          />
         )}
         ItemSeparatorComponent={() => <View style={{ height: 2 }} />}
       />
+
+      {selectedTrack && (
+        <AddToPlaylistSheet
+          track={selectedTrack}
+          onClose={() => setSelectedTrack(null)}
+        />
+      )}
     </View>
   );
 }
