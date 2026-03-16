@@ -1862,3 +1862,16 @@ DETAIL:  Failing row contains (7, null, 4smEofP_5Q4, 2026-03-16 10:23:30.969966+
 2026-03-16 16:09:11 | INFO     | services.recommendation_service:31 - Computing user vector from 23 plays
 2026-03-16 16:09:11 | INFO     | services.recommendation_service:62 - User vector: BPM=143.9 Energy=0.1460 Key=A#
 2026-03-16 16:09:11 | INFO     | main:60 - GET /recommendations/cached → 200 (19.0ms)
+2026-03-16 16:10:09 | INFO     | routers.search:39 - Cache HIT for search: 'top hits 2025'
+2026-03-16 16:10:09 | INFO     | main:60 - GET /search → 200 (13.6ms)
+2026-03-16 16:10:09 | INFO     | services.recommendation_service:31 - Computing user vector from 23 plays
+2026-03-16 16:10:09 | INFO     | services.recommendation_service:62 - User vector: BPM=143.9 Energy=0.1460 Key=A#
+2026-03-16 16:10:10 | INFO     | main:60 - GET /recommendations/cached → 200 (44.5ms)
+2026-03-16 16:10:19 | INFO     | routers.search:39 - Cache HIT for search: 'top hits 2025'
+2026-03-16 16:10:19 | INFO     | main:60 - GET /search → 200 (161.5ms)
+2026-03-16 16:10:20 | INFO     | services.recommendation_service:31 - Computing user vector from 23 plays
+2026-03-16 16:10:20 | INFO     | services.recommendation_service:62 - User vector: BPM=143.9 Energy=0.1460 Key=A#
+2026-03-16 16:10:20 | INFO     | main:60 - GET /recommendations/similar → 200 (960.5ms)
+2026-03-16 16:10:20 | INFO     | services.recommendation_service:31 - Computing user vector from 23 plays
+2026-03-16 16:10:20 | INFO     | services.recommendation_service:62 - User vector: BPM=143.9 Energy=0.1460 Key=A#
+2026-03-16 16:10:20 | INFO     | main:60 - GET /recommendations/cached → 200 (1193.6ms)

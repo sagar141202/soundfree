@@ -9,7 +9,7 @@ import { router } from 'expo-router';
 import { useLibraryStore } from '../../stores/libraryStore';
 import { usePlayerStore } from '../../stores/playerStore';
 import { usePlayTrack } from '../../hooks/usePlayTrack';
-import { getRecommendations, getTrendingTracks } from '../../lib/api';
+import { getRecommendations, getTrendingTracks, getSimilarTracks } from '../../lib/api';
 import type { Track } from '../../components/TrackListItem';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -93,11 +93,13 @@ export default function HomeScreen() {
   const { playTrack } = usePlayTrack();
   const [recommendations, setRecommendations] = useState<any[]>([]);
   const [trending, setTrending] = useState<Track[]>([]);
+  const [similarTracks, setSimilarTracks] = useState<any[]>([]);
   const greeting = getGreeting();
 
   useEffect(() => {
     getRecommendations(10).then(setRecommendations).catch(() => {});
     getTrendingTracks('top hits 2025', 10).then(setTrending).catch(() => {});
+    getSimilarTracks(10).then(setSimilarTracks).catch(() => {});
   }, []);
 
   return (
@@ -230,6 +232,24 @@ export default function HomeScreen() {
                   index={i}
                   showReason
                   onPress={() => playTrack(track, recommendations)}
+                />
+              ))}
+            </ScrollView>
+          </View>
+        )}
+
+        {/* Based On Last Played */}
+        {similarTracks.length > 0 && currentTrack && (
+          <View style={styles.section}>
+            <SectionHeader title={`🎯 Based on "${currentTrack.title.slice(0, 20)}${currentTrack.title.length > 20 ? '...' : ''}"`} />
+            <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.horizontalScroll}>
+              {similarTracks.map((track, i) => (
+                <TrackCard
+                  key={track.video_id}
+                  track={track}
+                  index={i}
+                  showReason
+                  onPress={() => playTrack(track, similarTracks)}
                 />
               ))}
             </ScrollView>

@@ -57,3 +57,12 @@ export const getTrendingTracks = async (query = 'trending music 2025', limit = 1
   const { data } = await api.get('/search', { params: { q: query, limit } });
   return data;
 };
+
+export const getSimilarTracks = async (limit = 10) => {
+  try {
+    const { data } = await api.get('/recommendations/similar', { params: { limit } });
+    return data;
+  } catch {
+    return [];
+  }
+};
