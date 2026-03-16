@@ -86,7 +86,7 @@ export default function LibraryScreen() {
 
         {/* Section cards */}
         {[
-          { name: 'Playlists', emoji: '🎵', count: '0 playlists', colors: ['#93C5FD', '#A5B4FC'] as [string,string] },
+          { name: 'Playlists', emoji: '🎵', count: '0 playlists', colors: ['#93C5FD', '#A5B4FC'] as [string,string], route: '/playlists' },
           { name: 'Artists', emoji: '🎤', count: '0 artists', colors: ['#D8B4FE', '#C084FC'] as [string,string] },
           { name: 'Albums', emoji: '💿', count: '0 albums', colors: ['#FDE68A', '#FCD34D'] as [string,string] },
         ].map((s, i) => (

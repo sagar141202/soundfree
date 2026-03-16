@@ -1069,3 +1069,9 @@ DETAIL:  Failing row contains (2, null, Wqu4MRQOgyo, 2026-03-16 08:13:06.275007+
 2026-03-16 13:43:26 | INFO     | main:49 - GET /lyrics/Wqu4MRQOgyo → 200 (4.1ms)
 2026-03-16 13:43:46 | INFO     | main:49 - POST /stream/Wqu4MRQOgyo/played → 200 (41.5ms)
 2026-03-16 13:44:30 | INFO     | main:49 - GET /health → 200 (4.1ms)
+2026-03-16 13:45:37 | INFO     | routers.stream:36 - Cache HIT for stream: Wqu4MRQOgyo
+2026-03-16 13:45:37 | INFO     | main:49 - GET /stream/Wqu4MRQOgyo → 200 (11.2ms)
+2026-03-16 13:45:37 | INFO     | routers.stream:36 - Cache HIT for stream: Wqu4MRQOgyo
+2026-03-16 13:45:37 | INFO     | main:49 - GET /stream/Wqu4MRQOgyo/proxy → 200 (14.7ms)
+2026-03-16 13:46:22 | INFO     | main:49 - POST /stream/Wqu4MRQOgyo/played → 200 (16.3ms)
+2026-03-16 13:47:42 | INFO     | main:49 - GET /health → 200 (5.8ms)

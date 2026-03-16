@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Audio } from 'expo-av';
 import { useLibraryStore } from '../stores/libraryStore';
+import { usePlaylistStore } from '../stores/playlistStore';
 import { useSettingsStore } from '../stores/settingsStore';
 import { useHealth } from '../hooks/useHealth';
 
@@ -21,6 +22,7 @@ function OfflineBanner() {
 
 function AppInit() {
   const loadLibrary = useLibraryStore(s => s.loadFromStorage);
+  const loadPlaylists = usePlaylistStore(s => s.loadFromStorage);
   const loadSettings = useSettingsStore(s => s.loadFromStorage);
 
   useEffect(() => {
@@ -54,3 +56,4 @@ const styles = StyleSheet.create({
   banner: { backgroundColor: '#FDE68A', paddingVertical: 8, paddingHorizontal: 16, alignItems: 'center' },
   bannerText: { fontSize: 12, fontWeight: '700', color: '#92400E' },
 });
+// Playlist store loaded in AppInit - handled by libraryStore
