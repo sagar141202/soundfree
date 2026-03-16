@@ -2133,3 +2133,16 @@ DETAIL:  Failing row contains (7, null, 4smEofP_5Q4, 2026-03-16 10:23:30.969966+
 2026-03-16 17:25:37 | INFO     | main:61 - GET /recommendations/cached → 200 (41.9ms)
 2026-03-16 17:26:14 | INFO     | routers.stream:122 - Logged play: 4smEofP_5Q4
 2026-03-16 17:26:14 | INFO     | main:61 - POST /stream/4smEofP_5Q4/played → 200 (32.4ms)
+2026-03-16 17:30:58 | INFO     | main:61 - GET /trending → 307 (2.4ms)
+2026-03-16 17:30:58 | INFO     | services.recommendation_service:31 - Computing user vector from 27 plays
+2026-03-16 17:30:58 | INFO     | services.recommendation_service:62 - User vector: BPM=153.8 Energy=0.1748 Key=C#
+2026-03-16 17:30:58 | INFO     | main:61 - GET /recommendations/similar → 200 (28.0ms)
+2026-03-16 17:30:58 | INFO     | services.recommendation_service:31 - Computing user vector from 27 plays
+2026-03-16 17:30:58 | INFO     | services.recommendation_service:62 - User vector: BPM=153.8 Energy=0.1748 Key=C#
+2026-03-16 17:30:58 | INFO     | main:61 - GET /recommendations/cached → 200 (37.8ms)
+2026-03-16 17:30:58 | INFO     | routers.trending:60 - Trending cache HIT (20 tracks)
+2026-03-16 17:30:58 | INFO     | main:61 - GET /trending/ → 200 (3.3ms)
+2026-03-16 17:31:20 | INFO     | routers.stream:36 - Cache HIT for stream: PVDPkS4v8FQ
+2026-03-16 17:31:20 | INFO     | main:61 - GET /stream/PVDPkS4v8FQ → 200 (11.2ms)
+2026-03-16 17:31:20 | INFO     | routers.stream:122 - Logged play: 4smEofP_5Q4
+2026-03-16 17:31:20 | INFO     | main:61 - POST /stream/4smEofP_5Q4/played → 200 (30.7ms)
