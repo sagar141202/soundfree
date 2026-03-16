@@ -67,6 +67,8 @@ export default function FullPlayer() {
   const previousTrack = usePlayerStore(s => s.previousTrack);
   const toggleShuffle = usePlayerStore(s => s.toggleShuffle);
   const toggleRepeat = usePlayerStore(s => s.toggleRepeat);
+  const radioMode = usePlayerStore(s => s.radioMode);
+  const toggleRadio = usePlayerStore(s => s.toggleRadio);
   const { togglePlayPause } = usePlayTrack();
   const { getPalette } = useAccentColor();
 

@@ -2300,3 +2300,28 @@ DETAIL:  Failing row contains (7, null, 4smEofP_5Q4, 2026-03-16 10:23:30.969966+
 2026-03-16 21:06:15 | INFO     | services.scheduler:96 - Scheduler started — nightly rebuild at 2:00 AM, warmup in 30s
 2026-03-16 21:06:15 | INFO     | main:64 - SoundFree API started
 2026-03-16 21:06:15 | INFO     | services.background_jobs:13 - Background job worker started
+2026-03-16 21:06:45 | INFO     | services.scheduler:27 - Nightly recommendation rebuild starting...
+2026-03-16 21:06:45 | INFO     | services.annoy_service:40 - Building index from 5 tracks
+2026-03-16 21:06:45 | INFO     | services.annoy_service:74 - Index built: 5 tracks → /tmp/soundfree_index/tracks_vectors.npy
+2026-03-16 21:06:45 | INFO     | services.scheduler:34 - Index rebuilt: {'status': 'ok', 'count': 5, 'path': '/tmp/soundfree_index/tracks_vectors.npy'}
+2026-03-16 21:06:45 | INFO     | services.recommendation_service:31 - Computing user vector from 30 plays
+2026-03-16 21:06:45 | INFO     | services.recommendation_service:62 - User vector: BPM=159.3 Energy=0.1907 Key=C#
+2026-03-16 21:06:45 | INFO     | services.recommendation_service:31 - Computing user vector from 30 plays
+2026-03-16 21:06:45 | INFO     | services.recommendation_service:62 - User vector: BPM=159.3 Energy=0.1907 Key=C#
+2026-03-16 21:06:45 | INFO     | services.recommendation_service:144 - Top recommendation: Track vaSRih9T (score=0.5424)
+2026-03-16 21:06:45 | ERROR    | services.scheduler:58 - Recommendation rebuild failed: cache_set() got an unexpected keyword argument 'ttl'
+2026-03-16 21:07:21 | INFO     | main:72 - POST /discord/update → 200 (10.1ms)
+2026-03-16 21:07:21 | INFO     | routers.stream:122 - Logged play: 4smEofP_5Q4
+2026-03-16 21:07:21 | INFO     | main:72 - POST /stream/4smEofP_5Q4/played → 200 (52.0ms)
+2026-03-16 21:07:30 | INFO     | main:72 - GET /trending → 307 (16.8ms)
+2026-03-16 21:07:30 | INFO     | routers.trending:60 - Trending cache HIT (20 tracks)
+2026-03-16 21:07:30 | INFO     | main:72 - GET /trending/ → 200 (23.6ms)
+2026-03-16 21:07:30 | INFO     | services.recommendation_service:31 - Computing user vector from 31 plays
+2026-03-16 21:07:30 | INFO     | services.recommendation_service:62 - User vector: BPM=160.9 Energy=0.1953 Key=C#
+2026-03-16 21:07:30 | INFO     | main:72 - GET /recommendations/similar → 200 (70.2ms)
+2026-03-16 21:07:30 | INFO     | services.recommendation_service:31 - Computing user vector from 31 plays
+2026-03-16 21:07:30 | INFO     | services.recommendation_service:62 - User vector: BPM=160.9 Energy=0.1953 Key=C#
+2026-03-16 21:07:30 | INFO     | main:72 - GET /recommendations/cached → 200 (126.8ms)
+2026-03-16 21:08:46 | INFO     | main:72 - POST /discord/update → 200 (6.3ms)
+2026-03-16 21:08:46 | INFO     | routers.stream:122 - Logged play: 4smEofP_5Q4
+2026-03-16 21:08:46 | INFO     | main:72 - POST /stream/4smEofP_5Q4/played → 200 (24.6ms)

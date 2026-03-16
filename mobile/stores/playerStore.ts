@@ -30,6 +30,7 @@ interface PlayerState {
   duration: number;
   isShuffled: boolean;
   repeatMode: 'none' | 'all' | 'one';
+  radioMode: boolean;
 
   setCurrentTrack: (track: Track) => void;
   setQueue: (queue: Track[], index?: number) => void;
@@ -40,6 +41,7 @@ interface PlayerState {
   previousTrack: () => void;
   toggleShuffle: () => void;
   toggleRepeat: () => void;
+  toggleRadio: () => void;
 }
 
 export const usePlayerStore = create<PlayerState>((set, get) => ({
@@ -52,6 +54,7 @@ export const usePlayerStore = create<PlayerState>((set, get) => ({
   duration: 0,
   isShuffled: false,
   repeatMode: 'none',
+  radioMode: true,
 
   setCurrentTrack: (track) => set({ currentTrack: track }),
 
@@ -80,6 +83,19 @@ export const usePlayerStore = create<PlayerState>((set, get) => ({
     if (nextIndex >= queue.length) {
       if (repeatMode === 'all') {
         nextIndex = 0;
+      } else if (get().radioMode) {
+        // Radio mode — fetch more recommendations
+        const lastTrack = queue[queue.length - 1];
+        set({ isPlaying: false });
+        import('../services/radioService').then(({ fetchRadioTracks }) => {
+          fetchRadioTracks(lastTrack).then(newTracks => {
+            if (newTracks.length > 0) {
+              set({ queue: newTracks, currentIndex: 0, currentTrack: newTracks[0] });
+              emitPlay(newTracks[0]);
+            }
+          });
+        });
+        return;
       } else {
         set({ isPlaying: false });
         return;
@@ -141,5 +157,11 @@ export const usePlayerStore = create<PlayerState>((set, get) => ({
     const modes: Array<'none' | 'all' | 'one'> = ['none', 'all', 'one'];
     const nextMode = modes[(modes.indexOf(repeatMode) + 1) % modes.length];
     set({ repeatMode: nextMode });
+  },
+
+  toggleRadio: () => {
+    const { radioMode } = get();
+    set({ radioMode: !radioMode });
+    console.log('Radio mode:', !radioMode);
   },
 }));

@@ -125,6 +125,8 @@ export default function QueueScreen() {
   const toggleShuffle = usePlayerStore(s => s.toggleShuffle);
   const repeatMode = usePlayerStore(s => s.repeatMode);
   const toggleRepeat = usePlayerStore(s => s.toggleRepeat);
+  const radioMode = usePlayerStore(s => s.radioMode);
+  const toggleRadio = usePlayerStore(s => s.toggleRadio);
   const { playTrack } = usePlayTrack();
   const [editMode, setEditMode] = useState(false);
   const slideAnim = useRef(new Animated.Value(height)).current;
@@ -217,6 +219,17 @@ export default function QueueScreen() {
           <Text style={[styles.actionChipText, repeatMode !== 'none' && { color: '#FFFFFF' }]}>
             {repeatMode === 'none' ? 'Repeat' : repeatMode === 'one' ? 'Repeat 1' : 'Repeat All'}
           </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.actionChip, radioMode && styles.actionChipActive]}
+          onPress={toggleRadio}
+        >
+          <LinearGradient
+            colors={radioMode ? ['#C4B5FD', '#A78BFA'] : ['rgba(167,139,250,0.1)', 'rgba(125,211,252,0.05)']}
+            style={StyleSheet.absoluteFillObject}
+          />
+          <Text style={{ fontSize: 14 }}>��</Text>
+          <Text style={[styles.actionChipText, radioMode && { color: '#FFFFFF' }]}>Radio</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.actionChip} onPress={clearQueue}>
           <LinearGradient colors={['rgba(252,165,165,0.15)', 'rgba(248,113,113,0.08)']} style={StyleSheet.absoluteFillObject} />
