@@ -1521,3 +1521,73 @@ DETAIL:  Failing row contains (6, null, eQt-ctU7Wqc, 2026-03-16 09:09:38.994108+
 2026-03-16 14:58:53 | INFO     | main:50 - POST /stream/Wqu4MRQOgyo/played → 200 (15.5ms)
 2026-03-16 14:58:53 | INFO     | main:50 - GET /health → 200 (1.2ms)
 2026-03-16 14:59:08 | INFO     | main:50 - GET /health → 200 (4.4ms)
+2026-03-16 14:59:23 | INFO     | main:50 - GET /health → 200 (3.6ms)
+2026-03-16 14:59:38 | INFO     | main:50 - GET /health → 200 (9.6ms)
+2026-03-16 14:59:53 | INFO     | main:50 - GET /health → 200 (2.3ms)
+2026-03-16 15:00:07 | INFO     | main:50 - GET /health → 200 (2.8ms)
+2026-03-16 15:00:14 | INFO     | services.background_jobs:80 - Background worker task created
+2026-03-16 15:00:14 | INFO     | main:49 - SoundFree API started
+2026-03-16 15:00:14 | INFO     | services.background_jobs:12 - Background job worker started
+2026-03-16 15:00:22 | INFO     | main:57 - GET /health → 200 (1.3ms)
+2026-03-16 15:00:28 | INFO     | services.background_jobs:80 - Background worker task created
+2026-03-16 15:00:28 | INFO     | main:49 - SoundFree API started
+2026-03-16 15:00:28 | INFO     | services.background_jobs:12 - Background job worker started
+2026-03-16 15:00:37 | INFO     | main:57 - GET /health → 200 (3.0ms)
+2026-03-16 15:00:45 | INFO     | main:57 - POST /stream/bSnlKl_PoQU/played → 200 (73.0ms)
+2026-03-16 15:00:52 | INFO     | main:57 - GET /health → 200 (0.7ms)
+2026-03-16 15:01:07 | INFO     | main:57 - GET /health → 200 (2.3ms)
+2026-03-16 15:01:16 | INFO     | routers.search:43 - Cache MISS for search: 'bohemian rhapsody' — fetching from YouTube Music
+2026-03-16 15:01:16 | INFO     | services.search_service:43 - Searching YouTube Music: 'bohemian rhapsody'
+2026-03-16 15:01:18 | INFO     | services.search_service:72 - Search returned 20 tracks for 'bohemian rhapsody'
+2026-03-16 15:01:18 | INFO     | routers.search:60 - Cached 20 results for 'bohemian rhapsody' (TTL: 30min)
+2026-03-16 15:01:18 | INFO     | main:57 - GET /search → 200 (2318.4ms)
+2026-03-16 15:01:22 | INFO     | main:57 - GET /health → 200 (1.0ms)
+2026-03-16 15:01:23 | INFO     | routers.metadata:133 - Redis HIT for metadata: bSnlKl_PoQU
+2026-03-16 15:01:23 | INFO     | main:57 - GET /metadata/bSnlKl_PoQU → 200 (4.7ms)
+2026-03-16 15:01:23 | INFO     | main:57 - POST /stream/bSnlKl_PoQU/played → 200 (12.4ms)
+2026-03-16 15:01:36 | INFO     | main:57 - GET /health → 200 (0.7ms)
+2026-03-16 15:01:51 | INFO     | main:57 - GET /health → 200 (2.3ms)
+2026-03-16 15:02:06 | INFO     | main:57 - GET /health → 200 (3.4ms)
+2026-03-16 15:02:21 | INFO     | main:57 - GET /health → 200 (0.8ms)
+2026-03-16 15:02:34 | INFO     | services.background_jobs:80 - Background worker task created
+2026-03-16 15:02:34 | INFO     | main:49 - SoundFree API started
+2026-03-16 15:02:34 | INFO     | services.background_jobs:12 - Background job worker started
+2026-03-16 15:02:36 | INFO     | main:57 - GET /health → 200 (2.1ms)
+2026-03-16 15:02:51 | INFO     | main:57 - GET /health → 200 (2.6ms)
+2026-03-16 15:02:53 | INFO     | services.background_jobs:80 - Background worker task created
+2026-03-16 15:02:53 | INFO     | main:49 - SoundFree API started
+2026-03-16 15:02:53 | INFO     | services.background_jobs:12 - Background job worker started
+2026-03-16 15:02:59 | INFO     | routers.stream:36 - Cache HIT for stream: ge4M2dVBgTw
+2026-03-16 15:02:59 | INFO     | main:57 - GET /stream/ge4M2dVBgTw → 200 (11.9ms)
+2026-03-16 15:02:59 | INFO     | routers.stream:36 - Cache HIT for stream: ge4M2dVBgTw
+2026-03-16 15:02:59 | INFO     | main:57 - GET /stream/ge4M2dVBgTw/proxy → 200 (53.3ms)
+2026-03-16 15:03:17 | INFO     | routers.stream:113 - Upserted track: Bohemian Rhapsody
+2026-03-16 15:03:17 | WARNING  | routers.stream:130 - Play log error: (sqlalchemy.dialects.postgresql.asyncpg.IntegrityError) <class 'asyncpg.exceptions.NotNullViolationError'>: null value in column "user_id" of relation "play_history" violates not-null constraint
+DETAIL:  Failing row contains (1, null, bSnlKl_PoQU, 2026-03-16 09:33:17.076993+00, null, f).
+[SQL: INSERT INTO play_history (user_id, video_id, duration_played_ms, completed) VALUES ($1::UUID, $2::VARCHAR, $3::INTEGER, $4::BOOLEAN) RETURNING play_history.id, play_history.played_at]
+[parameters: (None, 'bSnlKl_PoQU', None, False)]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2026-03-16 15:03:17 | INFO     | main:57 - POST /stream/bSnlKl_PoQU/played → 200 (102.9ms)
+2026-03-16 15:04:47 | INFO     | services.background_jobs:80 - Background worker task created
+2026-03-16 15:04:47 | INFO     | main:49 - SoundFree API started
+2026-03-16 15:04:47 | INFO     | services.background_jobs:12 - Background job worker started
+2026-03-16 15:04:52 | WARNING  | routers.stream:131 - Play log error: (sqlalchemy.dialects.postgresql.asyncpg.IntegrityError) <class 'asyncpg.exceptions.NotNullViolationError'>: null value in column "user_id" of relation "play_history" violates not-null constraint
+DETAIL:  Failing row contains (2, null, bSnlKl_PoQU, 2026-03-16 09:34:52.949369+00, null, f).
+[SQL: INSERT INTO play_history (user_id, video_id, duration_played_ms, completed) VALUES ($1::UUID, $2::VARCHAR, $3::INTEGER, $4::BOOLEAN) RETURNING play_history.id, play_history.played_at]
+[parameters: (None, 'bSnlKl_PoQU', None, False)]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2026-03-16 15:04:52 | INFO     | main:57 - POST /stream/bSnlKl_PoQU/played → 200 (75.2ms)
+2026-03-16 15:05:41 | INFO     | routers.stream:121 - Logged play: bSnlKl_PoQU
+2026-03-16 15:05:42 | INFO     | main:57 - POST /stream/bSnlKl_PoQU/played → 200 (319.0ms)
+2026-03-16 15:05:42 | INFO     | services.background_jobs:60 - Extracting features for bSnlKl_PoQU
+2026-03-16 15:05:42 | INFO     | services.audio_analysis_service:24 - Analyzing audio: /tmp/soundfree_downloads/bSnlKl_PoQU.opus
+2026-03-16 15:05:52 | INFO     | services.audio_analysis_service:66 - Features: BPM=143.6 Key=A# Energy=0.0664
+2026-03-16 15:05:52 | INFO     | services.audio_analysis_service:106 - Stored features for bSnlKl_PoQU
+2026-03-16 15:05:52 | INFO     | services.background_jobs:63 - Features extracted for bSnlKl_PoQU: BPM=143.55
+2026-03-16 15:06:29 | INFO     | services.audio_analysis_service:24 - Analyzing audio: /tmp/soundfree_downloads/bSnlKl_PoQU.opus
+2026-03-16 15:06:33 | INFO     | services.audio_analysis_service:66 - Features: BPM=143.6 Key=A# Energy=0.0664
+2026-03-16 15:06:33 | INFO     | services.audio_analysis_service:106 - Stored features for bSnlKl_PoQU
+2026-03-16 15:06:33 | INFO     | main:57 - POST /download/bSnlKl_PoQU/analyze → 200 (4169.9ms)
+2026-03-16 15:07:01 | INFO     | services.background_jobs:82 - Background worker task created
+2026-03-16 15:07:01 | INFO     | main:49 - SoundFree API started
+2026-03-16 15:07:01 | INFO     | services.background_jobs:13 - Background job worker started

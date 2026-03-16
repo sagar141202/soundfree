@@ -11,6 +11,7 @@ from config import settings
 from limiter import limiter
 from logger import setup_logging
 from routers import download, likes, lyrics, metadata, search, stream
+from services.background_jobs import start_worker
 
 setup_logging()
 
@@ -40,6 +41,12 @@ app.include_router(metadata.router, prefix="/metadata", tags=["metadata"])
 app.include_router(lyrics.router, prefix="/lyrics", tags=["lyrics"])
 app.include_router(likes.router, prefix="/likes", tags=["likes"])
 app.include_router(download.router, prefix="/download", tags=["download"])
+
+
+@app.on_event("startup")
+async def startup_event():
+    await start_worker()
+    logger.info("SoundFree API started")
 
 
 @app.middleware("http")

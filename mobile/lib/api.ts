@@ -50,9 +50,12 @@ export const getLyrics = async (videoId: string, artist?: string, title?: string
   return data;
 };
 
-export const logPlay = async (videoId: string) => {
+export const logPlay = async (videoId: string, track?: {
+  title?: string; artist?: string; album?: string | null;
+  duration_ms?: number | null; thumbnail_url?: string | null;
+}) => {
   try {
-    await api.post(`/stream/${videoId}/played`);
+    await api.post(`/stream/${videoId}/played`, track || {});
   } catch (_) {}
 };
 

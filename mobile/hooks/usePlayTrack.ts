@@ -69,7 +69,13 @@ async function _playTrack(track: Track) {
           // Log play after 30s (only for streamed tracks)
           if (!isLocal && !(global as any)._playLogged && status.positionMillis >= 30000) {
             (global as any)._playLogged = true;
-            logPlay(track.video_id);
+            logPlay(track.video_id, {
+              title: track.title,
+              artist: track.artist,
+              album: track.album,
+              duration_ms: track.duration_ms,
+              thumbnail_url: track.thumbnail_url,
+            });
           }
 
           if (status.didJustFinish) {
