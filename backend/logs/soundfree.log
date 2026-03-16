@@ -1805,3 +1805,33 @@ DETAIL:  Failing row contains (7, null, 4smEofP_5Q4, 2026-03-16 10:23:30.969966+
 2026-03-16 16:04:42 | INFO     | services.recommendation_service:31 - Computing user vector from 22 plays
 2026-03-16 16:04:42 | INFO     | services.recommendation_service:62 - User vector: BPM=143.9 Energy=0.1521 Key=A#
 2026-03-16 16:04:42 | INFO     | main:60 - GET /recommendations/cached → 200 (1635.0ms)
+2026-03-16 16:05:32 | INFO     | routers.stream:38 - Cache MISS for stream: bSnlKl_PoQU — fetching
+2026-03-16 16:05:32 | INFO     | services.stream_service:34 - Extracting stream URL for video_id: bSnlKl_PoQU
+2026-03-16 16:05:35 | INFO     | services.stream_service:59 - Got stream URL for bSnlKl_PoQU | format: 251 - audio only (medium)
+2026-03-16 16:05:35 | INFO     | main:60 - GET /stream/bSnlKl_PoQU → 200 (2327.7ms)
+2026-03-16 16:05:36 | INFO     | routers.stream:38 - Cache MISS for stream: GqWYJT-iMTw — fetching
+2026-03-16 16:05:36 | INFO     | services.stream_service:34 - Extracting stream URL for video_id: GqWYJT-iMTw
+2026-03-16 16:05:38 | INFO     | services.stream_service:59 - Got stream URL for GqWYJT-iMTw | format: 251 - audio only (medium)
+2026-03-16 16:05:38 | INFO     | main:60 - GET /stream/GqWYJT-iMTw → 200 (2023.8ms)
+2026-03-16 16:05:59 | INFO     | routers.search:39 - Cache HIT for search: 'top hits 2025'
+2026-03-16 16:05:59 | INFO     | main:60 - GET /search → 200 (9.1ms)
+2026-03-16 16:05:59 | INFO     | services.recommendation_service:31 - Computing user vector from 22 plays
+2026-03-16 16:05:59 | INFO     | services.recommendation_service:62 - User vector: BPM=143.9 Energy=0.1521 Key=A#
+2026-03-16 16:05:59 | INFO     | main:60 - GET /recommendations/cached → 200 (29.3ms)
+2026-03-16 16:06:08 | INFO     | routers.stream:36 - Cache HIT for stream: bSnlKl_PoQU
+2026-03-16 16:06:08 | INFO     | main:60 - GET /stream/bSnlKl_PoQU → 200 (3.5ms)
+2026-03-16 16:06:15 | INFO     | routers.lyrics:113 - Fetching lyrics: Queen — Bohemian Rhapsody
+2026-03-16 16:06:15 | INFO     | services.lyrics_service:47 - lrclib lookup: Queen — Bohemian Rhapsody
+2026-03-16 16:06:16 | INFO     | services.lyrics_service:74 - lrclib: synced lyrics found (50 lines)
+2026-03-16 16:06:16 | INFO     | routers.lyrics:82 - Saved lyrics to Postgres: bSnlKl_PoQU
+2026-03-16 16:06:16 | INFO     | main:60 - GET /lyrics/bSnlKl_PoQU → 200 (808.8ms)
+2026-03-16 16:06:36 | INFO     | routers.stream:38 - Cache MISS for stream: PVDPkS4v8FQ — fetching
+2026-03-16 16:06:36 | INFO     | services.stream_service:34 - Extracting stream URL for video_id: PVDPkS4v8FQ
+2026-03-16 16:06:38 | INFO     | services.stream_service:59 - Got stream URL for PVDPkS4v8FQ | format: 251 - audio only (medium)
+2026-03-16 16:06:38 | INFO     | main:60 - GET /stream/PVDPkS4v8FQ → 200 (1931.0ms)
+2026-03-16 16:06:45 | INFO     | routers.lyrics:113 - Fetching lyrics: Sachet Tandon — Bekhayali (From "Kabir Singh")
+2026-03-16 16:06:45 | INFO     | services.lyrics_service:47 - lrclib lookup: Sachet Tandon — Bekhayali (From "Kabir Singh")
+2026-03-16 16:06:46 | WARNING  | services.lyrics_service:63 - lrclib: no result for Sachet Tandon — Bekhayali (From "Kabir Singh")
+2026-03-16 16:06:46 | INFO     | services.lyrics_service:96 - lrclib search: Sachet Tandon — Bekhayali (From "Kabir Singh")
+2026-03-16 16:06:46 | INFO     | routers.lyrics:82 - Saved lyrics to Postgres: PVDPkS4v8FQ
+2026-03-16 16:06:46 | INFO     | main:60 - GET /lyrics/PVDPkS4v8FQ → 200 (1602.7ms)
