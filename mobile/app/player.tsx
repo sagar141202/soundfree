@@ -9,6 +9,7 @@ import { router } from 'expo-router';
 import { usePlayerStore } from '../stores/playerStore';
 import { usePlayTrack, seekToPosition } from '../hooks/usePlayTrack';
 import ProgressBar from '../components/ProgressBar';
+import LyricsView from '../components/LyricsView';
 
 const { width, height } = Dimensions.get('window');
 
@@ -74,7 +75,9 @@ export default function FullPlayer() {
   const artScale = useRef(new Animated.Value(0.92)).current;
   const slideAnim = useRef(new Animated.Value(height)).current;
   const artOpacity = useRef(new Animated.Value(1)).current;
+  const lyricsSlide = useRef(new Animated.Value(height)).current;
   const [liked, setLiked] = useState(false);
+  const [showLyrics, setShowLyrics] = useState(false);
   const prevTrackId = useRef<string | null>(null);
 
   useEffect(() => {
@@ -99,17 +102,23 @@ export default function FullPlayer() {
     prevTrackId.current = currentTrack.video_id;
   }, [currentTrack?.video_id]);
 
+  const toggleLyrics = () => {
+    if (!showLyrics) {
+      setShowLyrics(true);
+      Animated.spring(lyricsSlide, {
+        toValue: 0, useNativeDriver: true,
+        tension: 70, friction: 12,
+      }).start();
+    } else {
+      Animated.timing(lyricsSlide, {
+        toValue: height, duration: 300, useNativeDriver: true,
+      }).start(() => setShowLyrics(false));
+    }
+  };
+
   if (!currentTrack) { router.back(); return null; }
 
   const colorIndex = currentTrack.video_id.charCodeAt(0) % THUMB_COLORS.length;
-
-  const ACTIONS = [
-    { icon: '⬇️', label: 'Download', onPress: () => {} },
-    { icon: '🎵', label: 'Lyrics', onPress: () => router.push('/lyrics') },
-    { icon: '📋', label: 'Queue', onPress: () => {} },
-    { icon: '⏱️', label: 'Sleep', onPress: () => {} },
-    { icon: '↗️', label: 'Share', onPress: () => {} },
-  ];
 
   return (
     <Animated.View style={[styles.container, { transform: [{ translateY: slideAnim }] }]}>
@@ -139,7 +148,7 @@ export default function FullPlayer() {
             <Image source={{ uri: currentTrack.thumbnail_url }} style={styles.art} resizeMode="cover" />
           ) : (
             <LinearGradient colors={THUMB_COLORS[colorIndex] as [string, string]} style={styles.art}>
-              <Text style={styles.artEmoji}>��</Text>
+              <Text style={styles.artEmoji}>🎵</Text>
             </LinearGradient>
           )}
         </Animated.View>
@@ -186,16 +195,64 @@ export default function FullPlayer() {
 
       {/* Action row */}
       <View style={styles.actionRow}>
-        {ACTIONS.map((a, i) => (
+        {[
+          { icon: '⬇️', label: 'Download', onPress: () => {} },
+          { icon: '🎵', label: showLyrics ? 'Hide' : 'Lyrics', onPress: toggleLyrics, active: showLyrics },
+          { icon: '📋', label: 'Queue', onPress: () => {} },
+          { icon: '⏱️', label: 'Sleep', onPress: () => {} },
+          { icon: '↗️', label: 'Share', onPress: () => {} },
+        ].map((a, i) => (
           <TouchableOpacity key={i} style={styles.actionBtn} onPress={a.onPress}>
-            <View style={styles.actionIconWrap}>
-              <LinearGradient colors={['rgba(167,139,250,0.15)', 'rgba(125,211,252,0.08)']} style={StyleSheet.absoluteFillObject} />
+            <View style={[styles.actionIconWrap, a.active && styles.actionIconWrapActive]}>
+              <LinearGradient
+                colors={a.active ? ['rgba(167,139,250,0.4)', 'rgba(125,211,252,0.3)'] : ['rgba(167,139,250,0.15)', 'rgba(125,211,252,0.08)']}
+                style={StyleSheet.absoluteFillObject}
+              />
               <Text style={styles.actionIcon}>{a.icon}</Text>
             </View>
-            <Text style={styles.actionLabel}>{a.label}</Text>
+            <Text style={[styles.actionLabel, a.active && styles.actionLabelActive]}>{a.label}</Text>
           </TouchableOpacity>
         ))}
       </View>
+
+      {/* Lyrics overlay — slides up from bottom */}
+      {showLyrics && (
+        <Animated.View style={[styles.lyricsOverlay, { transform: [{ translateY: lyricsSlide }] }]}>
+          <LinearGradient
+            colors={['rgba(250,251,255,0.98)', 'rgba(240,244,255,0.98)']}
+            style={StyleSheet.absoluteFillObject}
+          />
+          {currentTrack.thumbnail_url && (
+            <Animated.Image
+              source={{ uri: currentTrack.thumbnail_url }}
+              style={[StyleSheet.absoluteFillObject, { opacity: 0.08 }]}
+              blurRadius={30}
+              resizeMode="cover"
+            />
+          )}
+
+          {/* Lyrics header */}
+          <View style={styles.lyricsHeader}>
+            <View style={styles.lyricsPill} />
+            <View style={styles.lyricsHeaderRow}>
+              <View>
+                <Text style={styles.lyricsTitle}>Lyrics</Text>
+                <Text style={styles.lyricsSubtitle} numberOfLines={1}>{currentTrack.title}</Text>
+              </View>
+              <TouchableOpacity style={styles.lyricsCloseBtn} onPress={toggleLyrics}>
+                <LinearGradient colors={['rgba(167,139,250,0.2)', 'rgba(167,139,250,0.1)']} style={StyleSheet.absoluteFillObject} />
+                <Text style={styles.lyricsCloseIcon}>↓</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+
+          <LyricsView
+            videoId={currentTrack.video_id}
+            artist={currentTrack.artist}
+            title={currentTrack.title}
+          />
+        </Animated.View>
+      )}
     </Animated.View>
   );
 }
@@ -234,6 +291,20 @@ const styles = StyleSheet.create({
   actionRow: { flexDirection: 'row', justifyContent: 'space-around', paddingHorizontal: 24 },
   actionBtn: { alignItems: 'center', gap: 6 },
   actionIconWrap: { width: 48, height: 48, borderRadius: 16, alignItems: 'center', justifyContent: 'center', overflow: 'hidden', borderWidth: 1.5, borderColor: 'rgba(167,139,250,0.2)' },
+  actionIconWrapActive: { borderColor: 'rgba(167,139,250,0.5)' },
   actionIcon: { fontSize: 20 },
   actionLabel: { fontSize: 11, color: '#6B7280', fontWeight: '600' },
+  actionLabelActive: { color: '#7C3AED' },
+  lyricsOverlay: {
+    position: 'absolute', top: 0, left: 0, right: 0, bottom: 0,
+    borderTopLeftRadius: 32, borderTopRightRadius: 32,
+    overflow: 'hidden',
+  },
+  lyricsHeader: { paddingTop: 12, paddingHorizontal: 24, paddingBottom: 8 },
+  lyricsPill: { width: 40, height: 4, backgroundColor: 'rgba(167,139,250,0.4)', borderRadius: 2, alignSelf: 'center', marginBottom: 16 },
+  lyricsHeaderRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
+  lyricsTitle: { fontSize: 24, fontWeight: '900', color: '#1E1B4B' },
+  lyricsSubtitle: { fontSize: 13, color: '#6B7280', marginTop: 2 },
+  lyricsCloseBtn: { width: 42, height: 42, borderRadius: 21, alignItems: 'center', justifyContent: 'center', overflow: 'hidden', borderWidth: 1.5, borderColor: 'rgba(167,139,250,0.3)' },
+  lyricsCloseIcon: { fontSize: 20, color: '#7C3AED' },
 });

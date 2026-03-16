@@ -816,3 +816,35 @@ DETAIL:  Key (video_id)=(uT_HXrrmHX8) is not present in table "tracks".
 2026-03-16 11:08:31 | INFO     | main:48 - GET /stream/Wqu4MRQOgyo/proxy → 200 (15.3ms)
 2026-03-16 11:08:35 | INFO     | routers.lyrics:92 - Redis HIT for lyrics: Wqu4MRQOgyo
 2026-03-16 11:08:35 | INFO     | main:48 - GET /lyrics/Wqu4MRQOgyo → 200 (5.1ms)
+2026-03-16 11:12:35 | INFO     | routers.lyrics:92 - Redis HIT for lyrics: Wqu4MRQOgyo
+2026-03-16 11:12:35 | INFO     | main:48 - GET /lyrics/Wqu4MRQOgyo → 200 (13.3ms)
+2026-03-16 11:12:40 | INFO     | routers.stream:36 - Cache HIT for stream: Wqu4MRQOgyo
+2026-03-16 11:12:40 | INFO     | main:48 - GET /stream/Wqu4MRQOgyo/proxy → 200 (22.0ms)
+2026-03-16 11:12:42 | INFO     | routers.stream:39 - Cache MISS for stream: WwzbqTaSp7M — fetching
+2026-03-16 11:12:42 | INFO     | services.stream_service:34 - Extracting stream URL for video_id: WwzbqTaSp7M
+2026-03-16 11:12:44 | INFO     | services.stream_service:59 - Got stream URL for WwzbqTaSp7M | format: 251 - audio only (medium)
+2026-03-16 11:12:44 | INFO     | main:48 - GET /stream/WwzbqTaSp7M → 200 (2119.8ms)
+2026-03-16 11:12:44 | INFO     | routers.stream:36 - Cache HIT for stream: WwzbqTaSp7M
+2026-03-16 11:12:44 | INFO     | main:48 - GET /stream/WwzbqTaSp7M/proxy → 200 (58.6ms)
+2026-03-16 11:12:49 | INFO     | routers.stream:36 - Cache HIT for stream: 4smEofP_5Q4
+2026-03-16 11:12:49 | INFO     | main:48 - GET /stream/4smEofP_5Q4 → 200 (1.9ms)
+2026-03-16 11:12:49 | INFO     | routers.stream:36 - Cache HIT for stream: 4smEofP_5Q4
+2026-03-16 11:12:49 | INFO     | main:48 - GET /stream/4smEofP_5Q4/proxy → 200 (15.5ms)
+2026-03-16 11:12:51 | INFO     | routers.lyrics:107 - Fetching lyrics: Arijit Singh — Sitaare - From "Ikkis" (Vocals Only)
+2026-03-16 11:12:51 | INFO     | services.lyrics_service:47 - lrclib lookup: Arijit Singh — Sitaare - From "Ikkis" (Vocals Only)
+2026-03-16 11:12:52 | WARNING  | services.lyrics_service:63 - lrclib: no result for Arijit Singh — Sitaare - From "Ikkis" (Vocals Only)
+2026-03-16 11:12:52 | INFO     | services.lyrics_service:96 - lrclib search: Arijit Singh — Sitaare - From "Ikkis" (Vocals Only)
+2026-03-16 11:12:53 | WARNING  | routers.lyrics:78 - Postgres lyrics write error: (sqlalchemy.dialects.postgresql.asyncpg.IntegrityError) <class 'asyncpg.exceptions.ForeignKeyViolationError'>: insert or update on table "lyrics_cache" violates foreign key constraint "lyrics_cache_video_id_fkey"
+DETAIL:  Key (video_id)=(4smEofP_5Q4) is not present in table "tracks".
+[SQL: INSERT INTO lyrics_cache (video_id, lyrics_json, source, synced) VALUES ($1::VARCHAR, $2::JSONB, $3::VARCHAR, $4::BOOLEAN) RETURNING lyrics_cache.cached_at]
+[parameters: ('4smEofP_5Q4', '"{\\"video_id\\": \\"4smEofP_5Q4\\", \\"lines\\": [{\\"time_ms\\": 0, \\"text\\": \\"Lyrics not available for this track.\\"}], \\"synced\\": false, \\"source\\": \\"none\\", \\"genius_url\\": null}"', None, False)]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2026-03-16 11:12:53 | INFO     | main:48 - GET /lyrics/4smEofP_5Q4 → 200 (1495.5ms)
+2026-03-16 11:12:57 | INFO     | routers.stream:36 - Cache HIT for stream: 4smEofP_5Q4
+2026-03-16 11:12:57 | INFO     | main:48 - GET /stream/4smEofP_5Q4/proxy → 200 (15.5ms)
+2026-03-16 11:13:01 | INFO     | routers.stream:36 - Cache HIT for stream: 4smEofP_5Q4
+2026-03-16 11:13:01 | INFO     | main:48 - GET /stream/4smEofP_5Q4/proxy → 200 (7.1ms)
+2026-03-16 11:13:02 | INFO     | routers.stream:36 - Cache HIT for stream: 4smEofP_5Q4
+2026-03-16 11:13:02 | INFO     | main:48 - GET /stream/4smEofP_5Q4/proxy → 200 (6.1ms)
+2026-03-16 11:13:07 | INFO     | routers.lyrics:92 - Redis HIT for lyrics: 4smEofP_5Q4
+2026-03-16 11:13:07 | INFO     | main:48 - GET /lyrics/4smEofP_5Q4 → 200 (2.1ms)
