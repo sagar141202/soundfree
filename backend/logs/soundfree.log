@@ -1774,3 +1774,17 @@ DETAIL:  Failing row contains (7, null, 4smEofP_5Q4, 2026-03-16 10:23:30.969966+
 2026-03-16 16:00:13 | INFO     | services.recommendation_service:62 - User vector: BPM=143.9 Energy=0.1521 Key=A#
 2026-03-16 16:00:13 | INFO     | services.recommendation_service:144 - Top recommendation: Bohemian Rhapsody (score=0.6627)
 2026-03-16 16:00:13 | ERROR    | services.scheduler:43 - Recommendation rebuild failed: cache_set() got an unexpected keyword argument 'ttl'
+2026-03-16 16:00:21 | INFO     | services.background_jobs:82 - Background worker task created
+2026-03-16 16:00:21 | INFO     | services.scheduler:72 - Scheduler started — nightly rebuild at 2:00 AM, warmup in 30s
+2026-03-16 16:00:21 | INFO     | main:52 - SoundFree API started
+2026-03-16 16:00:21 | INFO     | services.background_jobs:13 - Background job worker started
+2026-03-16 16:00:51 | INFO     | services.scheduler:12 - Nightly recommendation rebuild starting...
+2026-03-16 16:00:52 | INFO     | services.annoy_service:40 - Building index from 5 tracks
+2026-03-16 16:00:52 | INFO     | services.annoy_service:74 - Index built: 5 tracks → /tmp/soundfree_index/tracks_vectors.npy
+2026-03-16 16:00:52 | INFO     | services.scheduler:19 - Index rebuilt: {'status': 'ok', 'count': 5, 'path': '/tmp/soundfree_index/tracks_vectors.npy'}
+2026-03-16 16:00:52 | INFO     | services.recommendation_service:31 - Computing user vector from 22 plays
+2026-03-16 16:00:52 | INFO     | services.recommendation_service:62 - User vector: BPM=143.9 Energy=0.1521 Key=A#
+2026-03-16 16:00:52 | INFO     | services.recommendation_service:31 - Computing user vector from 22 plays
+2026-03-16 16:00:52 | INFO     | services.recommendation_service:62 - User vector: BPM=143.9 Energy=0.1521 Key=A#
+2026-03-16 16:00:52 | INFO     | services.recommendation_service:144 - Top recommendation: Bohemian Rhapsody (score=0.6627)
+2026-03-16 16:00:52 | ERROR    | services.scheduler:43 - Recommendation rebuild failed: cache_set() got an unexpected keyword argument 'ttl'
