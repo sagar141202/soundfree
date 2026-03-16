@@ -12,6 +12,7 @@ from limiter import limiter
 from logger import setup_logging
 from routers import download, likes, lyrics, metadata, recommendations, search, stream
 from services.background_jobs import start_worker
+from services.scheduler import start_scheduler
 
 setup_logging()
 
@@ -47,6 +48,7 @@ app.include_router(recommendations.router, prefix="/recommendations", tags=["rec
 @app.on_event("startup")
 async def startup_event():
     await start_worker()
+    await start_scheduler()
     logger.info("SoundFree API started")
 
 

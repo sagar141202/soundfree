@@ -153,3 +153,25 @@ async def get_recommendations_feed(limit: int = 20) -> list:
             r["reason"] = "You Might Like"
 
     return results[:limit]
+
+
+@router.get("/cached")
+async def get_cached_recommendations() -> list:
+    """Serve recommendations from Redis cache (fast path)."""
+    from cache import cache_get
+
+    cached = await cache_get("recommendations:feed")
+    if cached:
+        pass
+        return cached
+    # Fall back to live computation
+    return await get_recommendations_feed()
+
+
+@router.post("/rebuild")
+async def trigger_rebuild() -> dict:
+    """Manually trigger recommendation rebuild."""
+    from services.scheduler import rebuild_recommendations
+
+    await rebuild_recommendations()
+    return {"status": "rebuilt"}
