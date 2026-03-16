@@ -49,3 +49,9 @@ export const getLyrics = async (videoId: string, artist?: string, title?: string
   const { data } = await api.get(`/lyrics/${videoId}`, { params });
   return data;
 };
+
+export const logPlay = async (videoId: string) => {
+  try {
+    await api.post(`/stream/${videoId}/played`);
+  } catch (_) {}
+};

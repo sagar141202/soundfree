@@ -88,3 +88,31 @@ async def proxy_stream(video_id: str, request: Request):
             "Cache-Control": "no-cache",
         },
     )
+
+
+@router.post("/{video_id}/played")
+async def log_play(video_id: str) -> dict:
+    """Log a completed play to play_history table."""
+
+    from database import AsyncSessionLocal
+    from models import PlayHistory, Track
+
+    try:
+        async with AsyncSessionLocal() as session:
+            # Only log if track exists
+            track = await session.get(Track, video_id)
+            if track:
+                session.add(
+                    PlayHistory(
+                        video_id=video_id,
+                        user_id=None,
+                        played_at=None,  # defaults to now()
+                    )
+                )
+                await session.commit()
+                logger.info(f"Logged play: {video_id}")
+                return {"status": "logged"}
+    except Exception as e:
+        logger.warning(f"Play log error: {e}")
+
+    return {"status": "skipped"}

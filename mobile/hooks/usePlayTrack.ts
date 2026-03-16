@@ -1,8 +1,9 @@
 import { useCallback } from 'react';
+import { Audio } from 'expo-av';
 import { usePlayerStore } from '../stores/playerStore';
 import { useLibraryStore } from '../stores/libraryStore';
 import { useUIStore } from '../stores/uiStore';
-import { getStreamUrl } from '../lib/api';
+import { getStreamUrl, logPlay } from '../lib/api';
 import type { Track } from '../components/TrackListItem';
 
 async function _playTrack(track: Track) {
@@ -10,10 +11,7 @@ async function _playTrack(track: Track) {
     const streamData = await getStreamUrl(track.video_id);
     if (!streamData?.stream_url && !streamData?.proxy_url) throw new Error('No stream URL');
 
-    // Use proxy URL to avoid YouTube CDN blocking
     const playUrl = streamData.proxy_url || streamData.stream_url;
-    console.log('Playing via:', playUrl.slice(0, 60));
-
     usePlayerStore.getState().setCurrentTrack({ ...track, stream_url: playUrl });
 
     if ((global as any)._soundInstance) {
@@ -21,8 +19,10 @@ async function _playTrack(track: Track) {
       (global as any)._soundInstance = null;
     }
 
-    const { Audio } = require('expo-av');
+    // Reset play logged flag
+    (global as any)._playLogged = false;
 
+    const { Audio } = require('expo-av');
     await Audio.setAudioModeAsync({
       staysActiveInBackground: true,
       playsInSilentModeIOS: true,
@@ -37,14 +37,25 @@ async function _playTrack(track: Track) {
         if (status.isLoaded) {
           usePlayerStore.getState().setPosition(status.positionMillis ?? 0);
           usePlayerStore.getState().setDuration(status.durationMillis ?? 0);
-          if (status.didJustFinish) usePlayerStore.getState().nextTrack();
+
+          // Log play after 30 seconds
+          if (
+            !( global as any)._playLogged &&
+            status.positionMillis >= 30000
+          ) {
+            (global as any)._playLogged = true;
+            logPlay(track.video_id);
+          }
+
+          if (status.didJustFinish) {
+            usePlayerStore.getState().nextTrack();
+          }
         }
       }
     );
 
     (global as any)._soundInstance = sound;
     usePlayerStore.getState().setIsPlaying(true);
-    console.log('Playback started!');
 
   } catch (e: any) {
     console.error('_playTrack error:', e?.message || e);
