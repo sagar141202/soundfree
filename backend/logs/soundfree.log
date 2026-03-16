@@ -1187,3 +1187,18 @@ DETAIL:  Failing row contains (5, null, oDyMLiIskPg, 2026-03-16 08:34:25.859818+
 2026-03-16 14:08:24 | INFO     | routers.stream:36 - Cache HIT for stream: oDyMLiIskPg
 2026-03-16 14:08:24 | INFO     | main:49 - GET /stream/oDyMLiIskPg/proxy → 200 (9.5ms)
 2026-03-16 14:08:55 | INFO     | main:49 - POST /stream/oDyMLiIskPg/played → 200 (22.8ms)
+2026-03-16 14:12:46 | INFO     | routers.lyrics:98 - Redis HIT for lyrics: oDyMLiIskPg
+2026-03-16 14:12:46 | INFO     | main:49 - GET /lyrics/oDyMLiIskPg → 200 (9.3ms)
+2026-03-16 14:15:22 | INFO     | main:49 - GET /health → 200 (2.7ms)
+2026-03-16 14:17:05 | INFO     | main:49 - GET /health → 200 (4.4ms)
+2026-03-16 14:17:25 | INFO     | routers.search:43 - Cache MISS for search: 'Bollywood' — fetching from YouTube Music
+2026-03-16 14:17:25 | INFO     | services.search_service:43 - Searching YouTube Music: 'Bollywood'
+2026-03-16 14:17:26 | INFO     | services.search_service:72 - Search returned 20 tracks for 'Bollywood'
+2026-03-16 14:17:26 | INFO     | routers.search:60 - Cached 20 results for 'Bollywood' (TTL: 30min)
+2026-03-16 14:17:26 | INFO     | main:49 - GET /search → 200 (1047.8ms)
+2026-03-16 14:18:09 | INFO     | routers.stream:39 - Cache MISS for stream: n9qQiuwBywU — fetching
+2026-03-16 14:18:09 | INFO     | services.stream_service:34 - Extracting stream URL for video_id: n9qQiuwBywU
+2026-03-16 14:18:13 | INFO     | services.stream_service:59 - Got stream URL for n9qQiuwBywU | format: 251 - audio only (medium)
+2026-03-16 14:18:13 | INFO     | main:49 - GET /stream/n9qQiuwBywU → 200 (3927.1ms)
+2026-03-16 14:18:13 | INFO     | routers.stream:36 - Cache HIT for stream: n9qQiuwBywU
+2026-03-16 14:18:13 | INFO     | main:49 - GET /stream/n9qQiuwBywU/proxy → 200 (12.4ms)

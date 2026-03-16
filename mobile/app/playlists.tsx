@@ -172,7 +172,7 @@ export default function PlaylistsScreen() {
                 <TouchableOpacity
                   key={playlist.id}
                   style={styles.playlistCard}
-                  onPress={() => playlist.tracks.length > 0 && playTrack(playlist.tracks[0], playlist.tracks)}
+                  onPress={() => router.push({ pathname: '/playlist/[id]', params: { id: playlist.id } })}
                   onLongPress={() => handleDelete(playlist.id, playlist.name)}
                 >
                   <LinearGradient

@@ -4,6 +4,7 @@
     "@shopify/flash-list": "^2.3.0",
     "@tanstack/react-query": "^5.90.21",
     "axios": "^1.13.6",
+    "react-native-draggable-flatlist": "^4.0.3",
     "react-native-svg": "^15.15.3",
     "zustand": "^5.0.11"
   }
