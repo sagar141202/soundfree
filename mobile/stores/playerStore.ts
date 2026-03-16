@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { playTrackAuto } from '../hooks/usePlayTrack';
 
 export interface Track {
   video_id: string;
@@ -10,21 +11,31 @@ export interface Track {
   stream_url?: string;
 }
 
+function fisherYates<T>(arr: T[]): T[] {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
 interface PlayerState {
   currentTrack: Track | null;
+  queue: Track[];
+  originalQueue: Track[]; // saved for shuffle restore
+  currentIndex: number;
   isPlaying: boolean;
   position: number;
   duration: number;
-  queue: Track[];
-  queueIndex: number;
   isShuffled: boolean;
-  repeatMode: 'none' | 'one' | 'all';
+  repeatMode: 'none' | 'all' | 'one';
+
   setCurrentTrack: (track: Track) => void;
-  setIsPlaying: (playing: boolean) => void;
-  setPosition: (position: number) => void;
-  setDuration: (duration: number) => void;
   setQueue: (queue: Track[], index?: number) => void;
-  addToQueue: (track: Track) => void;
+  setIsPlaying: (playing: boolean) => void;
+  setPosition: (pos: number) => void;
+  setDuration: (dur: number) => void;
   nextTrack: () => void;
   previousTrack: () => void;
   toggleShuffle: () => void;
@@ -33,74 +44,102 @@ interface PlayerState {
 
 export const usePlayerStore = create<PlayerState>((set, get) => ({
   currentTrack: null,
+  queue: [],
+  originalQueue: [],
+  currentIndex: 0,
   isPlaying: false,
   position: 0,
   duration: 0,
-  queue: [],
-  queueIndex: 0,
   isShuffled: false,
   repeatMode: 'none',
 
   setCurrentTrack: (track) => set({ currentTrack: track }),
+
+  setQueue: (queue, index = 0) => set({
+    queue,
+    originalQueue: queue,
+    currentIndex: index,
+  }),
+
   setIsPlaying: (playing) => set({ isPlaying: playing }),
-  setPosition: (position) => set({ position }),
-  setDuration: (duration) => set({ duration }),
-  setQueue: (queue, index = 0) => set({ queue, queueIndex: index, currentTrack: queue[index] }),
-  addToQueue: (track) => set((s) => ({ queue: [...s.queue, track] })),
+  setPosition: (pos) => set({ position: pos }),
+  setDuration: (dur) => set({ duration: dur }),
 
   nextTrack: () => {
-    const { queue, queueIndex, repeatMode, isShuffled } = get();
+    const { queue, currentIndex, repeatMode, isShuffled } = get();
+    if (queue.length === 0) return;
+
     if (repeatMode === 'one') {
-      // Restart current track
-      const sound = (global as any)._soundInstance;
-      if (sound) sound.setPositionAsync(0);
-      set({ position: 0 });
+      const track = queue[currentIndex];
+      playTrackAuto(track);
       return;
     }
 
-    let nextIndex: number;
-    if (isShuffled) {
-      nextIndex = Math.floor(Math.random() * queue.length);
-    } else {
-      nextIndex = queueIndex + 1;
+    let nextIndex = currentIndex + 1;
+
+    if (nextIndex >= queue.length) {
+      if (repeatMode === 'all') {
+        nextIndex = 0;
+      } else {
+        set({ isPlaying: false });
+        return;
+      }
     }
 
-    if (nextIndex < queue.length) {
-      set({ queueIndex: nextIndex, currentTrack: queue[nextIndex], position: 0 });
-      // Auto-play next track
-      const { playTrackAuto } = require('../hooks/usePlayTrack');
-      playTrackAuto?.(queue[nextIndex]);
-    } else if (repeatMode === 'all' && queue.length > 0) {
-      set({ queueIndex: 0, currentTrack: queue[0], position: 0 });
-      const { playTrackAuto } = require('../hooks/usePlayTrack');
-      playTrackAuto?.(queue[0]);
-    } else {
-      set({ isPlaying: false });
-    }
+    const nextTrack = queue[nextIndex];
+    set({ currentIndex: nextIndex, currentTrack: nextTrack, position: 0 });
+    playTrackAuto(nextTrack);
   },
 
   previousTrack: () => {
-    const { queue, queueIndex, position } = get();
+    const { queue, currentIndex, position } = get();
+    if (queue.length === 0) return;
 
-    // If more than 3 seconds in — restart current track
+    // If > 3s in, restart current track
     if (position > 3000) {
-      const sound = (global as any)._soundInstance;
-      if (sound) sound.setPositionAsync(0);
-      set({ position: 0 });
+      const track = queue[currentIndex];
+      playTrackAuto(track);
       return;
     }
 
-    // Otherwise go to previous
-    const prev = queueIndex - 1;
-    if (prev >= 0) {
-      set({ queueIndex: prev, currentTrack: queue[prev], position: 0 });
-      const { playTrackAuto } = require('../hooks/usePlayTrack');
-      playTrackAuto?.(queue[prev]);
+    const prevIndex = Math.max(0, currentIndex - 1);
+    const prevTrack = queue[prevIndex];
+    set({ currentIndex: prevIndex, currentTrack: prevTrack, position: 0 });
+    playTrackAuto(prevTrack);
+  },
+
+  toggleShuffle: () => {
+    const { isShuffled, queue, originalQueue, currentTrack, currentIndex } = get();
+
+    if (!isShuffled) {
+      // Shuffle ON — Fisher-Yates shuffle, keep current track first
+      const rest = queue.filter((_, i) => i !== currentIndex);
+      const shuffled = fisherYates(rest);
+      const newQueue = currentTrack ? [currentTrack, ...shuffled] : shuffled;
+      set({
+        isShuffled: true,
+        queue: newQueue,
+        originalQueue: queue,
+        currentIndex: 0,
+      });
+    } else {
+      // Shuffle OFF — restore original order
+      const current = currentTrack;
+      const restoredIndex = current
+        ? originalQueue.findIndex(t => t.video_id === current.video_id)
+        : 0;
+      set({
+        isShuffled: false,
+        queue: originalQueue,
+        currentIndex: restoredIndex >= 0 ? restoredIndex : 0,
+      });
     }
   },
 
-  toggleShuffle: () => set((s) => ({ isShuffled: !s.isShuffled })),
-  toggleRepeat: () => set((s) => ({
-    repeatMode: s.repeatMode === 'none' ? 'one' : s.repeatMode === 'one' ? 'all' : 'none',
-  })),
+  toggleRepeat: () => {
+    const { repeatMode } = get();
+    const modes: Array<'none' | 'all' | 'one'> = ['none', 'all', 'one'];
+    const nextMode = modes[(modes.indexOf(repeatMode) + 1) % modes.length];
+    set({ repeatMode: nextMode });
+  },
 }));

@@ -2079,3 +2079,8 @@ DETAIL:  Failing row contains (7, null, 4smEofP_5Q4, 2026-03-16 10:23:30.969966+
 2026-03-16 16:33:01 | INFO     | main:61 - GET /recommendations/cached → 200 (107.2ms)
 2026-03-16 16:33:28 | INFO     | routers.stream:36 - Cache HIT for stream: A46Y2CLH4Bk
 2026-03-16 16:33:28 | INFO     | main:61 - GET /stream/A46Y2CLH4Bk → 200 (3.3ms)
+2026-03-16 16:34:36 | INFO     | routers.stream:117 - Inserted track: Magenta Riddim
+2026-03-16 16:34:36 | INFO     | routers.stream:122 - Logged play: A46Y2CLH4Bk
+2026-03-16 16:34:36 | INFO     | main:61 - POST /stream/A46Y2CLH4Bk/played → 200 (65.6ms)
+2026-03-16 16:39:03 | INFO     | routers.stream:122 - Logged play: 4smEofP_5Q4
+2026-03-16 16:39:03 | INFO     | main:61 - POST /stream/4smEofP_5Q4/played → 200 (28.4ms)
