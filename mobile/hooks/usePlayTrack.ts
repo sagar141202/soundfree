@@ -4,7 +4,7 @@ import { Audio } from 'expo-av';
 import { usePlayerStore } from '../stores/playerStore';
 import { useLibraryStore } from '../stores/libraryStore';
 import { useUIStore } from '../stores/uiStore';
-import { getStreamUrl, logPlay } from '../lib/api';
+import { getStreamUrl, logPlay, updateDiscordPresence } from '../lib/api';
 import { getLastfmConfig, scrobbleTrack, updateNowPlaying } from '../services/lastfmService';
 import { isDownloaded, getLocalPath } from './useDownload';
 import {
@@ -65,6 +65,15 @@ async function _playTrack(track: any) {
           });
           getLastfmConfig().then(config => {
             if (config?.sessionKey) updateNowPlaying(config, track);
+          });
+          // Update Discord RPC
+          updateDiscordPresence({
+            title: track.title,
+            artist: track.artist,
+            album: track.album,
+            position_ms: status.positionMillis,
+            duration_ms: status.durationMillis || track.duration_ms,
+            is_playing: true,
           });
         }
         const dur = status.durationMillis || track.duration_ms || 0;

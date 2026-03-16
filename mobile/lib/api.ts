@@ -72,3 +72,33 @@ export const getSimilarTracks = async (limit = 10) => {
     return [];
   }
 };
+
+export const updateDiscordPresence = async (track: {
+  title: string; artist: string; album?: string | null;
+  position_ms?: number; duration_ms?: number | null; is_playing?: boolean;
+}) => {
+  try {
+    await api.post('/discord/update', {
+      title: track.title,
+      artist: track.artist,
+      album: track.album,
+      position_ms: track.position_ms || 0,
+      duration_ms: track.duration_ms || 0,
+      is_playing: track.is_playing !== false,
+    });
+  } catch (_) {}
+};
+
+export const getDiscordStatus = async () => {
+  try {
+    const { data } = await api.get('/discord/status');
+    return data;
+  } catch { return null; }
+};
+
+export const setDiscordConfig = async (clientId: string, enabled: boolean) => {
+  try {
+    const { data } = await api.post('/discord/config', { client_id: clientId, enabled });
+    return data;
+  } catch { return null; }
+};
