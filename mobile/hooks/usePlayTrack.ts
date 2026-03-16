@@ -1,3 +1,4 @@
+import { registerPlayHandler } from '../services/playerEvents';
 import { useCallback } from 'react';
 import { Audio } from 'expo-av';
 import { usePlayerStore } from '../stores/playerStore';
@@ -84,6 +85,9 @@ async function _playTrack(track: any) {
 }
 
 export const playTrackAuto = _playTrack;
+
+// Register global play handler to break circular dependency
+registerPlayHandler(_playTrack);
 
 export function usePlayTrack() {
   const setCurrentTrack = usePlayerStore(s => s.setCurrentTrack);

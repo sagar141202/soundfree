@@ -2084,3 +2084,41 @@ DETAIL:  Failing row contains (7, null, 4smEofP_5Q4, 2026-03-16 10:23:30.969966+
 2026-03-16 16:34:36 | INFO     | main:61 - POST /stream/A46Y2CLH4Bk/played → 200 (65.6ms)
 2026-03-16 16:39:03 | INFO     | routers.stream:122 - Logged play: 4smEofP_5Q4
 2026-03-16 16:39:03 | INFO     | main:61 - POST /stream/4smEofP_5Q4/played → 200 (28.4ms)
+2026-03-16 17:21:17 | INFO     | main:61 - GET /trending → 307 (19.0ms)
+2026-03-16 17:21:17 | INFO     | routers.trending:60 - Trending cache HIT (20 tracks)
+2026-03-16 17:21:17 | INFO     | services.recommendation_service:31 - Computing user vector from 25 plays
+2026-03-16 17:21:17 | INFO     | services.recommendation_service:62 - User vector: BPM=149.3 Energy=0.1617 Key=A#
+2026-03-16 17:21:17 | INFO     | main:61 - GET /trending/ → 200 (94.2ms)
+2026-03-16 17:21:17 | INFO     | services.recommendation_service:31 - Computing user vector from 25 plays
+2026-03-16 17:21:17 | INFO     | services.recommendation_service:62 - User vector: BPM=149.3 Energy=0.1617 Key=A#
+2026-03-16 17:21:17 | INFO     | main:61 - GET /recommendations/similar → 200 (202.5ms)
+2026-03-16 17:21:17 | INFO     | main:61 - GET /recommendations/cached → 200 (364.5ms)
+2026-03-16 17:24:04 | INFO     | main:61 - GET /trending → 307 (9.2ms)
+2026-03-16 17:24:04 | INFO     | services.recommendation_service:31 - Computing user vector from 25 plays
+2026-03-16 17:24:04 | INFO     | services.recommendation_service:62 - User vector: BPM=149.3 Energy=0.1617 Key=A#
+2026-03-16 17:24:04 | INFO     | services.recommendation_service:31 - Computing user vector from 25 plays
+2026-03-16 17:24:04 | INFO     | services.recommendation_service:62 - User vector: BPM=149.3 Energy=0.1617 Key=A#
+2026-03-16 17:24:04 | INFO     | main:61 - GET /recommendations/similar → 200 (160.4ms)
+2026-03-16 17:24:04 | INFO     | routers.trending:60 - Trending cache HIT (20 tracks)
+2026-03-16 17:24:04 | INFO     | main:61 - GET /trending/ → 200 (8.3ms)
+2026-03-16 17:24:04 | INFO     | main:61 - GET /recommendations/cached → 200 (185.5ms)
+2026-03-16 17:24:54 | INFO     | main:61 - GET /trending → 307 (6.6ms)
+2026-03-16 17:24:54 | INFO     | routers.trending:60 - Trending cache HIT (20 tracks)
+2026-03-16 17:24:54 | INFO     | main:61 - GET /trending/ → 200 (4.2ms)
+2026-03-16 17:24:54 | INFO     | services.recommendation_service:31 - Computing user vector from 25 plays
+2026-03-16 17:24:54 | INFO     | services.recommendation_service:62 - User vector: BPM=149.3 Energy=0.1617 Key=A#
+2026-03-16 17:24:54 | INFO     | services.recommendation_service:31 - Computing user vector from 25 plays
+2026-03-16 17:24:54 | INFO     | services.recommendation_service:62 - User vector: BPM=149.3 Energy=0.1617 Key=A#
+2026-03-16 17:24:54 | INFO     | main:61 - GET /recommendations/similar → 200 (25.7ms)
+2026-03-16 17:24:54 | INFO     | main:61 - GET /recommendations/cached → 200 (40.5ms)
+2026-03-16 17:24:55 | INFO     | routers.stream:122 - Logged play: 4smEofP_5Q4
+2026-03-16 17:24:55 | INFO     | main:61 - POST /stream/4smEofP_5Q4/played → 200 (14.2ms)
+2026-03-16 17:25:03 | INFO     | main:61 - GET /trending → 307 (1.2ms)
+2026-03-16 17:25:03 | INFO     | routers.trending:60 - Trending cache HIT (20 tracks)
+2026-03-16 17:25:03 | INFO     | main:61 - GET /trending/ → 200 (2.2ms)
+2026-03-16 17:25:03 | INFO     | services.recommendation_service:31 - Computing user vector from 26 plays
+2026-03-16 17:25:03 | INFO     | services.recommendation_service:62 - User vector: BPM=151.7 Energy=0.1685 Key=A#
+2026-03-16 17:25:03 | INFO     | services.recommendation_service:31 - Computing user vector from 26 plays
+2026-03-16 17:25:03 | INFO     | services.recommendation_service:62 - User vector: BPM=151.7 Energy=0.1685 Key=A#
+2026-03-16 17:25:03 | INFO     | main:61 - GET /recommendations/similar → 200 (10.0ms)
+2026-03-16 17:25:03 | INFO     | main:61 - GET /recommendations/cached → 200 (26.0ms)

@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { playTrackAuto } from '../hooks/usePlayTrack';
+import { emitPlay } from '../services/playerEvents';
 
 export interface Track {
   video_id: string;
@@ -71,7 +71,7 @@ export const usePlayerStore = create<PlayerState>((set, get) => ({
 
     if (repeatMode === 'one') {
       const track = queue[currentIndex];
-      playTrackAuto(track);
+      emitPlay(track);
       return;
     }
 
@@ -88,7 +88,7 @@ export const usePlayerStore = create<PlayerState>((set, get) => ({
 
     const nextTrack = queue[nextIndex];
     set({ currentIndex: nextIndex, currentTrack: nextTrack, position: 0 });
-    playTrackAuto(nextTrack);
+    emitPlay(nextTrack);
   },
 
   previousTrack: () => {
@@ -98,14 +98,14 @@ export const usePlayerStore = create<PlayerState>((set, get) => ({
     // If > 3s in, restart current track
     if (position > 3000) {
       const track = queue[currentIndex];
-      playTrackAuto(track);
+      emitPlay(track);
       return;
     }
 
     const prevIndex = Math.max(0, currentIndex - 1);
     const prevTrack = queue[prevIndex];
     set({ currentIndex: prevIndex, currentTrack: prevTrack, position: 0 });
-    playTrackAuto(prevTrack);
+    emitPlay(prevTrack);
   },
 
   toggleShuffle: () => {
