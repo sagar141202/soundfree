@@ -1272,3 +1272,50 @@ DETAIL:  Failing row contains (5, null, oDyMLiIskPg, 2026-03-16 08:34:25.859818+
 2026-03-16 14:26:56 | INFO     | main:49 - GET /health → 200 (2.4ms)
 2026-03-16 14:27:09 | INFO     | routers.search:39 - Cache HIT for search: 'Raghu Dixit'
 2026-03-16 14:27:09 | INFO     | main:49 - GET /search → 200 (5.7ms)
+2026-03-16 14:27:56 | INFO     | routers.stream:36 - Cache HIT for stream: oDyMLiIskPg
+2026-03-16 14:27:56 | INFO     | main:49 - GET /stream/oDyMLiIskPg → 200 (5.6ms)
+2026-03-16 14:27:56 | INFO     | routers.stream:36 - Cache HIT for stream: oDyMLiIskPg
+2026-03-16 14:27:56 | INFO     | main:49 - GET /stream/oDyMLiIskPg/proxy → 200 (13.8ms)
+2026-03-16 14:27:56 | INFO     | main:49 - POST /stream/x0pSWnCc44w/played → 200 (20.2ms)
+2026-03-16 14:28:16 | INFO     | main:49 - GET /health → 200 (2.3ms)
+2026-03-16 14:28:26 | INFO     | routers.search:43 - Cache MISS for search: 'kesar' — fetching from YouTube Music
+2026-03-16 14:28:26 | INFO     | services.search_service:43 - Searching YouTube Music: 'kesar'
+2026-03-16 14:28:27 | INFO     | services.search_service:72 - Search returned 20 tracks for 'kesar'
+2026-03-16 14:28:27 | INFO     | routers.search:60 - Cached 20 results for 'kesar' (TTL: 30min)
+2026-03-16 14:28:27 | INFO     | routers.search:43 - Cache MISS for search: 'kesari' — fetching from YouTube Music
+2026-03-16 14:28:27 | INFO     | services.search_service:43 - Searching YouTube Music: 'kesari'
+2026-03-16 14:28:28 | INFO     | services.search_service:72 - Search returned 20 tracks for 'kesari'
+2026-03-16 14:28:28 | INFO     | main:49 - GET /search → 200 (2100.7ms)
+2026-03-16 14:28:28 | INFO     | routers.search:60 - Cached 20 results for 'kesari' (TTL: 30min)
+2026-03-16 14:28:28 | INFO     | main:49 - GET /search → 200 (727.8ms)
+2026-03-16 14:28:37 | INFO     | routers.search:43 - Cache MISS for search: 'ani al' — fetching from YouTube Music
+2026-03-16 14:28:37 | INFO     | services.search_service:43 - Searching YouTube Music: 'ani al'
+2026-03-16 14:28:38 | INFO     | services.search_service:72 - Search returned 20 tracks for 'ani al'
+2026-03-16 14:28:38 | INFO     | routers.search:60 - Cached 20 results for 'ani al' (TTL: 30min)
+2026-03-16 14:28:38 | INFO     | main:49 - GET /search → 200 (733.4ms)
+2026-03-16 14:28:38 | INFO     | routers.search:43 - Cache MISS for search: 'ani' — fetching from YouTube Music
+2026-03-16 14:28:38 | INFO     | services.search_service:43 - Searching YouTube Music: 'ani'
+2026-03-16 14:28:38 | INFO     | services.search_service:72 - Search returned 20 tracks for 'ani'
+2026-03-16 14:28:38 | INFO     | routers.search:60 - Cached 20 results for 'ani' (TTL: 30min)
+2026-03-16 14:28:38 | INFO     | main:49 - GET /search → 200 (678.4ms)
+2026-03-16 14:28:38 | INFO     | routers.search:43 - Cache MISS for search: 'animal' — fetching from YouTube Music
+2026-03-16 14:28:38 | INFO     | services.search_service:43 - Searching YouTube Music: 'animal'
+2026-03-16 14:28:39 | INFO     | services.search_service:72 - Search returned 20 tracks for 'animal'
+2026-03-16 14:28:39 | INFO     | routers.search:60 - Cached 20 results for 'animal' (TTL: 30min)
+2026-03-16 14:28:39 | INFO     | main:49 - GET /search → 200 (723.1ms)
+2026-03-16 14:28:43 | INFO     | routers.stream:39 - Cache MISS for stream: 9cHq63r1vHQ — fetching
+2026-03-16 14:28:43 | INFO     | services.stream_service:34 - Extracting stream URL for video_id: 9cHq63r1vHQ
+2026-03-16 14:28:45 | INFO     | routers.lyrics:113 - Fetching lyrics: Vishal Mishra — Pehle Bhi Main
+2026-03-16 14:28:45 | INFO     | services.lyrics_service:47 - lrclib lookup: Vishal Mishra — Pehle Bhi Main
+2026-03-16 14:28:46 | INFO     | services.stream_service:59 - Got stream URL for 9cHq63r1vHQ | format: 251 - audio only (medium)
+2026-03-16 14:28:46 | INFO     | main:49 - GET /stream/9cHq63r1vHQ → 200 (3426.1ms)
+2026-03-16 14:28:46 | INFO     | routers.stream:36 - Cache HIT for stream: 9cHq63r1vHQ
+2026-03-16 14:28:46 | INFO     | main:49 - GET /stream/9cHq63r1vHQ/proxy → 200 (9.6ms)
+2026-03-16 14:28:47 | INFO     | services.lyrics_service:74 - lrclib: synced lyrics found (27 lines)
+2026-03-16 14:28:47 | INFO     | routers.lyrics:82 - Saved lyrics to Postgres: 9cHq63r1vHQ
+2026-03-16 14:28:47 | INFO     | main:49 - GET /lyrics/9cHq63r1vHQ → 200 (1227.6ms)
+2026-03-16 14:29:19 | INFO     | main:50 - POST /stream/9cHq63r1vHQ/played → 200 (75.7ms)
+2026-03-16 14:29:20 | INFO     | main:50 - GET /download/bSnlKl_PoQU/info → 200 (1.2ms)
+2026-03-16 14:29:54 | INFO     | routers.download:42 - Downloading audio: bSnlKl_PoQU
+2026-03-16 14:29:59 | INFO     | routers.download:59 - Downloaded: /tmp/soundfree_downloads/bSnlKl_PoQU.opus (5736KB)
+2026-03-16 14:29:59 | INFO     | main:50 - GET /download/bSnlKl_PoQU → 200 (4996.6ms)

@@ -10,7 +10,7 @@ from slowapi.middleware import SlowAPIMiddleware
 from config import settings
 from limiter import limiter
 from logger import setup_logging
-from routers import likes, lyrics, metadata, search, stream
+from routers import download, likes, lyrics, metadata, search, stream
 
 setup_logging()
 
@@ -39,6 +39,7 @@ app.include_router(stream.router, prefix="/stream", tags=["stream"])
 app.include_router(metadata.router, prefix="/metadata", tags=["metadata"])
 app.include_router(lyrics.router, prefix="/lyrics", tags=["lyrics"])
 app.include_router(likes.router, prefix="/likes", tags=["likes"])
+app.include_router(download.router, prefix="/download", tags=["download"])
 
 
 @app.middleware("http")
