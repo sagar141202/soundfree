@@ -28,6 +28,27 @@ from services.scheduler import start_scheduler
 
 setup_logging()
 
+
+def _init_sentry() -> None:
+    dsn = getattr(settings, "SENTRY_DSN", "")
+    if not dsn:
+        return
+    import sentry_sdk
+    from sentry_sdk.integrations.fastapi import FastApiIntegration
+    from sentry_sdk.integrations.sqlalchemy import SqlalchemyIntegration
+
+    sentry_sdk.init(
+        dsn=dsn,
+        integrations=[FastApiIntegration(), SqlalchemyIntegration()],
+        traces_sample_rate=0.2,
+        environment="production",
+        send_default_pii=False,
+    )
+    logger.info("Sentry initialized")
+
+
+_init_sentry()
+
 app = FastAPI(
     title="SoundFree API",
     version="1.0.0",
@@ -56,8 +77,8 @@ app.include_router(likes.router, prefix="/likes", tags=["likes"])
 app.include_router(download.router, prefix="/download", tags=["download"])
 app.include_router(recommendations.router, prefix="/recommendations", tags=["recommendations"])
 app.include_router(trending.router, prefix="/trending", tags=["trending"])
-app.include_router(collab.router, prefix="/collab", tags=["collab"])
 app.include_router(discord.router, prefix="/discord", tags=["discord"])
+app.include_router(collab.router, prefix="/collab", tags=["collab"])
 app.include_router(vibe.router, prefix="/vibe", tags=["vibe"])
 
 

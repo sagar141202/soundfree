@@ -35,3 +35,7 @@ class Settings(BaseSettings):
 
 
 settings = Settings()
+
+
+# Sentry
+SENTRY_DSN: str = ""  # Set in .env — leave empty to disable

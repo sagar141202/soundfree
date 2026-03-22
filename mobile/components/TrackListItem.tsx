@@ -1,5 +1,5 @@
 import { Image,View, Text, TouchableOpacity, StyleSheet, Animated } from 'react-native';
-import { useRef } from 'react';
+import { useRef, memo } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import { useEffect, useState } from 'react';

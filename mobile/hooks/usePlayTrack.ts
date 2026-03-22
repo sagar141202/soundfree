@@ -6,6 +6,7 @@ import { useLibraryStore } from '../stores/libraryStore';
 import { useUIStore } from '../stores/uiStore';
 import { getStreamUrl, logPlay, updateDiscordPresence } from '../lib/api';
 import { toast } from '../services/toastService';
+import { captureError } from '../services/sentryService';
 import { getLastfmConfig, scrobbleTrack, updateNowPlaying } from '../services/lastfmService';
 import { isDownloaded, getLocalPath } from './useDownload';
 import {
@@ -138,6 +139,7 @@ export function usePlayTrack() {
       addToRecent(track);
     } catch (e: any) {
       toast.error('Playback failed — check your connection');
+      captureError(e instanceof Error ? e : new Error(String(e)), { track: track.video_id });
       setIsPlaying(false);
     } finally {
       setIsLoading(false);

@@ -10,6 +10,7 @@ import { useSettingsStore } from '../stores/settingsStore';
 import { usePlaylistStore } from '../stores/playlistStore';
 import { useNetworkStatus } from '../hooks/useNetworkStatus';
 import ToastProvider from '../components/ToastProvider';
+import { initSentry } from '../services/sentryService';
 
 function OfflineSnackbar() {
   const { isOffline } = useNetworkStatus();
@@ -44,6 +45,7 @@ function OfflineSnackbar() {
 }
 
 function AppInit() {
+  useEffect(() => { initSentry(); }, []);
   const loadLibrary = useLibraryStore(s => s.loadFromStorage);
   const loadSettings = useSettingsStore(s => s.loadFromStorage);
   const loadPlaylists = usePlaylistStore(s => s.loadFromStorage);
