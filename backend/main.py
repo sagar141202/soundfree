@@ -11,6 +11,7 @@ from config import settings
 from limiter import limiter
 from logger import setup_logging
 from routers import (
+    collab,
     discord,
     download,
     likes,
@@ -55,6 +56,7 @@ app.include_router(likes.router, prefix="/likes", tags=["likes"])
 app.include_router(download.router, prefix="/download", tags=["download"])
 app.include_router(recommendations.router, prefix="/recommendations", tags=["recommendations"])
 app.include_router(trending.router, prefix="/trending", tags=["trending"])
+app.include_router(collab.router, prefix="/collab", tags=["collab"])
 app.include_router(discord.router, prefix="/discord", tags=["discord"])
 app.include_router(vibe.router, prefix="/vibe", tags=["vibe"])
 

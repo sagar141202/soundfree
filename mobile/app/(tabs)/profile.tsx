@@ -17,6 +17,7 @@ const SETTINGS = [
   { name: 'Discord RPC', value: 'Rich Presence', emoji: '🎮', colors: ['#A5B4FC', '#818CF8'] as [string,string], route: '/discord' },
   { name: 'Gym Mode', value: 'BPM filter', emoji: '💪', colors: ['#FB923C', '#EA580C'] as [string,string], route: '/gym-mode' },
   { name: 'Vibe Search', value: 'AI semantic search', emoji: '✨', colors: ['#C4B5FD', '#A78BFA'] as [string,string], route: '/vibe-search' },
+  { name: 'Listen Together', value: 'Sync with friends', emoji: '🎵', colors: ['#818CF8', '#6366F1'] as [string,string], route: '/collab' },
 ];
 
 export default function ProfileScreen() {
