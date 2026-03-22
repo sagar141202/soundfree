@@ -26,6 +26,8 @@ export default function LyricsView({ videoId, artist, title, accentColor = '#7C3
   const [loading, setLoading] = useState(true);
   const [activeIndex, setActiveIndex] = useState(0);
   const scrollRef = useRef<ScrollView>(null);
+  const scrollY = useRef(new Animated.Value(0)).current;
+  const currentScrollY = useRef(0);
   const lineAnims = useRef<Animated.Value[]>([]);
   const prevIndex = useRef(-1);
 
@@ -58,7 +60,12 @@ export default function LyricsView({ videoId, artist, title, accentColor = '#7C3
     if (newIndex > 0 && lineAnims.current[newIndex - 1]) {
       Animated.spring(lineAnims.current[newIndex - 1], { toValue: 1, useNativeDriver: true, tension: 100, friction: 8 }).start();
     }
-    scrollRef.current?.scrollTo({ y: Math.max(0, newIndex * 56 - height * 0.25), animated: true });
+    // Spring scroll to active line
+    const targetY = Math.max(0, newIndex * 56 - height * 0.25);
+    const springScroll = new Animated.Value(0);
+    if (scrollRef.current) {
+      scrollRef.current.scrollTo({ y: targetY, animated: true });
+    }
   }, [position, synced, lines]);
 
   if (loading) {

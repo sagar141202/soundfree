@@ -2879,3 +2879,7 @@ DETAIL:  Failing row contains (11, null, Wqu4MRQOgyo, 2026-03-22 14:09:14.699525
 [parameters: (None, 'Wqu4MRQOgyo')]
 (Background on this error at: https://sqlalche.me/e/20/gkpj)
 2026-03-22 19:39:14 | INFO     | main:76 - POST /likes/Wqu4MRQOgyo → 200 (17.8ms)
+2026-03-22 19:45:23 | INFO     | routers.lyrics:98 - Redis HIT for lyrics: Wqu4MRQOgyo
+2026-03-22 19:45:23 | INFO     | main:76 - GET /lyrics/Wqu4MRQOgyo → 200 (15.4ms)
+2026-03-22 19:45:32 | INFO     | routers.lyrics:98 - Redis HIT for lyrics: Wqu4MRQOgyo
+2026-03-22 19:45:32 | INFO     | main:76 - GET /lyrics/Wqu4MRQOgyo → 200 (3.8ms)
