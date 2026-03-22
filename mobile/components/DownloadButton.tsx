@@ -94,6 +94,6 @@ export default function DownloadButton({ track, size = 28 }: DownloadButtonProps
 }
 
 const styles = StyleSheet.create({
-  btn: { padding: 4 },
+  btn: { padding: 4, minWidth: 44, minHeight: 44, alignItems: 'center', justifyContent: 'center' },
   doneBg: { alignItems: 'center', justifyContent: 'center' },
 });

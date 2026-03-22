@@ -162,7 +162,7 @@ const styles = StyleSheet.create({
     fontSize: 12, color: '#9CA3AF',
     fontWeight: '500', minWidth: 36, textAlign: 'right',
   },
-  moreBtn: { marginLeft: 4 },
+  moreBtn: { marginLeft: 4, minWidth: 44, minHeight: 44, alignItems: 'center', justifyContent: 'center' },
   moreBtnGrad: {
     width: 32, height: 32, borderRadius: 10,
     alignItems: 'center', justifyContent: 'center',

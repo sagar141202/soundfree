@@ -176,10 +176,10 @@ export default function FullPlayer() {
 
       {/* Controls */}
       <View style={styles.controls}>
-        <TouchableOpacity style={styles.controlBtn} onPress={toggleShuffle}>
+        <TouchableOpacity style={styles.controlBtn} onPress={toggleShuffle} hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}>
           <Text style={[styles.controlIcon, isShuffled && { color: palette.accent }]}>⇄</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.controlBtn} onPress={previousTrack}>
+        <TouchableOpacity style={styles.controlBtn} onPress={previousTrack} hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}>
           <Text style={styles.controlIconLg}>⏮</Text>
         </TouchableOpacity>
         <PlayPauseButton
@@ -188,10 +188,10 @@ export default function FullPlayer() {
           size={72}
           colors={palette.bg}
         />
-        <TouchableOpacity style={styles.controlBtn} onPress={nextTrack}>
+        <TouchableOpacity style={styles.controlBtn} onPress={nextTrack} hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}>
           <Text style={styles.controlIconLg}>⏭</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.controlBtn} onPress={toggleRepeat}>
+        <TouchableOpacity style={styles.controlBtn} onPress={toggleRepeat} hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}>
           <Text style={[styles.controlIcon, repeatMode !== 'none' && { color: palette.accent }, repeatMode === 'none' && { opacity: 0.4 }]}>
             {repeatMode === 'one' ? '🔂' : '🔁'}
           </Text>
@@ -286,7 +286,7 @@ const styles = StyleSheet.create({
   likeBtn: { width: 44, height: 44, alignItems: 'center', justifyContent: 'center' },
   likeIcon: { fontSize: 26 },
   controls: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 28, marginBottom: 24 },
-  controlBtn: { width: 48, height: 48, alignItems: 'center', justifyContent: 'center' },
+  controlBtn: { width: 48, height: 48, minWidth: 44, minHeight: 44, alignItems: 'center', justifyContent: 'center' },
   controlIcon: { fontSize: 22, color: '#9CA3AF' },
   controlIconLg: { fontSize: 28, color: '#FFFFFF' },
   playBtn: { borderRadius: 40, overflow: 'hidden' },

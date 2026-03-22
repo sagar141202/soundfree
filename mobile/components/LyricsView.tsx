@@ -162,7 +162,7 @@ const styles = StyleSheet.create({
   plainContent: { padding: 24 },
   plainText: { fontSize: 15, color: '#1E1B4B', lineHeight: 26 },
   syncedContent: { paddingTop: 20, paddingHorizontal: 16 },
-  lineWrap: { paddingVertical: 10, paddingHorizontal: 16, borderRadius: 16, marginBottom: 2, overflow: 'hidden', position: 'relative' },
+  lineWrap: { paddingVertical: 12, paddingHorizontal: 16, borderRadius: 16, marginBottom: 2, overflow: 'hidden', position: 'relative', minHeight: 44 },
   activeDot: { position: 'absolute', left: 4, top: '50%', width: 4, height: 4, borderRadius: 2, marginTop: -2 },
   lineText: { fontSize: 17, color: '#9CA3AF', fontWeight: '500', lineHeight: 24 },
   fadeTop: { position: 'absolute', top: 0, left: 0, right: 0, height: 60, zIndex: 10 },

@@ -2883,3 +2883,44 @@ DETAIL:  Failing row contains (11, null, Wqu4MRQOgyo, 2026-03-22 14:09:14.699525
 2026-03-22 19:45:23 | INFO     | main:76 - GET /lyrics/Wqu4MRQOgyo → 200 (15.4ms)
 2026-03-22 19:45:32 | INFO     | routers.lyrics:98 - Redis HIT for lyrics: Wqu4MRQOgyo
 2026-03-22 19:45:32 | INFO     | main:76 - GET /lyrics/Wqu4MRQOgyo → 200 (3.8ms)
+2026-03-22 19:45:45 | INFO     | routers.stream:36 - Cache HIT for stream: 4smEofP_5Q4
+2026-03-22 19:45:45 | INFO     | main:76 - GET /stream/4smEofP_5Q4 → 200 (5.4ms)
+2026-03-22 19:45:49 | INFO     | routers.lyrics:98 - Redis HIT for lyrics: 4smEofP_5Q4
+2026-03-22 19:45:49 | INFO     | main:76 - GET /lyrics/4smEofP_5Q4 → 200 (7.8ms)
+2026-03-22 19:45:57 | INFO     | routers.lyrics:98 - Redis HIT for lyrics: 4smEofP_5Q4
+2026-03-22 19:45:57 | INFO     | main:76 - GET /lyrics/4smEofP_5Q4 → 200 (6.5ms)
+2026-03-22 19:46:10 | INFO     | routers.search:43 - Cache MISS for search: 'ja' — fetching from YouTube Music
+2026-03-22 19:46:10 | INFO     | services.search_service:43 - Searching YouTube Music: 'ja'
+2026-03-22 19:46:12 | INFO     | services.search_service:72 - Search returned 20 tracks for 'ja'
+2026-03-22 19:46:12 | INFO     | routers.search:60 - Cached 20 results for 'ja' (TTL: 30min)
+2026-03-22 19:46:12 | INFO     | main:76 - GET /search → 200 (1720.4ms)
+2026-03-22 19:46:12 | INFO     | routers.search:43 - Cache MISS for search: 'jai' — fetching from YouTube Music
+2026-03-22 19:46:12 | INFO     | services.search_service:43 - Searching YouTube Music: 'jai'
+2026-03-22 19:46:12 | INFO     | services.search_service:72 - Search returned 20 tracks for 'jai'
+2026-03-22 19:46:12 | INFO     | routers.search:43 - Cache MISS for search: 'Jai ' — fetching from YouTube Music
+2026-03-22 19:46:12 | INFO     | services.search_service:43 - Searching YouTube Music: 'Jai'
+2026-03-22 19:46:13 | INFO     | services.search_service:72 - Search returned 20 tracks for 'Jai'
+2026-03-22 19:46:13 | INFO     | routers.search:60 - Cached 20 results for 'jai' (TTL: 30min)
+2026-03-22 19:46:13 | INFO     | routers.search:60 - Cached 20 results for 'Jai ' (TTL: 30min)
+2026-03-22 19:46:13 | INFO     | routers.search:43 - Cache MISS for search: 'Jai hind' — fetching from YouTube Music
+2026-03-22 19:46:13 | INFO     | services.search_service:43 - Searching YouTube Music: 'Jai hind'
+2026-03-22 19:46:14 | INFO     | services.search_service:72 - Search returned 20 tracks for 'Jai hind'
+2026-03-22 19:46:14 | INFO     | main:76 - GET /search → 200 (2061.4ms)
+2026-03-22 19:46:14 | INFO     | main:76 - GET /search → 200 (2060.5ms)
+2026-03-22 19:46:14 | INFO     | routers.search:60 - Cached 20 results for 'Jai hind' (TTL: 30min)
+2026-03-22 19:46:14 | INFO     | main:76 - GET /search → 200 (645.3ms)
+2026-03-22 19:46:18 | INFO     | routers.stream:38 - Cache MISS for stream: 2R3XstG35sE — fetching
+2026-03-22 19:46:18 | INFO     | services.stream_service:34 - Extracting stream URL for video_id: 2R3XstG35sE
+2026-03-22 19:46:20 | INFO     | services.stream_service:59 - Got stream URL for 2R3XstG35sE | format: 251 - audio only (medium)
+2026-03-22 19:46:20 | INFO     | main:76 - GET /stream/2R3XstG35sE → 200 (2021.8ms)
+2026-03-22 19:46:32 | INFO     | routers.lyrics:113 - Fetching lyrics: SUKHWINDER SINGH — JAI HO
+2026-03-22 19:46:32 | INFO     | services.lyrics_service:47 - lrclib lookup: SUKHWINDER SINGH — JAI HO
+2026-03-22 19:46:33 | INFO     | services.lyrics_service:81 - lrclib: plain lyrics found
+2026-03-22 19:46:33 | INFO     | routers.lyrics:82 - Saved lyrics to Postgres: 2R3XstG35sE
+2026-03-22 19:46:33 | INFO     | main:76 - GET /lyrics/2R3XstG35sE → 200 (1144.8ms)
+2026-03-22 19:46:54 | INFO     | routers.lyrics:98 - Redis HIT for lyrics: 2R3XstG35sE
+2026-03-22 19:46:54 | INFO     | main:76 - GET /lyrics/2R3XstG35sE → 200 (6.1ms)
+2026-03-22 19:47:22 | INFO     | main:76 - POST /discord/update → 200 (1.6ms)
+2026-03-22 19:47:22 | INFO     | routers.stream:117 - Inserted track: JAI HO
+2026-03-22 19:47:22 | INFO     | routers.stream:122 - Logged play: 2R3XstG35sE
+2026-03-22 19:47:22 | INFO     | main:76 - POST /stream/2R3XstG35sE/played → 200 (30.6ms)

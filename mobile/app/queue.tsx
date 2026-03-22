@@ -357,7 +357,7 @@ const styles = StyleSheet.create({
   editControls: { flexDirection: 'row', gap: 4 },
   reorderBtn: { width: 28, height: 28, borderRadius: 8, alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(167,139,250,0.1)' },
   reorderBtnDisabled: { backgroundColor: 'rgba(229,231,235,0.3)' },
-  removeBtn: { width: 28, height: 28, borderRadius: 8, alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(252,165,165,0.1)' },
+  removeBtn: { width: 36, height: 36, minWidth: 44, minHeight: 44, borderRadius: 8, alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(252,165,165,0.1)' },
   emptyWrap: { alignItems: 'center', paddingTop: 60 },
   emptyEmoji: { fontSize: 48, marginBottom: 16 },
   emptyTitle: { fontSize: 18, fontWeight: '800', color: '#1E1B4B', marginBottom: 8 },

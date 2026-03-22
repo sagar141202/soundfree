@@ -90,10 +90,10 @@ const styles = StyleSheet.create({
   tooltip: { position: 'absolute', top: -36, zIndex: 10, alignItems: 'center' },
   tooltipGrad: { paddingHorizontal: 10, paddingVertical: 5, borderRadius: 8 },
   tooltipText: { fontSize: 12, color: '#FFFFFF', fontWeight: '700' },
-  barHitArea: { paddingVertical: 14 },
+  barHitArea: { paddingVertical: 18, minHeight: 44 },
   barBg: { height: 5, backgroundColor: 'rgba(167,139,250,0.2)', borderRadius: 3, position: 'relative' },
   barFill: { height: 5, borderRadius: 3 },
-  thumb: { position: 'absolute', top: -5, width: 14, height: 14, borderRadius: 7, marginLeft: -7, borderWidth: 2, borderColor: '#FFFFFF', elevation: 4 },
+  thumb: { position: 'absolute', top: -5, width: 20, height: 20, borderRadius: 10, marginLeft: -10, borderWidth: 2, borderColor: '#FFFFFF', elevation: 4 },
   timeRow: { flexDirection: 'row', justifyContent: 'space-between', marginTop: -4 },
   timeText: { fontSize: 12, color: '#9CA3AF', fontWeight: '500' },
 });

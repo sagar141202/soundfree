@@ -117,6 +117,6 @@ const styles = StyleSheet.create({
   playBtn: { borderRadius: 22, overflow: 'hidden' },
   playGrad: { width: 44, height: 44, borderRadius: 22, alignItems: 'center', justifyContent: 'center' },
   playIcon: { fontSize: 16 },
-  nextBtn: { width: 36, height: 36, alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(167,139,250,0.12)', borderRadius: 18, borderWidth: 1, borderColor: 'rgba(167,139,250,0.2)' },
+  nextBtn: { width: 44, height: 44, alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(167,139,250,0.12)', borderRadius: 22, borderWidth: 1, borderColor: 'rgba(167,139,250,0.2)' },
   nextIcon: { fontSize: 14 },
 });
