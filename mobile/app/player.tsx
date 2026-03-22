@@ -13,6 +13,7 @@ import { useLike } from '../hooks/useLike';
 import ProgressBar from '../components/ProgressBar';
 import LyricsView from '../components/LyricsView';
 import ProgressiveImage from '../components/ProgressiveImage';
+import PlayPauseButton from '../components/PlayPauseButton';
 import AnimatedCanvas from '../components/AnimatedCanvas';
 import AddToPlaylistSheet from '../components/AddToPlaylistSheet';
 import DownloadButton from '../components/DownloadButton';
@@ -181,11 +182,12 @@ export default function FullPlayer() {
         <TouchableOpacity style={styles.controlBtn} onPress={previousTrack}>
           <Text style={styles.controlIconLg}>⏮</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.playBtn} onPress={togglePlayPause}>
-          <LinearGradient colors={palette.bg} style={styles.playGrad} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}>
-            <Text style={styles.playIcon}>{isPlaying ? '⏸' : '▶'}</Text>
-          </LinearGradient>
-        </TouchableOpacity>
+        <PlayPauseButton
+          isPlaying={isPlaying}
+          onPress={togglePlayPause}
+          size={72}
+          colors={palette.bg}
+        />
         <TouchableOpacity style={styles.controlBtn} onPress={nextTrack}>
           <Text style={styles.controlIconLg}>⏭</Text>
         </TouchableOpacity>

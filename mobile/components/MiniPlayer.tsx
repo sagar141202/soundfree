@@ -4,6 +4,7 @@ import {
 } from 'react-native';
 import { useRef, useEffect } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
+import PlayPauseButton from './PlayPauseButton';
 import { router } from 'expo-router';
 import { usePlayerStore } from '../stores/playerStore';
 import { usePlayTrack } from '../hooks/usePlayTrack';
@@ -75,17 +76,12 @@ export default function MiniPlayer({ onPress }: { onPress?: () => void }) {
           <Text style={styles.artist} numberOfLines={1}>{currentTrack.artist}</Text>
         </View>
         <View style={styles.controls}>
-          <Animated.View style={{ transform: [{ scale: playBtnScale }] }}>
-            <TouchableOpacity
-              style={styles.playBtn}
-              onPress={(e) => { e.stopPropagation(); togglePlayPause(); }}
-              hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
-            >
-              <LinearGradient colors={['#C4B5FD','#A78BFA']} style={styles.playGrad}>
-                <Text style={styles.playIcon}>{isPlaying ? '⏸' : '▶'}</Text>
-              </LinearGradient>
-            </TouchableOpacity>
-          </Animated.View>
+          <PlayPauseButton
+            isPlaying={isPlaying}
+            onPress={(e?: any) => { togglePlayPause(); }}
+            size={44}
+            colors={['#C4B5FD', '#A78BFA']}
+          />
           <TouchableOpacity
             style={styles.nextBtn}
             onPress={(e) => { e.stopPropagation(); nextTrack(); }}
