@@ -91,7 +91,7 @@ export default function PlayPauseButton({
   });
 
   return (
-    <TouchableOpacity onPress={handlePress} activeOpacity={1}>
+    <TouchableOpacity onPress={handlePress} activeOpacity={1} accessibilityLabel={isPlaying ? "Pause" : "Play"} accessibilityRole="button">
       <Animated.View style={[
         styles.btn,
         {

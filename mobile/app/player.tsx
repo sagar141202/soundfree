@@ -130,7 +130,7 @@ export default function FullPlayer() {
 
       {/* Header */}
       <View style={styles.header}>
-        <TouchableOpacity style={[styles.backBtn, { borderColor: palette.light }]} onPress={() => router.back()}>
+        <TouchableOpacity style={[styles.backBtn, { borderColor: palette.light }]} onPress={() => router.back()} accessibilityLabel="Close player" accessibilityRole="button">
           <LinearGradient colors={[palette.light, 'rgba(255,255,255,0.1)']} style={StyleSheet.absoluteFillObject} />
           <Text style={[styles.backIcon, { color: palette.accent }]}>↓</Text>
         </TouchableOpacity>
@@ -165,7 +165,7 @@ export default function FullPlayer() {
             <Text style={styles.trackTitle} numberOfLines={1}>{currentTrack.title}</Text>
             <TouchableOpacity onPress={() => router.push({ pathname: "/artist/[name]", params: { name: currentTrack.artist } })}><Text style={styles.trackArtist} numberOfLines={1}>{currentTrack.artist}</Text></TouchableOpacity>
           </View>
-          <TouchableOpacity style={styles.likeBtn} onPress={toggleLike}>
+          <TouchableOpacity style={styles.likeBtn} onPress={toggleLike} accessibilityLabel={liked ? "Unlike track" : "Like track"} accessibilityRole="button">
             <Text style={styles.likeIcon}>{liked ? '❤️' : '🤍'}</Text>
           </TouchableOpacity>
         </View>
@@ -176,10 +176,10 @@ export default function FullPlayer() {
 
       {/* Controls */}
       <View style={styles.controls}>
-        <TouchableOpacity style={styles.controlBtn} onPress={toggleShuffle} hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}>
+        <TouchableOpacity style={styles.controlBtn} onPress={toggleShuffle} hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }} accessibilityLabel={isShuffled ? "Shuffle on" : "Shuffle off"} accessibilityRole="button">
           <Text style={[styles.controlIcon, isShuffled && { color: palette.accent }]}>⇄</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.controlBtn} onPress={previousTrack} hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}>
+        <TouchableOpacity style={styles.controlBtn} onPress={previousTrack} hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }} accessibilityLabel="Previous track" accessibilityRole="button">
           <Text style={styles.controlIconLg}>⏮</Text>
         </TouchableOpacity>
         <PlayPauseButton
@@ -188,10 +188,10 @@ export default function FullPlayer() {
           size={72}
           colors={palette.bg}
         />
-        <TouchableOpacity style={styles.controlBtn} onPress={nextTrack} hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}>
+        <TouchableOpacity style={styles.controlBtn} onPress={nextTrack} hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }} accessibilityLabel="Next track" accessibilityRole="button">
           <Text style={styles.controlIconLg}>⏭</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.controlBtn} onPress={toggleRepeat} hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}>
+        <TouchableOpacity style={styles.controlBtn} onPress={toggleRepeat} hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }} accessibilityLabel={repeatMode === 'none' ? "Repeat off" : repeatMode === 'one' ? "Repeat one" : "Repeat all"} accessibilityRole="button">
           <Text style={[styles.controlIcon, repeatMode !== 'none' && { color: palette.accent }, repeatMode === 'none' && { opacity: 0.4 }]}>
             {repeatMode === 'one' ? '🔂' : '🔁'}
           </Text>

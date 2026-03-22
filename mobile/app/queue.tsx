@@ -200,6 +200,8 @@ export default function QueueScreen() {
         <TouchableOpacity
           style={[styles.actionChip, isShuffled && styles.actionChipActive]}
           onPress={toggleShuffle}
+          accessibilityLabel={isShuffled ? "Shuffle on" : "Shuffle off"}
+          accessibilityRole="button"
         >
           <LinearGradient
             colors={isShuffled ? ['#C4B5FD', '#A78BFA'] : ['rgba(167,139,250,0.1)', 'rgba(125,211,252,0.05)']}
@@ -232,7 +234,7 @@ export default function QueueScreen() {
           <Text style={{ fontSize: 14 }}>��</Text>
           <Text style={[styles.actionChipText, radioMode && { color: '#FFFFFF' }]}>Radio</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.actionChip} onPress={clearQueue}>
+        <TouchableOpacity style={styles.actionChip} onPress={clearQueue} accessibilityLabel="Clear queue" accessibilityRole="button">
           <LinearGradient colors={['rgba(252,165,165,0.15)', 'rgba(248,113,113,0.08)']} style={StyleSheet.absoluteFillObject} />
           <Ionicons name="trash-outline" size={16} color="#EF4444" />
           <Text style={[styles.actionChipText, { color: '#EF4444' }]}>Clear</Text>

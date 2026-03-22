@@ -30,6 +30,8 @@ export default function SearchBar({ value, onChangeText, onFocus, onBlur, placeh
         placeholderTextColor="#9CA3AF"
         value={value}
         onChangeText={onChangeText}
+        accessibilityLabel="Search music"
+        accessibilityRole="search"
         onFocus={() => { setIsFocused(true); onFocus?.(); }}
         onBlur={() => { setIsFocused(false); onBlur?.(); }}
         selectionColor="#A78BFA"

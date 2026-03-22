@@ -63,6 +63,8 @@ export default function MiniPlayer({ onPress }: { onPress?: () => void }) {
       <TouchableOpacity
         style={styles.content}
         onPress={() => router.push('/player')}
+        accessibilityLabel="Open full player"
+        accessibilityRole="button"
         activeOpacity={0.9}
       >
         <View style={styles.thumbWrap}>
@@ -78,13 +80,13 @@ export default function MiniPlayer({ onPress }: { onPress?: () => void }) {
         <View style={styles.controls}>
           <PlayPauseButton
             isPlaying={isPlaying}
-            onPress={(e?: any) => { togglePlayPause(); }}
+            onPress={(e?: any) => { togglePlayPause(); }} accessibilityLabel={isPlaying ? "Pause" : "Play"} accessibilityRole="button"
             size={44}
             colors={['#C4B5FD', '#A78BFA']}
           />
           <TouchableOpacity
             style={styles.nextBtn}
-            onPress={(e) => { e.stopPropagation(); nextTrack(); }}
+            onPress={(e) => { e.stopPropagation(); nextTrack(); }} accessibilityLabel="Next track" accessibilityRole="button"
             hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
           >
             <Text style={styles.nextIcon}>⏭</Text>

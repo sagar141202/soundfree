@@ -59,7 +59,7 @@ export default function DownloadButton({ track, size = 28 }: DownloadButtonProps
 
   if (status === 'downloading') {
     return (
-      <TouchableOpacity style={styles.btn} onPress={handlePress}>
+      <TouchableOpacity style={styles.btn} onPress={handlePress} accessibilityLabel={status === 'done' ? "Remove download" : status === 'downloading' ? "Downloading" : "Download track"} accessibilityRole="button">
         <Animated.View style={{ transform: [{ rotate: spin }] }}>
           <Ionicons name="ellipsis-horizontal-circle-outline" size={size} color="#A78BFA" />
         </Animated.View>

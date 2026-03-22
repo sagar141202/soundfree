@@ -74,12 +74,12 @@ export default function LikedSongsScreen() {
 
           {likedTracks.length > 0 && (
             <View style={styles.heroControls}>
-              <TouchableOpacity style={styles.playAllBtn} onPress={playAll}>
+              <TouchableOpacity style={styles.playAllBtn} onPress={playAll} accessibilityLabel="Play all liked songs" accessibilityRole="button">
                 <LinearGradient colors={['#FBCFE8', '#F9A8D4']} style={StyleSheet.absoluteFillObject} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} />
                 <Ionicons name="play" size={18} color="#DB2777" />
                 <Text style={styles.playAllText}>Play All</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.shuffleBtn} onPress={shufflePlay}>
+              <TouchableOpacity style={styles.shuffleBtn} onPress={shufflePlay} accessibilityLabel="Shuffle liked songs" accessibilityRole="button">
                 <LinearGradient colors={['rgba(251,207,232,0.3)', 'rgba(249,168,212,0.2)']} style={StyleSheet.absoluteFillObject} />
                 <Ionicons name="shuffle" size={18} color="#DB2777" />
                 <Text style={styles.shuffleText}>Shuffle</Text>

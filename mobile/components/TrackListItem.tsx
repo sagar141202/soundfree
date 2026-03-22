@@ -54,6 +54,8 @@ export default function TrackListItem({
         onPressIn={() => Animated.spring(scaleAnim, { toValue: 0.97, useNativeDriver: true, tension: 100, friction: 8 }).start()}
         onPressOut={() => Animated.spring(scaleAnim, { toValue: 1, useNativeDriver: true, tension: 100, friction: 8 }).start()}
         activeOpacity={0.9}
+      accessibilityLabel={isPlaying ? `Now playing: ${track.title} by ${track.artist}` : `Play ${track.title} by ${track.artist}`}
+      accessibilityRole="button"
       >
         {isPlaying && (
           <LinearGradient
