@@ -45,7 +45,6 @@ function MiniPlayer({ onPress }: { onPress?: () => void }) {
   return (
     <Animated.View
       style={[styles.wrapper, { transform: [{ translateY: slideAnim }] }]}
-      {...panResponder.panHandlers}
     >
       <LinearGradient
         colors={['rgba(255,255,255,0.97)', 'rgba(240,244,255,0.97)']}
@@ -60,13 +59,17 @@ function MiniPlayer({ onPress }: { onPress?: () => void }) {
         />
       </View>
       <View style={styles.content}>
-        <TouchableOpacity
+        <Animated.View
           style={styles.contentTouchable}
-          onPress={() => router.push('/player')}
-          accessibilityLabel="Open full player"
-          activeOpacity={0.9}
-          accessibilityRole="button"
+          {...panResponder.panHandlers}
         >
+          <TouchableOpacity
+            style={styles.infoTouchable}
+            onPress={() => router.push('/player')}
+            accessibilityLabel="Open full player"
+            activeOpacity={0.9}
+            accessibilityRole="button"
+          >
           <View style={styles.thumbWrap}>
             {currentTrack.thumbnail_url
               ? <Image source={{ uri: currentTrack.thumbnail_url }} style={styles.thumb} resizeMode="cover" />
@@ -77,7 +80,8 @@ function MiniPlayer({ onPress }: { onPress?: () => void }) {
             <Text style={styles.title} numberOfLines={1}>{currentTrack.title}</Text>
             <Text style={styles.artist} numberOfLines={1}>{currentTrack.artist}</Text>
           </View>
-        </TouchableOpacity>
+          </TouchableOpacity>
+        </Animated.View>
         <View style={styles.controls}>
           <PlayPauseButton
             isPlaying={isPlaying}
@@ -112,8 +116,9 @@ const styles = StyleSheet.create({
   border: { position: 'absolute', inset: 0, borderRadius: 22, borderWidth: 1, borderColor: 'rgba(255,255,255,0.8)' },
   progressBg: { height: 3, backgroundColor: 'rgba(167,139,250,0.15)' },
   progressFill: { height: 3, borderRadius: 2 },
-  content: { flexDirection: 'row', alignItems: 'center', padding: 12, gap: 12, position: 'relative' },
-  contentTouchable: { flexDirection: 'row', alignItems: 'center', flex: 1, gap: 12 },
+  content: { flexDirection: 'row', alignItems: 'center', padding: 12, gap: 12 },
+  contentTouchable: { flexDirection: 'row', alignItems: 'center', flex: 1 },
+  infoTouchable: { flexDirection: 'row', alignItems: 'center', flex: 1, gap: 12 },
   thumbWrap: { width: 48, height: 48, borderRadius: 12, overflow: 'hidden' },
   thumb: { width: 48, height: 48, borderRadius: 12, alignItems: 'center', justifyContent: 'center' },
   info: { flex: 1 },
