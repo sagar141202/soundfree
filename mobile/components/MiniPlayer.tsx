@@ -84,7 +84,7 @@ function MiniPlayer({ onPress }: { onPress?: () => void }) {
           >
             <PlayPauseButton
               isPlaying={isPlaying}
-              onPress={togglePlayPause}
+              onPress={() => {}}
               size={44}
               colors={['#C4B5FD', '#A78BFA']}
             />
