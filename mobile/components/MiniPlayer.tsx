@@ -58,46 +58,43 @@ function MiniPlayer({ onPress }: { onPress?: () => void }) {
           start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}
         />
       </View>
-      <TouchableOpacity
-        style={styles.content}
-        onPress={() => router.push('/player')}
-        accessibilityLabel="Open full player"
-        activeOpacity={0.9}
-        accessibilityRole="button"
-      >
-        <View style={styles.thumbWrap}>
-          {currentTrack.thumbnail_url
-            ? <Image source={{ uri: currentTrack.thumbnail_url }} style={styles.thumb} resizeMode="cover" />
-            : <LinearGradient colors={THUMB_COLORS[colorIndex] as [string,string]} style={styles.thumb}><Text style={{ fontSize: 18 }}>🎵</Text></LinearGradient>
-          }
-        </View>
-        <View style={styles.info}>
-          <Text style={styles.title} numberOfLines={1}>{currentTrack.title}</Text>
-          <Text style={styles.artist} numberOfLines={1}>{currentTrack.artist}</Text>
-        </View>
+      <View style={styles.content}>
+        <TouchableOpacity
+          style={styles.contentTouchable}
+          onPress={() => router.push('/player')}
+          accessibilityLabel="Open full player"
+          activeOpacity={0.9}
+          accessibilityRole="button"
+        >
+          <View style={styles.thumbWrap}>
+            {currentTrack.thumbnail_url
+              ? <Image source={{ uri: currentTrack.thumbnail_url }} style={styles.thumb} resizeMode="cover" />
+              : <LinearGradient colors={THUMB_COLORS[colorIndex] as [string,string]} style={styles.thumb}><Text style={{ fontSize: 18 }}>🎵</Text></LinearGradient>
+            }
+          </View>
+          <View style={styles.info}>
+            <Text style={styles.title} numberOfLines={1}>{currentTrack.title}</Text>
+            <Text style={styles.artist} numberOfLines={1}>{currentTrack.artist}</Text>
+          </View>
+        </TouchableOpacity>
         <View style={styles.controls}>
-          <TouchableOpacity
-            onPress={(e) => { e.stopPropagation(); togglePlayPause(); }}
-            activeOpacity={1}
-            accessibilityLabel={isPlaying ? "Pause" : "Play"}
-            accessibilityRole="button"
-          >
-            <PlayPauseButton
-              isPlaying={isPlaying}
-              onPress={() => {}}
-              size={44}
-              colors={['#C4B5FD', '#A78BFA']}
-            />
-          </TouchableOpacity>
+          <PlayPauseButton
+            isPlaying={isPlaying}
+            onPress={togglePlayPause}
+            size={44}
+            colors={['#C4B5FD', '#A78BFA']}
+          />
           <TouchableOpacity
             style={styles.nextBtn}
-            onPress={(e) => { e.stopPropagation(); nextTrack(); }} accessibilityLabel="Next track" accessibilityRole="button"
+            onPress={nextTrack}
+            accessibilityLabel="Next track"
+            accessibilityRole="button"
             hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
           >
             <Text style={styles.nextIcon}>⏭</Text>
           </TouchableOpacity>
         </View>
-      </TouchableOpacity>
+      </View>
     </Animated.View>
   );
 }
@@ -114,7 +111,8 @@ const styles = StyleSheet.create({
   border: { position: 'absolute', inset: 0, borderRadius: 22, borderWidth: 1, borderColor: 'rgba(255,255,255,0.8)' },
   progressBg: { height: 3, backgroundColor: 'rgba(167,139,250,0.15)' },
   progressFill: { height: 3, borderRadius: 2 },
-  content: { flexDirection: 'row', alignItems: 'center', padding: 12, gap: 12 },
+  content: { flexDirection: 'row', alignItems: 'center', padding: 12, gap: 12, position: 'relative' },
+  contentTouchable: { flexDirection: 'row', alignItems: 'center', flex: 1, gap: 12 },
   thumbWrap: { width: 48, height: 48, borderRadius: 12, overflow: 'hidden' },
   thumb: { width: 48, height: 48, borderRadius: 12, alignItems: 'center', justifyContent: 'center' },
   info: { flex: 1 },
